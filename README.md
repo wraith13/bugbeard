@@ -4,42 +4,34 @@
 
 ## about バグベアード -bugbeard-
 
-<IMG class="accessary" alt="バグベアード -bugbeard-" src="resource/bugbeard48.png">
-<P>
-    簡潔かつ乱暴に説明すると、このモジュールは printf デバッギングを簡単且つゴージャスに行う為のものです。
-</P>
-<P>
-    バグベアードはC++プログラマの目となり、その膨大なログで大半のバグを丸裸にします。
-</P>
-<UL>
-    <LI><A class="bar" href="/license.htm">ライセンス情報</A></LI>
-    <LI>最終更新日:2011-03-21</LI>
-</UL>
+![バグベアード -bugbeard-](resource/bugbeard48.png)
 
-<IMG class="accessary" alt="Wraith the Trickster" src="/image/icon/wrth32.png">
-<P>
-    2008-02-24 "Coming soon..." などと謳いつつ５年近くほったらかしにしてましたが、ついに正式版のリリースです。
-    作者が言うのなんですが、このモジュールは非常に強力且つ凶悪です。ご利用いただければあなたの C++ プログラミングにおけるデバッグシーンに劇的な変化をもたらすであろうことお約束します。
-</P>
-<P>2008-02-25 inline指定が抜けてて複数のコンパイル単位から利用するとリンク時にシンボルが衝突する問題を修正。</P>
-<P>2008-03-10 以下の点を修正。
-    <UL>
-    <LI>"悪魔の契約" に「順序不安定」を追記。</LI>
-    <LI>bug_compact_tree_logger の追加。</LI>
-    <LI>インクルードの &lt;sys\timeb.h&gt; のパスを &lt;sys/timeb.h&gt; に修正。</LI>
-    <LI>命名規則的に明らかにおかしいところ一部修正
-        <UL>
-        <LI>BUG_SINT64_TYPE→bug_sint64_type</LI>
-        <LI>BUG_UINT64_TYPE→bug_uint64_type</LI>
-        <LI>BUG_OutputDebugString_writer→bug_OutputDebugString_writer</LI>
-        <LI>BUG_get_winver→bug_get_winver</LI>
-        <LI>run_string→bug_run_string</LI>
-        <LI>bug_short_clock_stamp_sx_with_date→bug_short_clock_stamp_with_date</LI>
-        </UL>
-    </LI>
-    <LI>bug_uni_logger を削除。( 既にその役目は bug_thread_local_storage に取って代わられているので。)</LI>
-    </UL>
-</P>
+簡潔かつ乱暴に説明すると、このモジュールは printf デバッギングを簡単且つゴージャスに行う為のものです。
+
+バグベアードはC++プログラマの目となり、その膨大なログで大半のバグを丸裸にします。
+
+- [ライセンス情報](LICENSE_1_0.txt)
+- 最終更新日:2011-03-21
+
+> 2008-02-24 "Coming soon..." などと謳いつつ５年近くほったらかしにしてましたが、ついに正式版のリリースです。
+> 作者が言うのなんですが、このモジュールは非常に強力且つ凶悪です。ご利用いただければあなたの C++ プログラミングにおけるデバッグシーンに劇的な変化をもたらすであろうことお約束します。
+
+2008-02-25 inline指定が抜けてて複数のコンパイル単位から利用するとリンク時にシンボルが衝突する問題を修正。
+
+2008-03-10 以下の点を修正。
+
+- 悪魔の契約" に「順序不安定」を追記。
+- bug_compact_tree_logger の追加。
+- インクルードの &lt;sys\timeb.h&gt; のパスを &lt;sys/timeb.h&gt; に修正。
+- 命名規則的に明らかにおかしいところ一部修正
+  - BUG_SINT64_TYPE→bug_sint64_type
+  - BUG_UINT64_TYPE→bug_uint64_type
+  - BUG_OutputDebugString_writer→bug_OutputDebugString_writer
+  - BUG_get_winver→bug_get_winver
+  - run_string→bug_run_string
+  - bug_short_clock_stamp_sx_with_date→bug_short_clock_stamp_with_date
+- bug_uni_logger を削除。( 既にその役目は bug_thread_local_storage に取って代わられているので。)
+
 <P>2008-04-01 以下の点を修正。
     <UL>
     <LI>BUG_MASK_SOURCECODE の追加。</LI>
