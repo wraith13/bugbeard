@@ -32,12 +32,11 @@
   - bug_short_clock_stamp_sx_with_date→bug_short_clock_stamp_with_date
 - bug_uni_logger を削除。( 既にその役目は bug_thread_local_storage に取って代わられているので。)
 
-<P>2008-04-01 以下の点を修正。
-    <UL>
-    <LI>BUG_MASK_SOURCECODE の追加。</LI>
-    <LI>"悪魔の契約" の「構文の制限」に "例外仕様構文" に関する記述を追記。</LI>
-    </UL>
-</P>
+2008-04-01 以下の点を修正。
+
+- BUG_MASK_SOURCECODE の追加。
+- "悪魔の契約" の「構文の制限」に "例外仕様構文" に関する記述を追記。
+
 <P>2008-06-05 以下の点を修正。
     <UL>
     <LI>VC でバグベアード適用時に過剰となる警告を抑止する為に #pragma warning(disable:1011) を追加。</LI>
