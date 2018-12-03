@@ -37,53 +37,46 @@
 - BUG_MASK_SOURCECODE の追加。
 - "悪魔の契約" の「構文の制限」に "例外仕様構文" に関する記述を追記。
 
-<P>2008-06-05 以下の点を修正。
-    <UL>
-    <LI>VC でバグベアード適用時に過剰となる警告を抑止する為に #pragma warning(disable:1011) を追加。</LI>
-    <LI>bug_thread_local_storage::init() に base_type::set_target_storage() を含める。</LI>
-    <LI>g++ のバージョンによってはコンパイルエラーの原因になるので PTHREAD_MUTEX_INITIALIZER の使用を中止。( pthread_mutex_init() による初期化を行っているので元々不要な指定。 )</LI>
-    <LI>現時点のバグベアードでは不要だが対称性の観点から bug_unlock クラスを追加。</LI>
-    <LI>ロケーション情報の除去オプション(BUG_WITHOUT_LOCATION_INFO)を追加。</LI>
-    <LI>switch の値が出力されないバグの解決。</LI>
-    </UL>
-</P>
+2008-06-05 以下の点を修正。
 
-<P>2008-09-23 以下の点を修正。
-    <UL>
-    <LI>プロファイル対応</LI>
-    <LI>カバレッジ対応</LI>
-    <LI>プロファイル＆カバレッジのサンプルコードを追加。</LI>
-    <LI>bug_tsv_logger でヘッダー行を出力するように修正。</LI>
-    <LI>ヘッダー行の出力を抑止する指定マクロ(BUG_WITHOUT_TSV_LOG_HEADER, BUG_WITHOUT_TSV_PROFILE_HEADER, BUG_WITHOUT_TSV_COVERAGE_HEADER)の追加。</LI>
-    <LI>BUG_DISABLED_PSAPI指示マクロの追加( このマクロが定義されると bug_enum_module_version_info() の実装を行わない )。</LI>
-    <LI>QueryPerformance() の結果を秒＋マイクロ秒単位へ変換して表示を行う bug_QueryPerformanceSecond_stamp の追加。</LI>
-    <LI>OSVERSIONINFOEX まわりで WINVER の判定が精確でなかった箇所の修正。</LI>
-    <LI>bug_logger::stamp を private に変更し、bug_logger::get_new_stamp(), bug_logger::get_last_stamp() を追加。</LI>
-    <LI>bug_drive_info() の出力に sectors-per-cluster と bytes-per-sector を追加。</LI>
-    <LI>BUG_DEFINE_GLOBAL_LOGGER と BUG_DEFINE_GLOBAL_PROFILER の追加。</LI>
-    <LI>bug_windows_system_info() の追加。</LI>
-    <LI>bug_file_hash() を追加。</LI>
-    <LI>bug_enum_module_hash() を追加。</LI>
-    <LI>bug_logger::get_instance() の追加および BUG_LOG マクロの修正(ただのリファクタリング)。</LI>
-    <LI>bug_logger::get_process_id() および bug_logger::get_thread_id() をクラスの外に出しに bug_get_process_id() および bug_get_thread_id() に変更(ただのリファクタリング)。</LI>
-    <LI>不必要な #include &lt;vector&gt; を削除。</LI>
-    <LI>#pragma warning(disable:1011) は VC じゃなくて Intel ででる警告なので icc に限定。</LI>
-    </UL>
-</P>
+- VC でバグベアード適用時に過剰となる警告を抑止する為に #pragma warning(disable:1011) を追加。
+- bug_thread_local_storage::init() に base_type::set_target_storage() を含める。
+- g++ のバージョンによってはコンパイルエラーの原因になるので PTHREAD_MUTEX_INITIALIZER の使用を中止。( pthread_mutex_init() による初期化を行っているので元々不要な指定。 )
+- 現時点のバグベアードでは不要だが対称性の観点から bug_unlock クラスを追加。
+- ロケーション情報の除去オプション(BUG_WITHOUT_LOCATION_INFO)を追加。
+- switch の値が出力されないバグの解決。
 
+2008-09-23 以下の点を修正。
 
-<P>2008-11-01 以下の点を修正。
-<UL>
-    <LI>プロファイル＆カバレッジ測定サンプル中の bug_tsv_profile_logger を bug_tsv_profiler に訂正。(間違っていたのはこのページ中の表記のみで、ダウンロード用の同サンプルのファイルは元から正しい記述である bug_tsv_profiler になっています。)</LI>
-</UL>
-</P>
+- プロファイル対応
+- カバレッジ対応
+- プロファイル＆カバレッジのサンプルコードを追加。
+- bug_tsv_logger でヘッダー行を出力するように修正。
+- ヘッダー行の出力を抑止する指定マクロ(BUG_WITHOUT_TSV_LOG_HEADER, BUG_WITHOUT_TSV_PROFILE_HEADER, BUG_WITHOUT_TSV_COVERAGE_HEADER)の追加。
+- BUG_DISABLED_PSAPI指示マクロの追加( このマクロが定義されると bug_enum_module_version_info() の実装を行わない )。
+- QueryPerformance() の結果を秒＋マイクロ秒単位へ変換して表示を行う bug_QueryPerformanceSecond_stamp の追加。
+- OSVERSIONINFOEX まわりで WINVER の判定が精確でなかった箇所の修正。
+- bug_logger::stamp を private に変更し、bug_logger::get_new_stamp(), bug_logger::get_last_stamp() を追加。
+- bug_drive_info() の出力に sectors-per-cluster と bytes-per-sector を追加。
+- BUG_DEFINE_GLOBAL_LOGGER と BUG_DEFINE_GLOBAL_PROFILER の追加。
+- bug_windows_system_info() の追加。
+- bug_file_hash() を追加。
+- bug_enum_module_hash() を追加。
+- bug_logger::get_instance() の追加および BUG_LOG マクロの修正(ただのリファクタリング)。
+- bug_logger::get_process_id() および bug_logger::get_thread_id() をクラスの外に出しに bug_get_process_id() および bug_get_thread_id() に変更(ただのリファクタリング)。
+- 不必要な #include &lt;vector&gt; を削除。
+- #pragma warning(disable:1011) は VC じゃなくて Intel ででる警告なので icc に限定。
+
+2008-11-01 以下の点を修正。
+
+- プロファイル＆カバレッジ測定サンプル中の bug_tsv_profile_logger を bug_tsv_profiler に訂正。(間違っていたのはこのページ中の表記のみで、ダウンロード用の同サンプルのファイルは元から正しい記述である bug_tsv_profiler になっています。)
 
 <P>2010-02-14 以下の点を修正。
 <UL>
-    <LI>#include &lt;sys\stat.h&gt; を #include &lt;sys/stat.h&gt; に修正。(<A href="http://twitter.com/graighle/status/6722927223">ご指摘</A>、感謝)</LI>
-    <LI>一部 BUT_T() が使用されていなかった箇所に BUT_T() を適用。(<A href="http://twitter.com/USAGI_WRP/status/6680888390">ご指摘</A>、感謝)</LI>
-    <LI>bug_get_winver() を Windows 7 などにも対応した最新の状態に更新。</LI>
-    <LI><A href="http://atnd.org/events/1839">Boost.勉強会</A>で発表した<A href="#primer">バグベアード入門の ustream へのリンクと発表資料</A>の追加。</LI>
+    - #include &lt;sys\stat.h&gt; を #include &lt;sys/stat.h&gt; に修正。(<A href="http://twitter.com/graighle/status/6722927223">ご指摘</A>、感謝)
+    - 一部 BUT_T() が使用されていなかった箇所に BUT_T() を適用。(<A href="http://twitter.com/USAGI_WRP/status/6680888390">ご指摘</A>、感謝)
+    - bug_get_winver() を Windows 7 などにも対応した最新の状態に更新。
+    - <A href="http://atnd.org/events/1839">Boost.勉強会</A>で発表した<A href="#primer">バグベアード入門の ustream へのリンクと発表資料</A>の追加。
 </UL>
 </P>
 
@@ -92,33 +85,33 @@
 ## contents
 
 <UL>
-    <LI><A class="bar" href="#about">about バグベアード -bugbeard-</A></LI>
-    <LI><A class="bar" href="#why">why バグベアード？</A></LI>
-    <LI><A class="bar" href="#sample">ログ出力サンプル</A></LI>
-    <LI><A class="bar" href="#how-to-use">使用方法</A></LI>
-    <LI><A class="bar" href="#evil-contract">"悪魔の契約" -EVIL CONTRACT-</A></LI>
+    - <A class="bar" href="#about">about バグベアード -bugbeard-</A>
+    - <A class="bar" href="#why">why バグベアード？</A>
+    - <A class="bar" href="#sample">ログ出力サンプル</A>
+    - <A class="bar" href="#how-to-use">使用方法</A>
+    - <A class="bar" href="#evil-contract">"悪魔の契約" -EVIL CONTRACT-</A>
     <LI><A class="bar" href="#tutorial">サンプルコード</A>
         <UL>
-            <LI><A class="bar" href="#step1">"Hello, Bugbeard!"</A></LI>
-            <LI><A class="bar" href="#step2">Windows用情報収集サンプル</A></LI>
-            <LI><A class="bar" href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A></LI>
-            <LI><A class="bar" href="#step4">バルクログ出力サンプル</A></LI>
-            <LI><A class="bar" href="#step5">プロファイル＆カバレッジ測定サンプル</A></LI>
+            - <A class="bar" href="#step1">"Hello, Bugbeard!"</A>
+            - <A class="bar" href="#step2">Windows用情報収集サンプル</A>
+            - <A class="bar" href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A>
+            - <A class="bar" href="#step4">バルクログ出力サンプル</A>
+            - <A class="bar" href="#step5">プロファイル＆カバレッジ測定サンプル</A>
         </UL>
     </LI>
     <LI><A class="bar" href="#reference">リファレンス</A>
         <UL>
-            <LI><A class="bar" href="#statements">ステートメントハックによってマクロ置換されるステートメント</A></LI>
-            <LI><A class="bar" href="#macros">マクロ</A></LI>
-            <LI><A class="bar" href="#namespace">名前空間</A></LI>
-            <LI><A class="bar" href="#types">型</A></LI>
-            <LI><A class="bar" href="#functions">関数</A></LI>
-            <LI><A class="bar" href="#profile-columns">プロファイルデータの項目</A></LI>
+            - <A class="bar" href="#statements">ステートメントハックによってマクロ置換されるステートメント</A>
+            - <A class="bar" href="#macros">マクロ</A>
+            - <A class="bar" href="#namespace">名前空間</A>
+            - <A class="bar" href="#types">型</A>
+            - <A class="bar" href="#functions">関数</A>
+            - <A class="bar" href="#profile-columns">プロファイルデータの項目</A>
         </UL>
     </LI>
-    <LI><A class="bar" href="#download">ダウンロード</A></LI>
+    - <A class="bar" href="#download">ダウンロード</A>
     <LI><A class="bar" href="#primer">バグベアード入門</A>
-    <LI><A class="bar" href="#links">links</A></LI>
+    - <A class="bar" href="#links">links</A>
 </UL>
     
 ## why バグベアード？
@@ -373,11 +366,11 @@
 ## サンプルコード
 
             <UL>
-                <LI><A class="bar" href="#step1">"Hello, Bugbeard!"</A></LI>
-                <LI><A class="bar" href="#step2">Windows用情報収集サンプル</A></LI>
-                <LI><A class="bar" href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A></LI>
-                <LI><A class="bar" href="#step4">バルクログ出力サンプル</A></LI>
-                <LI><A class="bar" href="#step5">プロファイル＆カバレッジ測定サンプル</A></LI>
+                - <A class="bar" href="#step1">"Hello, Bugbeard!"</A>
+                - <A class="bar" href="#step2">Windows用情報収集サンプル</A>
+                - <A class="bar" href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A>
+                - <A class="bar" href="#step4">バルクログ出力サンプル</A>
+                - <A class="bar" href="#step5">プロファイル＆カバレッジ測定サンプル</A>
             </UL>
             
 <A name="step1"></A>
@@ -2243,12 +2236,12 @@ profile.cpp	88	if (1 < pn) == true;	0
 ## リファレンス
 
             <UL>
-                <LI><A class="bar" href="#statements">ステートメントハックによってマクロ置換されるステートメント</A></LI>
-                <LI><A class="bar" href="#macros">マクロ</A></LI>
-                <LI><A class="bar" href="#namespace">名前空間</A></LI>
-                <LI><A class="bar" href="#types">型</A></LI>
-                <LI><A class="bar" href="#functions">関数</A></LI>
-                <LI><A class="bar" href="#profile-columns">プロファイルデータの項目</A></LI>
+                - <A class="bar" href="#statements">ステートメントハックによってマクロ置換されるステートメント</A>
+                - <A class="bar" href="#macros">マクロ</A>
+                - <A class="bar" href="#namespace">名前空間</A>
+                - <A class="bar" href="#types">型</A>
+                - <A class="bar" href="#functions">関数</A>
+                - <A class="bar" href="#profile-columns">プロファイルデータの項目</A>
             </UL>
             
     <A name="statements"></A>
@@ -2613,35 +2606,35 @@ stamp_title
 
     バグベアード本体
     <UL>
-        <LI><A class="bar" href="/cxx/ex/bugbeard/bug.h">バグベアードモジュールヘッダファイル ( bug.h )</A></LI>
+        - <A class="bar" href="/cxx/ex/bugbeard/bug.h">バグベアードモジュールヘッダファイル ( bug.h )</A>
     </UL>
     サンプルコード
     <UL>
-        <LI><A class="bar" href="/cxx/ex/bugbeard/simple.cpp">"Hello, Bugbeard!" ( simple.cpp )</A></LI>
-        <LI><A class="bar" href="/cxx/ex/bugbeard/win.cpp">Windows用情報収集サンプル ( win.cpp )</A></LI>
-        <LI><A class="bar" href="/cxx/ex/bugbeard/tsv.cpp">.tsv形式ログ出力＆マルチスレッドサンプル ( tsv.cpp )</A></LI>
-        <LI><A class="bar" href="/cxx/ex/bugbeard/bulklog.cpp">バルクログ出力サンプル ( bulklog.cpp )</A></LI>
-        <LI><A class="bar" href="/cxx/ex/bugbeard/profile.cpp">プロファイル＆カバレッジ測定サンプル ( profile.cpp )</A></LI>
+        - <A class="bar" href="/cxx/ex/bugbeard/simple.cpp">"Hello, Bugbeard!" ( simple.cpp )</A>
+        - <A class="bar" href="/cxx/ex/bugbeard/win.cpp">Windows用情報収集サンプル ( win.cpp )</A>
+        - <A class="bar" href="/cxx/ex/bugbeard/tsv.cpp">.tsv形式ログ出力＆マルチスレッドサンプル ( tsv.cpp )</A>
+        - <A class="bar" href="/cxx/ex/bugbeard/bulklog.cpp">バルクログ出力サンプル ( bulklog.cpp )</A>
+        - <A class="bar" href="/cxx/ex/bugbeard/profile.cpp">プロファイル＆カバレッジ測定サンプル ( profile.cpp )</A>
     </UL>
     アイコン
     <UL>
-        <LI><A class="bar" href="/cxx/ex/bugbeard/bugbeard.ico">バグベアードアイコンファイル ( bugbeard.ico )</A></LI>
-        <LI><A class="bar" href="/cxx/ex/bugbeard/mini-bugbeard.ico">バグベアードオーバーレイ用アイコンファイル ( mini-bugbeard.ico )</A></LI>
+        - <A class="bar" href="/cxx/ex/bugbeard/bugbeard.ico">バグベアードアイコンファイル ( bugbeard.ico )</A>
+        - <A class="bar" href="/cxx/ex/bugbeard/mini-bugbeard.ico">バグベアードオーバーレイ用アイコンファイル ( mini-bugbeard.ico )</A>
     </UL>
     全ファイルパック
     <UL>
-        <LI><A class="bar" href="/cxx/ex/bugbeard/bug.zip">バグベアード全ファイルZIPパック ( bug.zip )</A></LI>
+        - <A class="bar" href="/cxx/ex/bugbeard/bug.zip">バグベアード全ファイルZIPパック ( bug.zip )</A>
     </UL>
     
 ## バグベアード入門
 
 2009-12-12 に行われた<A href="http://atnd.org/events/1839">Boost.勉強会</A>で発表したバグベアード入門の ustream へのリンクと発表資料です。
 <UL>
-    <LI><A class="bar" href="http://www.ustream.tv/recorded/2980510">ustream の録画</A></LI>
+    - <A class="bar" href="http://www.ustream.tv/recorded/2980510">ustream の録画</A>
 </UL>
 <UL>
-    <LI><A class="bar" href="/cxx/ex/bugbeard/bugbeard.primer.pptx">発表資料 ( .pptx版 )</A></LI>
-    <LI><A class="bar" href="/cxx/ex/bugbeard/bugbeard.primer.pdf">発表資料 ( .pdf版 )</A></LI>
+    - <A class="bar" href="/cxx/ex/bugbeard/bugbeard.primer.pptx">発表資料 ( .pptx版 )</A>
+    - <A class="bar" href="/cxx/ex/bugbeard/bugbeard.primer.pdf">発表資料 ( .pdf版 )</A>
 </UL>
     
 ## links
