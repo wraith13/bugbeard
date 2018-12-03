@@ -71,65 +71,46 @@
 
 - プロファイル＆カバレッジ測定サンプル中の bug_tsv_profile_logger を bug_tsv_profiler に訂正。(間違っていたのはこのページ中の表記のみで、ダウンロード用の同サンプルのファイルは元から正しい記述である bug_tsv_profiler になっています。)
 
-<P>2010-02-14 以下の点を修正。
-<UL>
-    - #include &lt;sys\stat.h&gt; を #include &lt;sys/stat.h&gt; に修正。(<A href="http://twitter.com/graighle/status/6722927223">ご指摘</A>、感謝)
-    - 一部 BUT_T() が使用されていなかった箇所に BUT_T() を適用。(<A href="http://twitter.com/USAGI_WRP/status/6680888390">ご指摘</A>、感謝)
-    - bug_get_winver() を Windows 7 などにも対応した最新の状態に更新。
-    - <A href="http://atnd.org/events/1839">Boost.勉強会</A>で発表した<A href="#primer">バグベアード入門の ustream へのリンクと発表資料</A>の追加。
-</UL>
-</P>
+2010-02-14 以下の点を修正。
 
-<P>2011-03-21 ステートメントハックを一度有効化した後、無効化できなくなっていた問題を修正</P>
+- #include &lt;sys\stat.h&gt; を #include &lt;sys/stat.h&gt; に修正。(<A href="http://twitter.com/graighle/status/6722927223">ご指摘</A>、感謝)
+- 一部 BUT_T() が使用されていなかった箇所に BUT_T() を適用。(<A href="http://twitter.com/USAGI_WRP/status/6680888390">ご指摘</A>、感謝)
+- bug_get_winver() を Windows 7 などにも対応した最新の状態に更新。
+- <A href="http://atnd.org/events/1839">Boost.勉強会</A>で発表した<A href="#primer">バグベアード入門の ustream へのリンクと発表資料</A>の追加。
+
+2011-03-21 ステートメントハックを一度有効化した後、無効化できなくなっていた問題を修正
     
 ## contents
 
-<UL>
-    - <A class="bar" href="#about">about バグベアード -bugbeard-</A>
-    - <A class="bar" href="#why">why バグベアード？</A>
-    - <A class="bar" href="#sample">ログ出力サンプル</A>
-    - <A class="bar" href="#how-to-use">使用方法</A>
-    - <A class="bar" href="#evil-contract">"悪魔の契約" -EVIL CONTRACT-</A>
-    <LI><A class="bar" href="#tutorial">サンプルコード</A>
-        <UL>
-            - <A class="bar" href="#step1">"Hello, Bugbeard!"</A>
-            - <A class="bar" href="#step2">Windows用情報収集サンプル</A>
-            - <A class="bar" href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A>
-            - <A class="bar" href="#step4">バルクログ出力サンプル</A>
-            - <A class="bar" href="#step5">プロファイル＆カバレッジ測定サンプル</A>
-        </UL>
-    </LI>
-    <LI><A class="bar" href="#reference">リファレンス</A>
-        <UL>
-            - <A class="bar" href="#statements">ステートメントハックによってマクロ置換されるステートメント</A>
-            - <A class="bar" href="#macros">マクロ</A>
-            - <A class="bar" href="#namespace">名前空間</A>
-            - <A class="bar" href="#types">型</A>
-            - <A class="bar" href="#functions">関数</A>
-            - <A class="bar" href="#profile-columns">プロファイルデータの項目</A>
-        </UL>
-    </LI>
-    - <A class="bar" href="#download">ダウンロード</A>
-    <LI><A class="bar" href="#primer">バグベアード入門</A>
-    - <A class="bar" href="#links">links</A>
-</UL>
+- <A class="bar" href="#about">about バグベアード -bugbeard-</A>
+- <A class="bar" href="#why">why バグベアード？</A>
+- <A class="bar" href="#sample">ログ出力サンプル</A>
+- <A class="bar" href="#how-to-use">使用方法</A>
+- <A class="bar" href="#evil-contract">"悪魔の契約" -EVIL CONTRACT-</A>
+- <A class="bar" href="#tutorial">サンプルコード</A>
+    - <A class="bar" href="#step1">"Hello, Bugbeard!"</A>
+    - <A class="bar" href="#step2">Windows用情報収集サンプル</A>
+    - <A class="bar" href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A>
+    - <A class="bar" href="#step4">バルクログ出力サンプル</A>
+    - <A class="bar" href="#step5">プロファイル＆カバレッジ測定サンプル</A>
+    - <A class="bar" href="#reference">リファレンス</A>
+        - <A class="bar" href="#statements">ステートメントハックによってマクロ置換されるステートメント</A>
+        - <A class="bar" href="#macros">マクロ</A>
+        - <A class="bar" href="#namespace">名前空間</A>
+        - <A class="bar" href="#types">型</A>
+        - <A class="bar" href="#functions">関数</A>
+        - <A class="bar" href="#profile-columns">プロファイルデータの項目</A>
+- <A class="bar" href="#download">ダウンロード</A>
+- <A class="bar" href="#primer">バグベアード入門</A>
+- <A class="bar" href="#links">links</A>
     
 ## why バグベアード？
 
-<P>
-    なぜ、ビ○ルダーでもゲイザーでもスズキドゲザエモンでもアスコモイドでもスカイラインでもなくバグベアードなのか？　それはもちろん "不具合" という意味と "盗聴器" という意味を持つ "bug" をその名に含むからです。
-    って、そーじゃなくて、なぜ、デバッガじゃなく良識あるプログラマには一般的に悪しき事とされる printf デバッギング用ロガーであるバグベアードなのか？　ということについて少々説明しておきます。
-</P>
+なぜ、ビ○ルダーでもゲイザーでもスズキドゲザエモンでもアスコモイドでもスカイラインでもなくバグベアードなのか？　それはもちろん "不具合"という意味と "盗聴器" という意味を持つ "bug" をその名に含むからです。って、そーじゃなくて、なぜ、デバッガじゃなく良識あるプログラマには一般的に悪しき事とされる printf デバッギング用ロガーであるバグベアドなのか？　ということについて少々説明しておきます。
 
-<P>
-    最初に断っておきますが、「バグベアードがあればデバッガは不要」などと言うつもりもありませんし、情報収集のアスペクトが直交する(※)関係になるのでむしろデバッギングツールとしては相補する関係になると考えます。
-</P>
-<DIV class="comment">
-    <IMG class="accessary" alt="Wraith the Trickster" src="/image/icon/wrth32.png">
-    <P>
-        ※ある瞬間のシステム全体の情報...いわば空間に対して強いデバッガと、時間に対して強いバグベアードはその情報収集のアスペクトが直交します。
-    </P>
-</DIV>
+最初に断っておきますが、「バグベアードがあればデバッガは不要」などと言うつもりもありませんし、情報収集のアスペクトが直交する(※)関係になるのでむしろデバッギングツールとしては相補する関係になると考えます。
+
+> ※ある瞬間のシステム全体の情報...いわば空間に対して強いデバッガと、時間に対して強いバグベアードはその情報収集のアスペクトが直交します。
 
 デバッガにはデバッギングの為のツールとしてはあまり頂けない次のような問題があります。
 <DL>
