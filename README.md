@@ -21,30 +21,30 @@
 2008-03-10 以下の点を修正。
 
 - 悪魔の契約" に「順序不安定」を追記。
-- bug_compact_tree_logger の追加。
+- `bug_compact_tree_logger` の追加。
 - インクルードの `<sys\timeb.h>` のパスを `<sys/timeb.h>` に修正。
 - 命名規則的に明らかにおかしいところ一部修正
-  - BUG_SINT64_TYPE→bug_sint64_type
-  - BUG_UINT64_TYPE→bug_uint64_type
-  - BUG_OutputDebugString_writer→bug_OutputDebugString_writer
-  - BUG_get_winver→bug_get_winver
-  - run_string→bug_run_string
-  - bug_short_clock_stamp_sx_with_date→bug_short_clock_stamp_with_date
-- bug_uni_logger を削除。( 既にその役目は bug_thread_local_storage に取って代わられているので。)
+  - `BUG_SINT64_TYPE` → `bug_sint64_type`
+  - `BUG_UINT64_TYPE` → `bug_uint64_type`
+  - `BUG_OutputDebugString_writer` → `bug_OutputDebugString_writer`
+  - `BUG_get_winver` → `bug_get_winver`
+  - `run_string` → `bug_run_string`
+  - `bug_short_clock_stamp_sx_with_date` → `bug_short_clock_stamp_with_date`
+- `bug_uni_logger` を削除。( 既にその役目は `bug_thread_local_storage` に取って代わられているので。)
 
 2008-04-01 以下の点を修正。
 
-- BUG_MASK_SOURCECODE の追加。
+- `BUG_MASK_SOURCECODE` の追加。
 - "悪魔の契約" の「構文の制限」に "例外仕様構文" に関する記述を追記。
 
 2008-06-05 以下の点を修正。
 
-- VC でバグベアード適用時に過剰となる警告を抑止する為に #pragma warning(disable:1011) を追加。
-- bug_thread_local_storage::init() に base_type::set_target_storage() を含める。
-- g++ のバージョンによってはコンパイルエラーの原因になるので PTHREAD_MUTEX_INITIALIZER の使用を中止。( pthread_mutex_init() による初期化を行っているので元々不要な指定。 )
+- VC でバグベアード適用時に過剰となる警告を抑止する為に `#pragma warning(disable:1011)` を追加。
+- `bug_thread_local_storage::init()` に `base_type::set_target_storage()` を含める。
+- g++ のバージョンによってはコンパイルエラーの原因になるので `PTHREAD_MUTEX_INITIALIZER` の使用を中止。( `pthread_mutex_init()` による初期化を行っているので元々不要な指定。 )
 - 現時点のバグベアードでは不要だが対称性の観点から bug_unlock クラスを追加。
-- ロケーション情報の除去オプション(BUG_WITHOUT_LOCATION_INFO)を追加。
-- switch の値が出力されないバグの解決。
+- ロケーション情報の除去オプション(`BUG_WITHOUT_LOCATION_INFO`)を追加。
+- `switch` の値が出力されないバグの解決。
 
 2008-09-23 以下の点を修正。
 
