@@ -113,8 +113,8 @@
 > ※ある瞬間のシステム全体の情報...いわば空間に対して強いデバッガと、時間に対して強いバグベアードはその情報収集のアスペクトが直交します。
 
 デバッガにはデバッギングの為のツールとしてはあまり頂けない次のような問題があります。
-<DL>
 
+<DL>
 <DT>見ようとしたものしか見えない。</DT>
 <DD>
     デバッガによるデバッグでは一般的にプログラマ自身が見ようとした情報しか得られません。プログラマが見ようとした情報の直近であからさまにおかしい挙動があってもプログラマにはそれが伝わらないのです。これでは目隠しされて手探りしているようなものです。
@@ -132,11 +132,12 @@
 <DD>
     特定のエンドユーザ環境でしか再現しないバグというのは普通によくある話であるにも関わらずデバッガはこの種の再現条件を抱えるバグに対して全く無力です。
 </DD>
+</DL>
 
 
 他のも問題はあるでしょうがこれらの問題に対しバグベアードでは次のようになります。
-<DL>
 
+<DL>
 <DT>見ようとしたもの以外の情報も見える。</DT>
 <DD>
     裏を返せば見たくもないものを見せられたり肝心な情報がその他の情報に埋もれてしまうリスクもあるわけですが、バグベアードでは意識して見ようとした以外の情報も見える為、バグの痕跡を発見しやすくなります。
@@ -151,14 +152,13 @@
 <DD>
     エンドユーザにログ上のソースコード断片を見られてしまったり、膨大なログをどうやってエンドユーザに送り返してもらうのかで困ったりすることはあるかもしれませんが、エンドユーザ環境であってもバグベアードは利用できます。
 </DD>
-
 </DL>
 
 またバグベアードを利用すればソースコード修正後の動作確認もステップ実行の代わりにただ実行してログを確認するだけで済ませるというお手軽なスタイルを採用することもできます。
 
 バグベアード固有の問題についても以下に挙げておきます。
-<DL>
 
+<DL>
 <DT>ログがでかすぎ。</DT>
 <DD>
     『とにかくログでかすぎ。時間あたりのログ出力量が動画ファイルを余裕で上回るとかね、もう馬鹿？って感じ。』
@@ -182,20 +182,14 @@
 
 </DL>
 
-<DIV class="comment">
-    <IMG class="accessary" alt="Wraith the Trickster" src="/image/icon/wrth32.png">
-    <P>
-        バグベアードにより出力されたログを追跡してデバッグする際は高速な検索ができるビューア(テキストエディタ)を使用することを強く推奨します。
-        バグベアードが出力するログは非常に膨大になりますので検索性能の差が残酷なまでに現れます。
-        例えば、約200MBのログの末尾に現れる文字列を <A href="http://notepad-plus.sourceforge.net/uk/site.htm">Notepad++</A> で検索したところ約 3 分 30 秒もかかってしまいましたが、同じ環境下で<A href="http://sakura-editor.sourceforge.net/" target="_blank">サクラエディタ</A>で検索すれば 2 秒もかかりませんでした。その性能差は実に100倍以上にすら及びます。
-    </P>
-</DIV>
+> バグベアードにより出力されたログを追跡してデバッグする際は高速な検索ができるビューア(テキストエディタ)を使用することを強く推奨します。
+> バグベアードが出力するログは非常に膨大になりますので検索性能の差が残酷なまでに現れます。
+> 例えば、約200MBのログの末尾に現れる文字列を <A href="http://notepad-plus.sourceforge.net/uk/site.htm">Notepad++</A> で検索したところ約 3 分 30 秒もかかってしまいましたが、同じ環境下で<A href="http://sakura-editor.sourceforge.net/" target="_blank">サクラエディタ</A>で検索すれば 2 秒もかかりませんでした。その性能差は実に100倍以上にすら及びます。
     
     
 ## ログ出力サンプル
 
-<DIV class="sample">
-<PRE>
+```txt
 ┌──────────────────────────────────────
 │日付＆時刻：2008-02-24(日) 23:26:11.874
 └─────┬────────────────────────────────
@@ -216,12 +210,11 @@
 23:26:11.874│├┬▽if (current %p) == true; &lt;tree.cpp&gt;#111
 23:26:11.874││├┬▽if (pn) == false; &lt;tree.cpp&gt;#113
 23:26:11.874│││└△if (pn) == false; &lt;tree.cpp&gt;#113
-</PRE>
-</DIV>
+```
     
 ## 使用方法
 
-    <P>いくつかのマクロを適宜定義し、bug.h をしかるべき場所で include しコンパイルするだけです。詳細についてはこのページの情報に一通り目を通してください。</P>
+いくつかのマクロを適宜定義し、bug.h をしかるべき場所で include しコンパイルするだけです。詳細についてはこのページの情報に一通り目を通してください。
     
 ## "悪魔の契約" -EVIL CONTRACT-
 
@@ -232,69 +225,69 @@
 
 <DL>
 
-    <A name="illegal"></A>
-    <DT>規格違反</DT>
-    <DD>
-        バグベアードは「ステートメントのマクロでの置換」という最上級の規格違反を犯しています。
-        これによりバグベアードを利用したプログラムはあらゆる C++ コンパイラでの動作保証は得られなくなります。
-        ただし、これはバグベアードの「ステートメントハック」が有効になっている場合の話であり、バグベアードがロードされていない状態を含め「ステートメントハック」が無効になっている場合はその限りではありません。
-        そして通常、リリース版のプログラムではバグベアードをロードしないことをオススメします。
-    </DD>
-    
-    <A name="stain-error-info"></A>
-    <DT>エラー情報の侵食</DT>
-    <DD>
-        ユーザプログラムを隅々まで侵食するバグベアードのログ出力コードの影響により、エラー情報(Win32API の GetLastError()で得られるエラーコードやグローバル変数に保持されるC/C++標準ライブラリのエラーコード)が上書きされてしまう可能性があります。
-        前項と同様にこれはバグベアードをロードしている状態でのみ発生しうる問題であり、バグベアードをロードしていない状態であればこの問題は発生しません。
-    </DD>
+<A name="illegal"></A>
+<DT>規格違反</DT>
+<DD>
+    バグベアードは「ステートメントのマクロでの置換」という最上級の規格違反を犯しています。
+    これによりバグベアードを利用したプログラムはあらゆる C++ コンパイラでの動作保証は得られなくなります。
+    ただし、これはバグベアードの「ステートメントハック」が有効になっている場合の話であり、バグベアードがロードされていない状態を含め「ステートメントハック」が無効になっている場合はその限りではありません。
+    そして通常、リリース版のプログラムではバグベアードをロードしないことをオススメします。
+</DD>
 
-    <A name="restrict-statement"></A>
-    <DT>構文の制限</DT>
-    <DD>
-        バグベアードのステートメントハックの実装の都合より...
-        <DIV class="sample">
-        <span class="SpanClass5">if</span>&nbsp;<span class="SpanClass10">(</span><span class="SpanClass16">int</span>&nbsp;<span class="SpanClass11">i</span>&nbsp;<span class="SpanClass10">=</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">)</span>&nbsp;<span class="SpanClass10">...</span><br/>
-        <span class="SpanClass5">switch</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span>&nbsp;<span class="SpanClass11">i</span>&nbsp;<span class="SpanClass10">=</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">)</span>&nbsp;<span class="SpanClass10">...</span><br/>
-        <span class="SpanClass5">while</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span>&nbsp;<span class="SpanClass11">i</span>&nbsp;<span class="SpanClass10">=</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">)</span>&nbsp;<span class="SpanClass10">...</span><br/>
-        </DIV>
-        ...のような形でステートメントに属する丸カッコで囲まれた箇所で変数を定義することができません。また...
-        <DIV class="sample">
-        <span class="SpanClass16">void</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">(...)</span>&nbsp;<span class="SpanClass5">throw</span><span class="SpanClass10">(...);</span><br/>
-        </DIV>
-        ...のような例外仕様構文が一切使えません。
-        ただし、for ステートメントに関してはこの例外となり for(int i = 0;... などとしても問題ありません。
-        また、そもそもステートメントハックを適用しない箇所ではこの制限はありません。
-    </DD>
+<A name="stain-error-info"></A>
+<DT>エラー情報の侵食</DT>
+<DD>
+    ユーザプログラムを隅々まで侵食するバグベアードのログ出力コードの影響により、エラー情報(Win32API の GetLastError()で得られるエラーコードやグローバル変数に保持されるC/C++標準ライブラリのエラーコード)が上書きされてしまう可能性があります。
+    前項と同様にこれはバグベアードをロードしている状態でのみ発生しうる問題であり、バグベアードをロードしていない状態であればこの問題は発生しません。
+</DD>
 
-    <A name="unstable-work"></A>
-    <DT>動作不安定</DT>
-    <DD>
-        バグベアードはオブジェクトの破棄のタイミングや operator や template 等がコンパイラによって意図通りに適用されるかどうかに強く依存する為、こちらで動作確認を行っていないコンパイラではあまり意図通りに機能することを期待できませんし、動作確認を行っているコンパイラでもバージョンによっては意図通りに機能しないかもしれません。
-    </DD>
+<A name="restrict-statement"></A>
+<DT>構文の制限</DT>
+<DD>
+    バグベアードのステートメントハックの実装の都合より...
+    <DIV class="sample">
+    <span class="SpanClass5">if</span>&nbsp;<span class="SpanClass10">(</span><span class="SpanClass16">int</span>&nbsp;<span class="SpanClass11">i</span>&nbsp;<span class="SpanClass10">=</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">)</span>&nbsp;<span class="SpanClass10">...</span><br/>
+    <span class="SpanClass5">switch</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span>&nbsp;<span class="SpanClass11">i</span>&nbsp;<span class="SpanClass10">=</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">)</span>&nbsp;<span class="SpanClass10">...</span><br/>
+    <span class="SpanClass5">while</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span>&nbsp;<span class="SpanClass11">i</span>&nbsp;<span class="SpanClass10">=</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">)</span>&nbsp;<span class="SpanClass10">...</span><br/>
+    </DIV>
+    ...のような形でステートメントに属する丸カッコで囲まれた箇所で変数を定義することができません。また...
+    <DIV class="sample">
+    <span class="SpanClass16">void</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">(...)</span>&nbsp;<span class="SpanClass5">throw</span><span class="SpanClass10">(...);</span><br/>
+    </DIV>
+    ...のような例外仕様構文が一切使えません。
+    ただし、for ステートメントに関してはこの例外となり for(int i = 0;... などとしても問題ありません。
+    また、そもそもステートメントハックを適用しない箇所ではこの制限はありません。
+</DD>
 
-    <A name="unstable-log"></A>
-    <DT>出力ログの変形</DT>
-    <DD>
-        前項と同じく、バグベアードはオブジェクトの破棄のタイミングや operator や template 等がコンパイラによって意図通りに適用されるかどうかに強く依存する為、必ずしもは理想的な形でログを出力できない為に同じソースからコンパイルされたプログラムの出力ログがコンパイラ及びそのバージョンの違いにより変形してしまうことがあります。
-        具体的には return ステートメントのログ出力は return fucn(); のような場合、func() 関数の呼び出しが終了した段階で return ステートメントのログを出力するのが理想的ですが、そのような形で実装できない処理系では func(); 関数の呼び出しの前に return ステートメントのログ出力が行われます。
-        また別の例では switch ステートメントに対してはスコープ扱いでログを出力するのが理想的ですが、そのように実装できない処理系では switch ステートメントがスコープ扱いされません。
-    </DD>
+<A name="unstable-work"></A>
+<DT>動作不安定</DT>
+<DD>
+    バグベアードはオブジェクトの破棄のタイミングや operator や template 等がコンパイラによって意図通りに適用されるかどうかに強く依存する為、こちらで動作確認を行っていないコンパイラではあまり意図通りに機能することを期待できませんし、動作確認を行っているコンパイラでもバージョンによっては意図通りに機能しないかもしれません。
+</DD>
 
-    <A name="increase-warning"></A>
-    <DT>過剰な警告(ある意味、真っ当な警告)</DT>
-    <DD>
-        バグベアードをロードしてコンパイルを行うとバグベアードを利用していなければ表示されることはないような警告が過剰に表示されることがあります。
-        これは通常、無視して構いません。
-        ただし、バグベアードをロードしていない時に表示される警告は通常通りに対処してください。
-    </DD>
-    
-    <A name="unstable-sequence"></A>
-    <DT>順序不安定</DT>
-    <DD>
-        シングルプロセス×シングルスレッドでバグベアードを利用する場合は関係ない話ですが、マルチプロセスもしくはマルチスレッドでバグベアードを利用する場合、複数のプロセス/スレッドの各種処理のログは必ずしもそれらの処理が実行された順番とそのログ出力結果の順番が一致しないことがあります。
-        これはログに記録が残る処理が実行されてから実際にそのログ出力が行われるまでに一定時間ではないタイムラグがある為です。
-        もちろんこれは異なるプロセス・スレッド間での話であり、同一プロセス・スレッド上の処理が実行された順番とそのログ出力結果の順番は必ず一致します。
-    </DD>
+<A name="unstable-log"></A>
+<DT>出力ログの変形</DT>
+<DD>
+    前項と同じく、バグベアードはオブジェクトの破棄のタイミングや operator や template 等がコンパイラによって意図通りに適用されるかどうかに強く依存する為、必ずしもは理想的な形でログを出力できない為に同じソースからコンパイルされたプログラムの出力ログがコンパイラ及びそのバージョンの違いにより変形してしまうことがあります。
+    具体的には return ステートメントのログ出力は return fucn(); のような場合、func() 関数の呼び出しが終了した段階で return ステートメントのログを出力するのが理想的ですが、そのような形で実装できない処理系では func(); 関数の呼び出しの前に return ステートメントのログ出力が行われます。
+    また別の例では switch ステートメントに対してはスコープ扱いでログを出力するのが理想的ですが、そのように実装できない処理系では switch ステートメントがスコープ扱いされません。
+</DD>
+
+<A name="increase-warning"></A>
+<DT>過剰な警告(ある意味、真っ当な警告)</DT>
+<DD>
+    バグベアードをロードしてコンパイルを行うとバグベアードを利用していなければ表示されることはないような警告が過剰に表示されることがあります。
+    これは通常、無視して構いません。
+    ただし、バグベアードをロードしていない時に表示される警告は通常通りに対処してください。
+</DD>
+
+<A name="unstable-sequence"></A>
+<DT>順序不安定</DT>
+<DD>
+    シングルプロセス×シングルスレッドでバグベアードを利用する場合は関係ない話ですが、マルチプロセスもしくはマルチスレッドでバグベアードを利用する場合、複数のプロセス/スレッドの各種処理のログは必ずしもそれらの処理が実行された順番とそのログ出力結果の順番が一致しないことがあります。
+    これはログに記録が残る処理が実行されてから実際にそのログ出力が行われるまでに一定時間ではないタイムラグがある為です。
+    もちろんこれは異なるプロセス・スレッド間での話であり、同一プロセス・スレッド上の処理が実行された順番とそのログ出力結果の順番は必ず一致します。
+</DD>
 
 </DL>
 
@@ -346,90 +339,90 @@
 
 ## サンプルコード
 
-            <UL>
-                - <A class="bar" href="#step1">"Hello, Bugbeard!"</A>
-                - <A class="bar" href="#step2">Windows用情報収集サンプル</A>
-                - <A class="bar" href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A>
-                - <A class="bar" href="#step4">バルクログ出力サンプル</A>
-                - <A class="bar" href="#step5">プロファイル＆カバレッジ測定サンプル</A>
-            </UL>
+- <A class="bar" href="#step1">"Hello, Bugbeard!"</A>
+- <A class="bar" href="#step2">Windows用情報収集サンプル</A>
+- <A class="bar" href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A>
+- <A class="bar" href="#step4">バルクログ出力サンプル</A>
+- <A class="bar" href="#step5">プロファイル＆カバレッジ測定サンプル</A>
             
 <A name="step1"></A>
-<H3>"Hello, Bugbeard!"</H3>
-    <H4>サンプルコード</H4>
-<DIV class="sample">
-<span class="SpanClass3">/******************************************************************************<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;バグベアード&nbsp;-bugbeard-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;サンプル&nbsp;"simple.cpp"&nbsp;ソースファイル<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coded&nbsp;by&nbsp;Wraith&nbsp;in&nbsp;Feb&nbsp;18,&nbsp;2007.<br/>
-******************************************************************************/</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;includes<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#include&nbsp;&lt;stdio.h&gt;<br/>
-#include&nbsp;&lt;stdlib.h&gt;<br/>
-</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;[BUG]bugbeard<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(NDEBUG)<br/>
-#define&nbsp;BUG_DISABLE_BUGBEARD&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;リリース版ではバグベアードをロードしない<br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_EVIL_CONTRACT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"悪魔の契約"<br/>
-</span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ロガーを定義する為にステートメントハックを有効にしない状態で include<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass2">//&nbsp;&nbsp;標準エラーにツリー形式の出力を行うロガーの定義<br/>
-</span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tree_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_file_writer_base</span><span class="SpanClass10">(</span><span class="SpanClass11">stderr</span><span class="SpanClass10">)));</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_STATEMENT_HACK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックの設定<br/>
-</span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックを有効にする為、再度 include<br/>
-</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;user&nbsp;codes<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">main</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass16">char</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass11">args</span><span class="SpanClass10">[])</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;警告除け<br/>
-</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]固定メッセージをログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass6">"Hello,&nbsp;Bugbeard!"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コンパイル情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_compile_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コマンドライン引数のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_arg_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]変数をログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">args</span><span class="SpanClass10">[</span><span class="SpanClass4">0</span><span class="SpanClass10">]));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]書式付ログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_FORM</span><span class="SpanClass10">(</span><span class="SpanClass6">"このプログラムのファイル名：\"%s\""</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">[</span><span class="SpanClass4">0</span><span class="SpanClass10">]));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">EXIT_SUCCESS</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass3">/******************************************************************************<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;□■□■&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wraith&nbsp;the&nbsp;Trickster&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;□■□■<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;■□■□&nbsp;～I'll&nbsp;go&nbsp;with&nbsp;heaven's&nbsp;advantage&nbsp;and&nbsp;fool's&nbsp;wisdom.～&nbsp;■□■□<br/>
-******************************************************************************/</span><span class="SpanClass0"><br/>
-</span>
-</DIV>
-    <H4>出力結果(標準エラー)</H4>
-<DIV class="sample">
-<PRE>
+### "Hello, Bugbeard!"
+
+#### サンプルコード
+
+```c++
+/******************************************************************************
+    バグベアード -bugbeard-
+        サンプル "simple.cpp" ソースファイル
+                                            Coded by Wraith in Feb 18, 2007.
+*****************************************************************************/
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  includes
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  [BUG]bugbeard
+//
+
+#if defined(NDEBUG)
+#define BUG_DISABLE_BUGBEARD    //  リリース版ではバグベアードをロードしない
+#endif
+
+#define BUG_EVIL_CONTRACT       //  "悪魔の契約"
+#include "bug.h"                //  ロガーを定義する為にステートメントハックを有効にしない状態で include
+
+//  標準エラーにツリー形式の出力を行うロガーの定義
+BUG_define_logger(new bugbeard::bug_tree_logger(new bugbeard::bug_file_writer_base(stderr)));
+
+#define BUG_STATEMENT_HACK      //  ステートメントハックの設定
+#include "bug.h"                //  ステートメントハックを有効にする為、再度 include
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  user codes
+//
+
+int main(int argc, char args[])
+{
+    argc, args;                 //  警告除け
+
+    //  [BUG]固定メッセージをログ出力
+    BUG_puts("Hello, Bugbeard!");
+    
+    //  [BUG]コンパイル情報のログ出力
+    BUG_exec(bugbeard::bug_compile_info(BUG_LOG));
+
+    //  [BUG]コマンドライン引数のログ出力
+    BUG_exec(bugbeard::bug_arg_info(BUG_LOG, argc, args));
+    
+    //  [BUG]変数をログ出力
+    BUG_puts(BUG_VAL(args[0]));
+    
+    //  [BUG]書式付ログ出力
+    BUG_puts(BUG_FORM("このプログラムのファイル名："%s"", args[0]));
+    
+    return EXIT_SUCCESS;
+}
+
+
+/******************************************************************************
+    □■□■                  Wraith the Trickster                  □■□■
+    ■□■□ ～I'll go with heaven's advantage and fool's wisdom.～ ■□■□
+******************************************************************************/
+```
+
+#### 出力結果(標準エラー)
+
+```txt
 ┌──────────────────────────────────────
 │日付＆時刻：2008-02-24(日) 18:06:13.739
 └─────┬────────────────────────────────
@@ -448,10 +441,12 @@
 ┌─────┴────────────────────────────────
 │日付＆時刻：2008-02-24(日) 18:06:13.754
 └──────────────────────────────────────
-</PRE>
-</DIV>
-    <H4>解説</H4>
-        このサンプルでの一番の肝は...
+```
+
+#### 解説
+
+このサンプルでの一番の肝は...
+
 <DIV class="sample">
 <span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
 //<br/>
@@ -472,24 +467,20 @@
 </span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックを有効にする為、再度 include<br/>
 </span>
 </DIV>
-        ...この部分ですが、まぁ、最初は所謂 "おまじない" の類だとでも思ってください。
-        </P>
-        
-        <P>
-        BUG_define_logger() の行によりログの出力形式等を指定しています。
-        </P>
-        
-        <P>
-        NDEBUG マクロが定義された場合の assert() マクロと同様に、BUG_DISABLE_BUGBEARD マクロが定義されると BUG_* な命名になっているコードは全て消え去ります。
-        </P>
 
-        <P>
-        なお、Windowsではデフォルトで標準エラーがアスキーモードになっている為、改行コード "\r\n" が無駄に拡張され "\r\r\n" になってしまうので標準エラーをファイルへリダイレクトすると不格好になります。Windowsでは bugbeard::bug_file_writer で直接ファイルに出力するか、bugbeard::bug_OutputDebugString_writer で OutputDebugString() で出力することを推奨します。
-        </P>
+...この部分ですが、まぁ、最初は所謂 "おまじない" の類だとでも思ってください。
+
+BUG_define_logger() の行によりログの出力形式等を指定しています。
+
+NDEBUG マクロが定義された場合の assert() マクロと同様に、BUG_DISABLE_BUGBEARD マクロが定義されると BUG_* な命名になっているコードは全て消え去ります。
+
+なお、Windowsではデフォルトで標準エラーがアスキーモードになっている為、改行コード "\r\n" が無駄に拡張され "\r\r\n" になってしまうので標準エラーをファイルへリダイレクトすると不格好になります。Windowsでは bugbeard::bug_file_writer で直接ファイルに出力するか、bugbeard::bug_OutputDebugString_writer で OutputDebugString() で出力することを推奨します。
 
 <A name="step2"></A>
-<H3>Windows用情報収集サンプル</H3>
-    <H4>サンプルコード</H4>
+### Windows用情報収集サンプル
+
+#### サンプルコード
+
 <DIV class="sample">
 <span class="SpanClass3">/******************************************************************************<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;バグベアード&nbsp;-bugbeard-<br/>
@@ -588,21 +579,20 @@
 ******************************************************************************/</span><span class="SpanClass0"><br/>
 </span>
 </DIV>
-    <H4>出力結果(標準出力)</H4>
+
+#### 出力結果(標準出力)
+
 <DIV class="sample">
 <PRE>
 このサンプルでは Win32API の OutputDebugString() でログを出力しています。
 ご利用のIDEのデバッグ出力表示機能や <A href="http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx" target="_blank">sysinternals の DebugView</A> などで出力内容を確認できます。
 </PRE>
 </DIV>
-    <H4>出力結果(OutputDebugString())</H4>
-    <TABLE cellpadding="8" style="margin:8px"><TR><TD bgcolor="#E0E0E0">
-        <TABLE align="left"><TR><TD>
-            <IMG alt="Wraith the Trickster" src="/image/icon/wrth32.png">
-        </TD></TR></TABLE>
-        ※意図的に一部編集してます。
-        <BR clear="all">
-    </TD></TR></TABLE>
+
+#### 出力結果(OutputDebugString())
+
+> ※意図的に一部編集してます。
+
 <DIV class="sample">
 <PRE>
 ┌────────────────────────────────────── 
@@ -749,7 +739,9 @@
 └────────────────────────────────────── 
 </PRE>
 </DIV>
-    <H4>解説</H4>
+
+#### 解説
+
 <DIV class="sample">
 <span class="SpanClass2">//&nbsp;&nbsp;OutputDebugString()&nbsp;でツリー形式の出力を行うロガーの定義<br/>
 </span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tree_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_OutputDebugString_writer</span><span class="SpanClass10">()));</span><span class="SpanClass0"><br/>
@@ -795,8 +787,8 @@
         ...この部分のコードを丸々コピペして利用されることを強く推奨いたします。
 
 <A name="step3"></A>
-<H3>.tsv形式ログ出力＆マルチスレッドサンプル</H3>
-    <H4>サンプルコード</H4>
+### .tsv形式ログ出力＆マルチスレッドサンプル
+#### サンプルコード
 <DIV class="sample">
 <span class="SpanClass3">/******************************************************************************<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;バグベアード&nbsp;-bugbeard-<br/>
@@ -998,16 +990,17 @@
 ******************************************************************************/</span><span class="SpanClass0"><br/>
 </span>
 </DIV>
-    <H4>出力結果(標準出力)</H4>
-<DIV class="sample">
-<PRE>
+
+#### 出力結果(標準出力)
+
+```txt
 101 = 101
 301 = 7 * 43
 201 = 3 * 67
-</PRE>
-</DIV>
+```
 
-    <H4>出力結果(標準エラー)</H4>
+#### 出力結果(標準エラー)
+
 <DIV class="sample">
 <PRE>
 20:04:19.182	540	0	bug.h	2462	▽bugbeard session root
@@ -1726,9 +1719,10 @@
 </PRE>
 </DIV>
 
-    <H4>解説</H4>
-        <P>
-        上記の出力結果は...
+#### 解説
+
+上記の出力結果は...
+
 <DIV class="sample">
 <PRE>
 20:04:19.183	540	1	bug.h	2849	▽Commandline Argument Information
@@ -1740,28 +1734,28 @@
 20:04:19.183	540	2	bug.h	2849	△Commandline Argument Information
 </PRE>
 </DIV>
-        ...を見てもおわかりいただけますが、「101 201 301」を引数として与えた場合のものです。
-        またこのケースでは .tsv の各カラムはそれぞれ 時刻, スレッドID, ネストの深さ, __FILE__, __LINE__, ログメッセージ の内容になっていますが、コンパイル時の状況によりこの書式は若干変化します。
-        </P>
-        
-        <P>
-        このサンプルでの一つ目の肝は...
+
+...を見てもおわかりいただけますが、「101 201 301」を引数として与えた場合のものです。
+またこのケースでは .tsv の各カラムはそれぞれ 時刻, スレッドID, ネストの深さ, __FILE__, __LINE__, ログメッセージ の内容になっていますが、コンパイル時の状況によりこの書式は若干変化します。
+
+このサンプルでの一つ目の肝は...
+
 <DIV class="sample">
 <span class="SpanClass2">//&nbsp;&nbsp;標準エラーにTSV形式の出力を行うロガーの定義(メインスレッド用)<br/></span>
 <span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tsv_logger</span><span class="SpanClass10">(</span><span class="SpanClass11">common_writer</span><span class="SpanClass10">));</span>
 </DIV>
-        ...で、ツリー形式ではなく .tsv 形式のログ出力を指定しているところです。ロガーへの引数がこれまでのサンプルと違いますが、これはマルチスレッド対応の為のもので、.tsv 形式でログ出力を行うこととは本質的には関係ありません。
-        </P>
 
-        <P>
-        このサンプルでの二つの肝は最初に bug.h を include する前に...
+...で、ツリー形式ではなく .tsv 形式のログ出力を指定しているところです。ロガーへの引数がこれまでのサンプルと違いますが、これはマルチスレッド対応の為のもので、.tsv 形式でログ出力を行うこととは本質的には関係ありません。
+
+このサンプルでの二つの肝は最初に bug.h を include する前に...
         
 <DIV class="sample">
 <span class="SpanClass9">#define&nbsp;BUG_EVIL_CONTRACT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"悪魔の契約"<br/></span>
 <span class="SpanClass9">#define&nbsp;BUG_MULTI_THREAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;マルチスレッドモデルでバグベアードを利用<br/></span>
 <span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ロガーを定義する為にステートメントハックを有効にしない状態で include<br/></span>
 </DIV>
-        BUG_MULTI_THREAD マクロを定義してバグベアードをマルチスレッドモデルで利用すること宣言した上で、ロガーを...
+
+BUG_MULTI_THREAD マクロを定義してバグベアードをマルチスレッドモデルで利用すること宣言した上で、ロガーを...
         
 <DIV class="sample">
 <span class="SpanClass2">//&nbsp;&nbsp;共用ライターの定義<br/>
@@ -1781,20 +1775,15 @@
 </span><span class="SpanClass10">}</span>
 </DIV>
         
-        ...のように各スレッド毎に定義していることです。バグベアードをマルチスレッドなプログラムで利用する場合は必ずこのように各スレッド毎にロガーを定義してください。ロガーが定義されていないスレッドではログ出力が行われません。
-        </P>
+...のように各スレッド毎に定義していることです。バグベアードをマルチスレッドなプログラムで利用する場合は必ずこのように各スレッド毎にロガーを定義してください。ロガーが定義されていないスレッドではログ出力が行われません。
 
-        <P>
-        このサンプルでは同じ出力先へログ出力を行うので bugbeard::bug_smart_writer 型でラップした bugbeard::bug_writer 派生オブジェクトを各スレッドで使いまわしています。これはロガーが自分に与えられた bugbeard::bug_writer 派生オブジェクトを自身のデストラクタ内で破棄する為です。bugbeard::bug_smart_writer 型でラップしないと最初に終了したスレッドにより bugbeard::bug_writer 派生オブジェクトが破棄され残りのスレッドが既に破棄されたオブジェクトを使用してログ出力を行おうとして異常終了します。
-        </P>
+このサンプルでは同じ出力先へログ出力を行うので bugbeard::bug_smart_writer 型でラップした bugbeard::bug_writer 派生オブジェクトを各スレッドで使いまわしています。これはロガーが自分に与えられた bugbeard::bug_writer 派生オブジェクトを自身のデストラクタ内で破棄する為です。bugbeard::bug_smart_writer 型でラップしないと最初に終了したスレッドにより bugbeard::bug_writer 派生オブジェクトが破棄され残りのスレッドが既に破棄されたオブジェクトを使用してログ出力を行おうとして異常終了します。
 
-        <P>
-        マルチプロセス/マルチスレッドな状況ではツリー形式より.tsv形式のほうが有効だろうと思って.tsv形式での出力にも対応したもののフィルターの使えるビューアで見る分にはマルチプロセス/マルチスレッドな状況であっても.tsv形式よりもツリー形式のほうが見やすかったりします。でも、まぁ、.tsv形式はデータとして処理し易いんで統計的な情報分析やる際に役立ってくれると思います。
-        </P>
+マルチプロセス/マルチスレッドな状況ではツリー形式より.tsv形式のほうが有効だろうと思って.tsv形式での出力にも対応したもののフィルターの使えるビューアで見る分にはマルチプロセス/マルチスレッドな状況であっても.tsv形式よりもツリー形式のほうが見やすかったりします。でも、まぁ、.tsv形式はデータとして処理し易いんで統計的な情報分析やる際に役立ってくれると思います。
         
 <A name="step4"></A>
-<H3>バルクログ出力サンプル</H3>
-    <H4>サンプルコード</H4>
+### バルクログ出力サンプル
+#### サンプルコード
 <DIV class="sample">
 <span class="SpanClass3">/******************************************************************************<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;バグベアード&nbsp;-bugbeard-<br/>
@@ -1939,10 +1928,10 @@
 ******************************************************************************/</span><span class="SpanClass0"><br/>
 </span>
 </DIV>
-    <H4>出力結果(./buglog/YYYY/MM/DD/bulklog.log)</H4>
+#### 出力結果(./buglog/YYYY/MM/DD/bulklog.log)
         ./buglog/YYYY/MM/DD/bulklog.log なパスにファイルとして出力されることを除けば内容的には先の tsv.cpp によるログ出力とあまり変わり映えしないので割愛。
 
-    <H4>解説</H4>
+#### 解説
         <P>
         このサンプルのコードでは日付別のディレクトリにログファイルを出力します。
 <DIV class="sample">
@@ -1971,8 +1960,8 @@
 
 
 <A name="step5"></A>
-<H3>プロファイル＆カバレッジ測定サンプル</H3>
-    <H4>サンプルコード</H4>
+### プロファイル＆カバレッジ測定サンプル
+#### サンプルコード
 <DIV class="sample">
 <span class="SpanClass3">/******************************************************************************<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;バグベアード&nbsp;-bugbeard-<br/>
@@ -2095,7 +2084,7 @@
 ******************************************************************************/</span><span class="SpanClass0"><br/>
 </span>
 </DIV>
-    <H4>出力結果( trace.log )</H4>
+#### 出力結果( trace.log )
 <DIV class="sample">
 <PRE>
 ┌──────────────────────────────────────
@@ -2134,7 +2123,7 @@
 </PRE>
 </DIV>
     
-    <H4>出力結果( profile.tsv )</H4>
+#### 出力結果( profile.tsv )
 <DIV class="sample">
 <PRE>
 __FILE__	__LINE__	スコープ	合計総稼働時間	合計総バグ時間	合計総実働時間	合計自稼働時間	合計自バグ時間	合計自実働時間	合計子稼働時間	合計子バグ時間	合計子実働時間	コールカウント	平均総稼働時間	平均総バグ時間	平均総実働時間	平均自稼働時間	平均自バグ時間	平均自実働時間	平均子稼働時間	平均子バグ時間	平均子実働時間	最小スタンプ	最小総稼働時間	最小総バグ時間	最小総実働時間	最小自稼働時間	最小自バグ時間	最小自実働時間	最小子稼働時間	最小子バグ時間	最小子実働時間	最大スタンプ	最大総稼働時間	最大総バグ時間	最大総実働時間	最大自稼働時間	最大自バグ時間	最大自実働時間	最大子稼働時間	最大子バグ時間	最大子実働時間
@@ -2162,7 +2151,7 @@ profile.cpp	107	for	0.001543	0.002672	0.003212	0.001543	0.000213	0.001330	0.0018
         </P>
     </DIV>
 
-    <H4>出力結果( coverage.tsv )</H4>
+#### 出力結果( coverage.tsv )
 <DIV class="sample">
 <PRE>
 __FILE__	__LINE__	スコープ	コールカウント
@@ -2188,7 +2177,7 @@ profile.cpp	88	if (1 < pn) == true;	0
         </P>
     </DIV>
 
-    <H4>解説</H4>
+#### 解説
         <P>
             このサンプルのコードでは以下の指定により、プロファイルおよびカバレッジの測定結果をそれぞれ "profile.tsv" および "coverage.tsv" に出力します。(＋メインのログを "trace.log" に出力します。 )
 <DIV class="sample">
@@ -2213,257 +2202,261 @@ profile.cpp	88	if (1 < pn) == true;	0
         </P>
 
 
-
 ## リファレンス
 
-            <UL>
-                - <A class="bar" href="#statements">ステートメントハックによってマクロ置換されるステートメント</A>
-                - <A class="bar" href="#macros">マクロ</A>
-                - <A class="bar" href="#namespace">名前空間</A>
-                - <A class="bar" href="#types">型</A>
-                - <A class="bar" href="#functions">関数</A>
-                - <A class="bar" href="#profile-columns">プロファイルデータの項目</A>
-            </UL>
+- <A class="bar" href="#statements">ステートメントハックによってマクロ置換されるステートメント</A>
+- <A class="bar" href="#macros">マクロ</A>
+- <A class="bar" href="#namespace">名前空間</A>
+- <A class="bar" href="#types">型</A>
+- <A class="bar" href="#functions">関数</A>
+- <A class="bar" href="#profile-columns">プロファイルデータの項目</A>
             
-    <A name="statements"></A>
-    <H3>ステートメントハックによってマクロ置換されるステートメント</H3>
-    <TABLE class="list">
-    <TR><TH class="header"><NOBR>ステートメント</NOBR></TH><TH class="header">スコープ</TH><TH class="header">補足</TH></TR>
-    <TR><TD>if</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD>if ステートメントの条件判定結果(bool値)もログに出力します。</TD></TR>
-    <TR class="check"><TD>while</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD>while ステートメントの条件判定結果(bool値)もログに出力します。</TD></TR>
-    <TR><TD>switch</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD>switch ステートメントの条件判定結果(int値)もログに出力します。</TD></TR>
-    <TR class="check"><TD>goto</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD></TD></TR>
-    <TR><TD>break</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD></TD></TR>
-    <TR class="check"><TD>continue</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD></TD></TR>
-    <TR><TD>return</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD>『return func();』のような形の場合、極力『func()』の呼び出しが終了した時点でログを出力するようにしていますが、コンパイラ及びのバージョン等によっては必ずしもはそうなっていないので注意してください。</TD></TR>
-    <TR class="check"><TD>do</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
-    <TR><TD>for</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
-    <TR class="check"><TD>try</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
-    <TR><TD>throw</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD>『throw func();』のような形の場合、極力『func()』の呼び出しが終了した時点でログを出力するようにしていますが、コンパイラ及びのバージョン等によっては必ずしもはそうなっていないので注意してください。</TD></TR>
-    <TR class="check"><TD>new</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
-    <TR><TD>delete</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
-    </TABLE>
+<A name="statements"></A>
+### ステートメントハックによってマクロ置換されるステートメント
+
+<TABLE class="list">
+<TR><TH class="header"><NOBR>ステートメント</NOBR></TH><TH class="header">スコープ</TH><TH class="header">補足</TH></TR>
+<TR><TD>if</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD>if ステートメントの条件判定結果(bool値)もログに出力します。</TD></TR>
+<TR class="check"><TD>while</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD>while ステートメントの条件判定結果(bool値)もログに出力します。</TD></TR>
+<TR><TD>switch</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD>switch ステートメントの条件判定結果(int値)もログに出力します。</TD></TR>
+<TR class="check"><TD>goto</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD></TD></TR>
+<TR><TD>break</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD></TD></TR>
+<TR class="check"><TD>continue</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD></TD></TR>
+<TR><TD>return</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD>『return func();』のような形の場合、極力『func()』の呼び出しが終了した時点でログを出力するようにしていますが、コンパイラ及びのバージョン等によっては必ずしもはそうなっていないので注意してください。</TD></TR>
+<TR class="check"><TD>do</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
+<TR><TD>for</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
+<TR class="check"><TD>try</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
+<TR><TD>throw</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD>『throw func();』のような形の場合、極力『func()』の呼び出しが終了した時点でログを出力するようにしていますが、コンパイラ及びのバージョン等によっては必ずしもはそうなっていないので注意してください。</TD></TR>
+<TR class="check"><TD>new</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
+<TR><TD>delete</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
+</TABLE>
     
-    <A name="macros"></A>
-    <H3>マクロ</H3>
+<A name="macros"></A>
+### マクロ
 
-    <A name="direction-macros"></A>
-    <H4>指示マクロ</H4>
-    <TABLE class="list">
-    <TR><TH class="header">マクロ</TH><TH class="header">説明</TH></TR>
-    <TR><TD>BUG_DISABLE_BUGBEARD</TD><TD>このマクロが定義されいる場合、バグベアードはロードされず、<A href="#evil-contract">"悪魔の契約"</A>も不要です。</TD></TR>
-    <TR class="check"><TD>BUG_EVIL_CONTRACT</TD><TD>バグベアードを利用するには<A href="#evil-contract">"悪魔の契約"</A>をよく読んでその意味を理解した上でこのマクロを定義してください。</TD></TR>
-    <TR><TD>BUG_STATEMENT_HACK</TD><TD>バグベアードの真骨頂であるステートメントハックを有効にするにはこのマクロを定義した上で bug.h をインクルードしてください。逆に一度有効にしたステートメントハックをソースコードの途中から無効したい場合はこのマクロの定義を解除(#undef)した上で再度 bug.h をインクルードしてください。<BR>cf. <A href="#statements">ステートメントハックによってマクロ置換されるステートメント</A></TD></TR>
-    <TR class="check"><TD>BUG_USE_CHAR</TD><TD>char型をバグベアードで使用する文字型として指定する場合にこのマクロを定義してください。このマクロも BUG_USE_WCHAR もともに定義されていない場合で且つ、UNICODE マクロおよび _UNICODE マクロが定義されていない場合、このマクロは自動で定義されます。</TD></TR>
-    <TR><TD>BUG_USE_WCHAR</TD><TD>wchar_t型をバグベアードで使用する文字型として指定する場合にこのマクロを定義してください。このマクロも BUG_USE_CHAR もともに定義されていない場合で且つ、UNICODE マクロもしくは _UNICODE マクロが定義されていた場合、このマクロは自動で定義されます。</TD></TR>
-    <TR class="check"><TD>BUG_SINGLE_PROCESS</TD><TD>シングルプロセスで動作するプログラム上でバグベアードを利用する場合、このマクロを定義してください。このマクロも BUG_MULTI_PROCESS マクロもともに定義されていない場合、このマクロは自動で定義されます。</TD></TR>
-    <TR><TD>BUG_MULTI_PROCESS</TD><TD>マルチプロセスで動作するプログラム上でバグベアードを利用する場合、このマクロを定義してください。</TD></TR>
-    <TR class="check"><TD>BUG_SINGLE_THREAD</TD><TD>シングルスレッドで動作するプログラム上でバグベアードを利用する場合、このマクロを定義してください。このマクロも BUG_MULTI_THREAD マクロもとも定義されていない場合で且つ、_MT マクロおよび __MT__ マクロが定義されていない場合、このマクロは自動で定義されます。</TD></TR>
-    <TR><TD>BUG_MULTI_THREAD</TD><TD>マルチスレッドで動作するプログラム上でバグベアードでバグベアードを利用する場合、このマクロを定義してください。このマクロも、BUG_SINGLE_THREAD マクロも定義されていない場合で且つ、_MT マクロもしくは __MT__ マクロが定義されていた場合、このマクロは自動で定義されます。</TD></TR>
-    <TR class="check"><TD>BUG_THREAD_LOCAL_STORAGE</TD><TD>バグベアードに処理系由来のスレッドローカルストレージ機能を使用させる場合、このマクロでスレッドローカルストレージであることを示す為の型への修飾を指定してください。指定例は bug.h 内のコメントを参照してください。</TD></TR>
-    <TR><TD>BUG_WITHOUT_LOCATION_INFO</TD><TD>このマクロが定義されているとロケーション情報(__FILE__,__LINE__,及び関数名)をログ出力しません。</TD></TR>
-    <TR class="check"><TD>BUG_MASK_SOURCECODE</TD><TD>このマクロが定義されているとステートメントハックによるログ出力中の条件式が "..." に置き換えられます。</TD></TR>
-    <TR><TD>BUG_FUNCTION_NAME</TD><TD>__function__ のような関数名を取得する組み込みマクロを利用できる処理系で、関数名をログに出力させた場合にこのマクロでその処理系が持つ関数名取得用組み込みマクロを指定してください。このマクロが定義されていない場合でも処理系によってはこのマクロは自動で定義されます。</TD></TR>
-    <TR class="check"><TD>BUG_NO_FUNCTION_NAME</TD><TD>BUG_FUNCTION_NAME マクロが自動で定義される処理系で、関数名をログに出力させたく場合はこのマクロを定義することで BUG_FUNCTION_NAME マクロの自動定義を抑止できます。</TD></TR>
-    <TR><TD>BUG_DISABLED_PSAPI</TD><TD>Windows で利用する際にお使いのコンパイル環境で PSAPI が利用できない場合は、このマクロを定義してください。このマクロが定義されると bug_enum_module_version_info() の実装が抑止されます。</TD></TR>
-    <TR class="check"><TD>BUG_DEFINE_GLOBAL_LOGGER</TD><TD>このマクロはシンタックスシュガー的なもので、このマクロでグローバルなロガーの定義を指定おくとバグベアードのヘッダーファイル内でロガーの定義が行われます。このマクロを利用することでロガーを定義する際にバグベアードのヘッダーファイルを２度インクルードすることを回避できます。使用例は <A href="#step5">プロファイル＆カバレッジ測定サンプル</A> を参照してください。</TD></TR>
-    <TR><TD>BUG_DEFINE_GLOBAL_PROFILER</TD><TD>このマクロはシンタックスシュガー的なもので、このマクロでグローバルなプロファイラの定義を指定おくとバグベアードのヘッダーファイル内でプロファイラの定義が行われます。このマクロを利用することでプロファイラを定義する際にバグベアードのヘッダーファイルを２度インクルードすることを回避できます。使用例は <A href="#step5">プロファイル＆カバレッジ測定サンプル</A> を参照してください。</TD></TR>
-    <TR class="check"><TD>BUG_WITHOUT_TSV_LOG_HEADER</TD><TD>このマクロが定義されていると .tsv ログのヘッダー行を出力しなくなります。</TD></TR>
-    <TR><TD>BUG_WITHOUT_TSV_PROFILE_HEADER</TD><TD>このマクロが定義されていると .tsv プロファイルデータのヘッダー行を出力しなくなります。</TD></TR>
-    <TR class="check"><TD>BUG_WITHOUT_TSV_COVERAGE_HEADER</TD><TD>このマクロが定義されていると .tsv カバレッジデータのヘッダー行を出力しなくなります。</TD></TR>
-    <!--TR><TD>BUG_LANG_JP</TD><TD></TD></TR>
-    <TR class="check"><TD>BUG_LANG_EN</TD><TD></TD></TR>
-    <TR><TD>BUG_DISABLED_WHILE_SCOPE</TD><TD></TD></TR>
-    <TR class="check"><TD>BUG_DISABLED_SWITCH_SCOPE</TD><TD></TD></TR>
-    <TR><TD>BUG_DISABLED_THROW_SCOPE</TD><TD></TD></TR>
-    <TR class="check"><TD>BUG_NEED_WHILE_CAST</TD><TD></TD></TR-->
-    </TABLE>
+<A name="direction-macros"></A>
+#### 指示マクロ
 
-    <A name="flag-macros"></A>
-    <H4>フラグマクロ</H4>
-    <TABLE class="list">
-    <TR><TH class="header">マクロ</TH><TH class="header">説明</TH></TR>
-    <TR><TD>BUGBEARD_BUG_H</TD><TD>bug.h の所謂インクルードガードに相当するマクロです。ただし、一般的なインクルードガードはそのヘッダファイル全体が多重に展開されることを防ぐ作りなっていますが、bug.h は BUG_STATEMENT_HACK マクロの定義状態を変更しながら複数回インクルードされること想定した作りとなっており、ステートメントハック関連のマクロ定義/解除がインクルードガードの対象になっていません。</TD></TR>
-    <TR class="check"><TD>BUG_LOAD_BUGBEARD</TD><TD>BUG_DISABLE_BUGBEARD マクロが定義されずに bug.h がインクルードされたことにより、バグベアードがロードされている場合に定義されます。BUG_* な命名のマクロは全てバグベアードがロードされていない時にはきえさりますが、その他のコードでバグベアードがロードされていない時に消し去りたい場合はそのコードを #if defined(BUG_LOAD_BUGBEARD) ～ #endif で囲んでください。</TD></TR>
-    <TR><TD>BUG_MS_WINDOWS</TD><TD>Windows環境でバグベアードがロードされている場合に定義されます。</TD></TR>
-    </TABLE>
+<TABLE class="list">
+<TR><TH class="header">マクロ</TH><TH class="header">説明</TH></TR>
+<TR><TD>BUG_DISABLE_BUGBEARD</TD><TD>このマクロが定義されいる場合、バグベアードはロードされず、<A href="#evil-contract">"悪魔の契約"</A>も不要です。</TD></TR>
+<TR class="check"><TD>BUG_EVIL_CONTRACT</TD><TD>バグベアードを利用するには<A href="#evil-contract">"悪魔の契約"</A>をよく読んでその意味を理解した上でこのマクロを定義してください。</TD></TR>
+<TR><TD>BUG_STATEMENT_HACK</TD><TD>バグベアードの真骨頂であるステートメントハックを有効にするにはこのマクロを定義した上で bug.h をインクルードしてください。逆に一度有効にしたステートメントハックをソースコードの途中から無効したい場合はこのマクロの定義を解除(#undef)した上で再度 bug.h をインクルードしてください。<BR>cf. <A href="#statements">ステートメントハックによってマクロ置換されるステートメント</A></TD></TR>
+<TR class="check"><TD>BUG_USE_CHAR</TD><TD>char型をバグベアードで使用する文字型として指定する場合にこのマクロを定義してください。このマクロも BUG_USE_WCHAR もともに定義されていない場合で且つ、UNICODE マクロおよび _UNICODE マクロが定義されていない場合、このマクロは自動で定義されます。</TD></TR>
+<TR><TD>BUG_USE_WCHAR</TD><TD>wchar_t型をバグベアードで使用する文字型として指定する場合にこのマクロを定義してください。このマクロも BUG_USE_CHAR もともに定義されていない場合で且つ、UNICODE マクロもしくは _UNICODE マクロが定義されていた場合、このマクロは自動で定義されます。</TD></TR>
+<TR class="check"><TD>BUG_SINGLE_PROCESS</TD><TD>シングルプロセスで動作するプログラム上でバグベアードを利用する場合、このマクロを定義してください。このマクロも BUG_MULTI_PROCESS マクロもともに定義されていない場合、このマクロは自動で定義されます。</TD></TR>
+<TR><TD>BUG_MULTI_PROCESS</TD><TD>マルチプロセスで動作するプログラム上でバグベアードを利用する場合、このマクロを定義してください。</TD></TR>
+<TR class="check"><TD>BUG_SINGLE_THREAD</TD><TD>シングルスレッドで動作するプログラム上でバグベアードを利用する場合、このマクロを定義してください。このマクロも BUG_MULTI_THREAD マクロもとも定義されていない場合で且つ、_MT マクロおよび __MT__ マクロが定義されていない場合、このマクロは自動で定義されます。</TD></TR>
+<TR><TD>BUG_MULTI_THREAD</TD><TD>マルチスレッドで動作するプログラム上でバグベアードでバグベアードを利用する場合、このマクロを定義してください。このマクロも、BUG_SINGLE_THREAD マクロも定義されていない場合で且つ、_MT マクロもしくは __MT__ マクロが定義されていた場合、このマクロは自動で定義されます。</TD></TR>
+<TR class="check"><TD>BUG_THREAD_LOCAL_STORAGE</TD><TD>バグベアードに処理系由来のスレッドローカルストレージ機能を使用させる場合、このマクロでスレッドローカルストレージであることを示す為の型への修飾を指定してください。指定例は bug.h 内のコメントを参照してください。</TD></TR>
+<TR><TD>BUG_WITHOUT_LOCATION_INFO</TD><TD>このマクロが定義されているとロケーション情報(__FILE__,__LINE__,及び関数名)をログ出力しません。</TD></TR>
+<TR class="check"><TD>BUG_MASK_SOURCECODE</TD><TD>このマクロが定義されているとステートメントハックによるログ出力中の条件式が "..." に置き換えられます。</TD></TR>
+<TR><TD>BUG_FUNCTION_NAME</TD><TD>__function__ のような関数名を取得する組み込みマクロを利用できる処理系で、関数名をログに出力させた場合にこのマクロでその処理系が持つ関数名取得用組み込みマクロを指定してください。このマクロが定義されていない場合でも処理系によってはこのマクロは自動で定義されます。</TD></TR>
+<TR class="check"><TD>BUG_NO_FUNCTION_NAME</TD><TD>BUG_FUNCTION_NAME マクロが自動で定義される処理系で、関数名をログに出力させたく場合はこのマクロを定義することで BUG_FUNCTION_NAME マクロの自動定義を抑止できます。</TD></TR>
+<TR><TD>BUG_DISABLED_PSAPI</TD><TD>Windows で利用する際にお使いのコンパイル環境で PSAPI が利用できない場合は、このマクロを定義してください。このマクロが定義されると bug_enum_module_version_info() の実装が抑止されます。</TD></TR>
+<TR class="check"><TD>BUG_DEFINE_GLOBAL_LOGGER</TD><TD>このマクロはシンタックスシュガー的なもので、このマクロでグローバルなロガーの定義を指定おくとバグベアードのヘッダーファイル内でロガーの定義が行われます。このマクロを利用することでロガーを定義する際にバグベアードのヘッダーファイルを２度インクルードすることを回避できます。使用例は <A href="#step5">プロファイル＆カバレッジ測定サンプル</A> を参照してください。</TD></TR>
+<TR><TD>BUG_DEFINE_GLOBAL_PROFILER</TD><TD>このマクロはシンタックスシュガー的なもので、このマクロでグローバルなプロファイラの定義を指定おくとバグベアードのヘッダーファイル内でプロファイラの定義が行われます。このマクロを利用することでプロファイラを定義する際にバグベアードのヘッダーファイルを２度インクルードすることを回避できます。使用例は <A href="#step5">プロファイル＆カバレッジ測定サンプル</A> を参照してください。</TD></TR>
+<TR class="check"><TD>BUG_WITHOUT_TSV_LOG_HEADER</TD><TD>このマクロが定義されていると .tsv ログのヘッダー行を出力しなくなります。</TD></TR>
+<TR><TD>BUG_WITHOUT_TSV_PROFILE_HEADER</TD><TD>このマクロが定義されていると .tsv プロファイルデータのヘッダー行を出力しなくなります。</TD></TR>
+<TR class="check"><TD>BUG_WITHOUT_TSV_COVERAGE_HEADER</TD><TD>このマクロが定義されていると .tsv カバレッジデータのヘッダー行を出力しなくなります。</TD></TR>
+<!--TR><TD>BUG_LANG_JP</TD><TD></TD></TR>
+<TR class="check"><TD>BUG_LANG_EN</TD><TD></TD></TR>
+<TR><TD>BUG_DISABLED_WHILE_SCOPE</TD><TD></TD></TR>
+<TR class="check"><TD>BUG_DISABLED_SWITCH_SCOPE</TD><TD></TD></TR>
+<TR><TD>BUG_DISABLED_THROW_SCOPE</TD><TD></TD></TR>
+<TR class="check"><TD>BUG_NEED_WHILE_CAST</TD><TD></TD></TR-->
+</TABLE>
 
-    <A name="function-macros"></A>
-    <H4>機能マクロ</H4>
-    <TABLE class="list">
-    <TR><TH class="header">マクロ</TH><TH class="header">説明</TH></TR>
-    <TR><TD>BUG_define_logger</TD><TD>ロガーを定義するのに使用します。マルチスレッドの場合、各スレッド毎に定義する必要があります。</TD></TR>
-    <TR class="check">
-        <TD>BUG_puts</TD>
-        <TD>指定されたテキストをログ出力します。このマクロは標準関数の puts と同じくただ与えられた文字列を出力するだけで printf のような書式機能はありません。書式を利用したい場合は BUG_FORM を利用してください。
-            <DIV class="sample">
-            <span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass6">"このロリコンどもめ！"</span><span class="SpanClass10">);</span>
-            </DIV>        
-        </TD>
-    </TR>
-    <TR>
-        <TD>BUG_VAL</TD>
-        <TD>
-            指定された変数・オブジェクトの内容をその名前とともに文字列に変換します。BUG_puts マクロと組み合わせて変数・オブジェクトをログ出力するのに使用します。
-            <DIV class="sample">
-            <span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">speech</span><span class="SpanClass10">));</span>
-            </DIV>        
-        </TD>
-    </TR>
-    <TR class="check">
-        <TD>BUG_FORM</TD>
-        <TD>
-            printfと同様の引数をとり、文字列を返します。
-            <DIV class="sample">
-            <span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_FORM</span><span class="SpanClass10">(</span><span class="SpanClass6">"%s"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass6">"このロリコンどもめ！"</span><span class="SpanClass10">));</span>
-            </DIV>        
-        </TD>
-    </TR>
-    <TR><TD>BUG_exec</TD><TD>バグベアードがロードされている場合にのみ引数部のコードが有効になります。</TD></TR>
-    <TR class="check"><TD>BUG_scope</TD><TD>指定されたテキストをスコープログ出力します。</TD></TR>
-    <TR>
-        <TD>BUG_CHAR_TYPE</TD>
-        <TD>
-            バグベアード使用される文字型を示します。Windows プログラミングでの TCHAR に相当し、BUG_USE_CHAR マクロが定義されていれば char 型を BUG_USE_WCHAR マクロが定義されていれば wchar_t 型を示します。
-            <DIV class="sample">
-            <span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">const</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">BUG_CHAR_TYPE</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass11">speech</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">BUG_T</span><span class="SpanClass10">(</span><span class="SpanClass6">"このロリコンどもめ！"</span><span class="SpanClass10">);</span>
-            </DIV>        
-        </TD>
-    </TR>
-    <TR class="check"><TD>BUG_API_T</TD><TD>BUG_USE_CHAR/BUG_USE_WCHAR マクロにあわせて Windows API を修飾し ANSI 版と UNICODE 版の切り替えを用意にします。</TD></TR>
-    <TR>
-        <TD>BUG_T</TD>
-        <TD>
-            BUG_USE_CHAR/BUG_USE_WCHAR マクロにあわせて文字および文字列の型を修飾します。このマクロは Windows プログラミングでの _T/TEXT マクロに相当します。
-            <DIV class="sample">
-            <span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_T</span><span class="SpanClass10">(</span><span class="SpanClass6">"たまにはロリコンもいいよね！"</span><span class="SpanClass10">));</span>
-            </DIV>
-        </TD>
-    </TR>
-    <TR class="check"><TD>BUG_LOG</TD><TD>カレントスレッドに関連づけられているロガーを取得します。</TD></TR>
-    <TR><TD>BUG_MSG</TD><TD>ログ出力される元テキストにロケーション情報を付加します。ユーザプログラミングにおいてこのマクロは通常意識する必要はありません。</TD></TR>
-    <TR class="check"><TD>BUG_COMPILER_NAME</TD><TD>コンパイルに使用したコンパイラの名前です。</TD></TR>
-    <TR><TD>BUG_COMPILER_VERSION_NUMBER</TD><TD>コンパイルに使用したコンパイラのバージョン番号(数値)です。</TD></TR>
-    <TR class="check"><TD>BUG_COMPILER_VERSION</TD><TD>コンパイルに使用したコンパイラのバージョン情報(文字列)です。</TD></TR>
-    <!--TR><TD>BUG_FORM_I64</TD><TD></TD></TR>
-    <TR class="check"><TD>BUG_NOTHING</TD><TD></TD></TR>
-    <TR><TD>BUG_T_CORE</TD><TD></TD></TR>
-    <TR class="check"><TD>BUG_ID</TD><TD></TD></TR>
-    <TR><TD>BUG_ID_core</TD><TD></TD></TR>
-    <TR class="check"><TD>BUG_TO_STRING</TD><TD></TD></TR>
-    <TR><TD>BUG_TO_STRING_CORE</TD><TD></TD></TR-->
-    </TABLE>
+<A name="flag-macros"></A>
+#### フラグマクロ
+
+<TABLE class="list">
+<TR><TH class="header">マクロ</TH><TH class="header">説明</TH></TR>
+<TR><TD>BUGBEARD_BUG_H</TD><TD>bug.h の所謂インクルードガードに相当するマクロです。ただし、一般的なインクルードガードはそのヘッダファイル全体が多重に展開されることを防ぐ作りなっていますが、bug.h は BUG_STATEMENT_HACK マクロの定義状態を変更しながら複数回インクルードされること想定した作りとなっており、ステートメントハック関連のマクロ定義/解除がインクルードガードの対象になっていません。</TD></TR>
+<TR class="check"><TD>BUG_LOAD_BUGBEARD</TD><TD>BUG_DISABLE_BUGBEARD マクロが定義されずに bug.h がインクルードされたことにより、バグベアードがロードされている場合に定義されます。BUG_* な命名のマクロは全てバグベアードがロードされていない時にはきえさりますが、その他のコードでバグベアードがロードされていない時に消し去りたい場合はそのコードを #if defined(BUG_LOAD_BUGBEARD) ～ #endif で囲んでください。</TD></TR>
+<TR><TD>BUG_MS_WINDOWS</TD><TD>Windows環境でバグベアードがロードされている場合に定義されます。</TD></TR>
+</TABLE>
+
+<A name="function-macros"></A>
+#### 機能マクロ
+
+<TABLE class="list">
+<TR><TH class="header">マクロ</TH><TH class="header">説明</TH></TR>
+<TR><TD>BUG_define_logger</TD><TD>ロガーを定義するのに使用します。マルチスレッドの場合、各スレッド毎に定義する必要があります。</TD></TR>
+<TR class="check">
+    <TD>BUG_puts</TD>
+    <TD>指定されたテキストをログ出力します。このマクロは標準関数の puts と同じくただ与えられた文字列を出力するだけで printf のような書式機能はありません。書式を利用したい場合は BUG_FORM を利用してください。
+        <DIV class="sample">
+        <span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass6">"このロリコンどもめ！"</span><span class="SpanClass10">);</span>
+        </DIV>        
+    </TD>
+</TR>
+<TR>
+    <TD>BUG_VAL</TD>
+    <TD>
+        指定された変数・オブジェクトの内容をその名前とともに文字列に変換します。BUG_puts マクロと組み合わせて変数・オブジェクトをログ出力するのに使用します。
+        <DIV class="sample">
+        <span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">speech</span><span class="SpanClass10">));</span>
+        </DIV>        
+    </TD>
+</TR>
+<TR class="check">
+    <TD>BUG_FORM</TD>
+    <TD>
+        printfと同様の引数をとり、文字列を返します。
+        <DIV class="sample">
+        <span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_FORM</span><span class="SpanClass10">(</span><span class="SpanClass6">"%s"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass6">"このロリコンどもめ！"</span><span class="SpanClass10">));</span>
+        </DIV>        
+    </TD>
+</TR>
+<TR><TD>BUG_exec</TD><TD>バグベアードがロードされている場合にのみ引数部のコードが有効になります。</TD></TR>
+<TR class="check"><TD>BUG_scope</TD><TD>指定されたテキストをスコープログ出力します。</TD></TR>
+<TR>
+    <TD>BUG_CHAR_TYPE</TD>
+    <TD>
+        バグベアード使用される文字型を示します。Windows プログラミングでの TCHAR に相当し、BUG_USE_CHAR マクロが定義されていれば char 型を BUG_USE_WCHAR マクロが定義されていれば wchar_t 型を示します。
+        <DIV class="sample">
+        <span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">const</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">BUG_CHAR_TYPE</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass11">speech</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">BUG_T</span><span class="SpanClass10">(</span><span class="SpanClass6">"このロリコンどもめ！"</span><span class="SpanClass10">);</span>
+        </DIV>        
+    </TD>
+</TR>
+<TR class="check"><TD>BUG_API_T</TD><TD>BUG_USE_CHAR/BUG_USE_WCHAR マクロにあわせて Windows API を修飾し ANSI 版と UNICODE 版の切り替えを用意にします。</TD></TR>
+<TR>
+    <TD>BUG_T</TD>
+    <TD>
+        BUG_USE_CHAR/BUG_USE_WCHAR マクロにあわせて文字および文字列の型を修飾します。このマクロは Windows プログラミングでの _T/TEXT マクロに相当します。
+        <DIV class="sample">
+        <span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_T</span><span class="SpanClass10">(</span><span class="SpanClass6">"たまにはロリコンもいいよね！"</span><span class="SpanClass10">));</span>
+        </DIV>
+    </TD>
+</TR>
+<TR class="check"><TD>BUG_LOG</TD><TD>カレントスレッドに関連づけられているロガーを取得します。</TD></TR>
+<TR><TD>BUG_MSG</TD><TD>ログ出力される元テキストにロケーション情報を付加します。ユーザプログラミングにおいてこのマクロは通常意識する必要はありません。</TD></TR>
+<TR class="check"><TD>BUG_COMPILER_NAME</TD><TD>コンパイルに使用したコンパイラの名前です。</TD></TR>
+<TR><TD>BUG_COMPILER_VERSION_NUMBER</TD><TD>コンパイルに使用したコンパイラのバージョン番号(数値)です。</TD></TR>
+<TR class="check"><TD>BUG_COMPILER_VERSION</TD><TD>コンパイルに使用したコンパイラのバージョン情報(文字列)です。</TD></TR>
+<!--TR><TD>BUG_FORM_I64</TD><TD></TD></TR>
+<TR class="check"><TD>BUG_NOTHING</TD><TD></TD></TR>
+<TR><TD>BUG_T_CORE</TD><TD></TD></TR>
+<TR class="check"><TD>BUG_ID</TD><TD></TD></TR>
+<TR><TD>BUG_ID_core</TD><TD></TD></TR>
+<TR class="check"><TD>BUG_TO_STRING</TD><TD></TD></TR>
+<TR><TD>BUG_TO_STRING_CORE</TD><TD></TD></TR-->
+</TABLE>
 
 <A name="namespace"></A>
-<H3>名前空間</H3>
-    <TABLE class="list">
-    <TR><TH class="header">namespace</TH><TH class="header">説明</TH></TR>
-    <TR><TD>bugbeard</TD><TD>バグベアードの各種型や関数等は一部の例外を除き全てこの名前空間で定義されます。</TD></TR>
-    <TR class="check"><TD>bugbeard::bug_term</TD><TD>バグベアードで使用される文字列定数(全てではない)がこの名前空間で定義されます。</TD></TR>
-    </TABLE>
+### 名前空間
+
+<TABLE class="list">
+<TR><TH class="header">namespace</TH><TH class="header">説明</TH></TR>
+<TR><TD>bugbeard</TD><TD>バグベアードの各種型や関数等は一部の例外を除き全てこの名前空間で定義されます。</TD></TR>
+<TR class="check"><TD>bugbeard::bug_term</TD><TD>バグベアードで使用される文字列定数(全てではない)がこの名前空間で定義されます。</TD></TR>
+</TABLE>
 
 <A name="types"></A>
-<H3>型</H3>
+### 型
 
-    <A name="typedef"></A>
-    <H4>typedef</H4>
-    <TABLE class="list">
-    <TR><TH class="header">型</TH><TH class="header">定義</TH><TH class="header">説明</TH></TR>
-    <TR><TD>bug_char</TD><TD>BUG_CHAR_TYPE</TD><TD>バグベアードで使用される文字型です。</TD></TR>
-    <TR class="check"><TD>bug_string</TD><TD>std::basic_string&lt;bug_char&gt;</TD><TD>バグベアードで使用される文字列型です。</TD></TR>
-    <TR><TD>bug_form</TD><TD>bug_form_ex&lt;&gt;</TD><TD>printf書式で文字列を作成するのに使用されるクラスです。BUG_FORM マクロはこのクラスに置換されます。</TD></TR>
-    <TR class="check"><TD>bug_sint64_type</TD><TD>int64_t</TD><TD>バグベアードで使用される int64_t 。stdint.h を持たない VC++ の為に存在します。</TD></TR>
-    <TR><TD>bug_uint64_type</TD><TD>uint64_t</TD><TD>バグベアードで使用される uint64_t 。stdint.h を持たない VC++ の為に存在します。</TD></TR>
-    <!--TR><TD>bug_default_stamp</TD><TD></TD><TD></TD></TR-->
-    </TABLE>
+<A name="typedef"></A>
+#### typedef
 
-    <A name="class"></A>
-    <H4>class</H4>
-    <H5>utilities</H5>
-    <TABLE class="list">
-    <TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
-    <TR><TD>bug_form_ex</TD><TD>printf書式による文字列作成機能を提供します。</TD></TR>
-    <TR class="check"><TD>bug_clock</TD><TD>現在時刻情報を提供します。</TD></TR>
-    <TR><TD>bug_dull_dir</TD><TD>bug_dirの無能版(ディレクトリを作成しない)。</TD></TR>
-    <TR class="check"><TD>bug_dir</TD><TD>ファイルパス文字列の構築とともにディレクトリ作成を行うユーティリティクラス。</TD></TR>
-    <TR><TD>bug_mutex</TD><TD>汎用ミューテックスクラス。</TD></TR>
-    <TR class="check"><TD>bug_lock</TD><TD>自動ロッククラス。</TD></TR>
-    <TR><TD>bug_smart_ptr_ref_cnt</TD><TD>内包用リファレンスカウンタ。</TD></TR>
-    <TR class="check"><TD>bug_smart_ptr_share</TD><TD>外付け用リファレンスカウンタ。</TD></TR>
-    <TR><TD>bug_smart_ptr</TD><TD>スマートポインタ。</TD></TR>
-    <TR class="check"><TD>bug_thread_local_storage</TD><TD>スレッドローカルストレージ。</TD></TR>
-    <TR><TD>bug_OSVERSIONINFO</TD><TD>Windowsバージョン情報クラス。</TD></TR>
-    <!--TR><TD>bug_thread_local_storage_base</TD><TD></TD></TR-->
-    </TABLE>
-    
-    <H5>writer</H5>
-    このクラス群はバグベアードによるログの出力先を指定するのに使用されます。
-    <TABLE class="list">
-    <TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
-    <TR><TD>bug_writer</TD><TD>ライター基本クラス。このクラスはインターフェイスを提供する為の抽象クラスなので直接は利用できません。</TD></TR>
-    <TR class="check"><TD>bug_file_writer_base</TD><TD>指定されたファイルポインタ(FILE*)に対して書き込みを行うライター。</TD></TR>
-    <TR><TD>bug_file_writer</TD><TD>指定されたファイルパスに対して書き込みを行うライター。Windows 環境下では bug_handle_writer の派生型として実装され、その他の環境下では bug_file_writer_base の派生型として実装されます。なお、Windows環境では UNICODE/_UNICODE マクロや BUG_USE_CHAR/BUG_USE_WCHAR マクロに関係なく常に MBCS および UNICODE でファイルパスを指定できます。</TD></TR>
-    <TR class="check"><TD>bug_stream_writer</TD><TD>指定されたストリーム(std::otream)に対して書き込みを行うライター。</TD></TR>
-    <TR><TD>bug_fstream_writer</TD><TD>指定されたファイルパスに対して書き込みを行うライター。bug_file_writerとは異なり名前の通り std::ofstream ベースの実装。</TD></TR>
-    <TR class="check"><TD>bug_handle_writer</TD><TD>指定されたハンドルに対して書き込みを行うライター。Windows専用。</TD></TR>
-    <TR><TD>bug_OutputDebugString_writer</TD><TD>OutputDebugString()を利用するライター。Windows専用。</TD></TR>
-    </TABLE>
+<TABLE class="list">
+<TR><TH class="header">型</TH><TH class="header">定義</TH><TH class="header">説明</TH></TR>
+<TR><TD>bug_char</TD><TD>BUG_CHAR_TYPE</TD><TD>バグベアードで使用される文字型です。</TD></TR>
+<TR class="check"><TD>bug_string</TD><TD>std::basic_string&lt;bug_char&gt;</TD><TD>バグベアードで使用される文字列型です。</TD></TR>
+<TR><TD>bug_form</TD><TD>bug_form_ex&lt;&gt;</TD><TD>printf書式で文字列を作成するのに使用されるクラスです。BUG_FORM マクロはこのクラスに置換されます。</TD></TR>
+<TR class="check"><TD>bug_sint64_type</TD><TD>int64_t</TD><TD>バグベアードで使用される int64_t 。stdint.h を持たない VC++ の為に存在します。</TD></TR>
+<TR><TD>bug_uint64_type</TD><TD>uint64_t</TD><TD>バグベアードで使用される uint64_t 。stdint.h を持たない VC++ の為に存在します。</TD></TR>
+<!--TR><TD>bug_default_stamp</TD><TD></TD><TD></TD></TR-->
+</TABLE>
 
-    <H5>stamp</H5>
-    このクラス群はバグベアードによるログ中のタイムスタンプの種類・形式を指定するのに使用されます。
-    <TABLE class="list">
-    <TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
-    <TR><TD>bug_stamp</TD><TD>タイムスタンプ基本クラス。このクラスはインターフェイスを提供する為の抽象クラスなので直接は利用できません。</TD></TR>
-    <TR class="check"><TD>bug_counter_stamp</TD><TD>カウンタ型タイムスタンプ。形式：%d</TD></TR>
-    <TR><TD>bug_hex_counter_stamp</TD><TD>16進表記のカウンタ型タイムスタンプ。形式：0x%08.8X</TD></TR>
-    <TR class="check"><TD>bug_clock_stamp</TD><TD>時刻型タイムスタンプ。形式：%2.2d:%2.2d:%2.2d</TD></TR>
-    <TR><TD>bug_clock_stamp_with_date</TD><TD>日付付き時刻型タイムスタンプ。形式：%4.4d-%2.2d-%2.2d(%s) %2.2d:%2.2d:%2.2d</TD></TR>
-    <TR class="check"><TD>bug_short_clock_stamp</TD><TD>ショート時刻型タイムスタンプ。形式：%2.2d%2.2d%2.2d</TD></TR>
-    <TR><TD>bug_short_clock_stamp_with_date</TD><TD>日付付きショート時刻型タイムスタンプ。形式：%4.4d%2.2d%2.2d%2.2:%2.2d%2.2d</TD></TR>
-    <TR class="check"><TD>bug_clock_stamp_ex</TD><TD>精細時刻型タイムスタンプ。形式：%2.2d:%2.2d:%2.2d.%3.3d</TD></TR>
-    <TR><TD>bug_clock_stamp_ex_with_date</TD><TD>日付付き精細時刻型タイムスタンプ。形式：%4.4d-%2.2d-%2.2d(%s) %2.2d:%2.2d:%2.2d.%3.3d</TD></TR>
-    <TR class="check"><TD>bug_clock_stamp_ex2</TD><TD>高精細時刻型タイムスタンプ。形式：%2.2d:%2.2d:%2.2d.%6.6d</TD></TR>
-    <TR><TD>bug_clock_stamp_ex2_with_date</TD><TD>日付付き高精細時刻型タイムスタンプ。形式：%4.4d-%2.2d-%2.2d(%s) %2.2d:%2.2d:%2.2d.%6.6d</TD></TR>
-    <TR class="check"><TD>bug_GetTickCount_stamp</TD><TD>GetTickCount型タイムスタンプ。Windows専用。形式：%08.8X</TD></TR>
-    <TR><TD>bug_QueryPerformanceCounter_stamp</TD><TD>QueryPerformanceCounter型タイムスタンプ(RAW)。Windows専用。形式：%08.8X%08.8X</TD></TR>
-    <TR class="check"><TD>bug_QueryPerformanceSecond_stamp</TD><TD>QueryPerformanceCounter型タイムスタンプ(秒＋マイクロ秒)。Windows専用。形式：%7d.%06.6d</TD></TR>
-    </TABLE>
+<A name="class"></A>
+#### class
 
-    <H5>message</H5>
-    <TABLE class="list">
-    <TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
-    <TR><TD>bug_message</TD><TD>ロケーション情報(__FILE__ 及び __LINE__)とログ出力するテキストを保持します。</TD></TR>
-    </TABLE>
+<H5>utilities</H5>
+<TABLE class="list">
+<TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
+<TR><TD>bug_form_ex</TD><TD>printf書式による文字列作成機能を提供します。</TD></TR>
+<TR class="check"><TD>bug_clock</TD><TD>現在時刻情報を提供します。</TD></TR>
+<TR><TD>bug_dull_dir</TD><TD>bug_dirの無能版(ディレクトリを作成しない)。</TD></TR>
+<TR class="check"><TD>bug_dir</TD><TD>ファイルパス文字列の構築とともにディレクトリ作成を行うユーティリティクラス。</TD></TR>
+<TR><TD>bug_mutex</TD><TD>汎用ミューテックスクラス。</TD></TR>
+<TR class="check"><TD>bug_lock</TD><TD>自動ロッククラス。</TD></TR>
+<TR><TD>bug_smart_ptr_ref_cnt</TD><TD>内包用リファレンスカウンタ。</TD></TR>
+<TR class="check"><TD>bug_smart_ptr_share</TD><TD>外付け用リファレンスカウンタ。</TD></TR>
+<TR><TD>bug_smart_ptr</TD><TD>スマートポインタ。</TD></TR>
+<TR class="check"><TD>bug_thread_local_storage</TD><TD>スレッドローカルストレージ。</TD></TR>
+<TR><TD>bug_OSVERSIONINFO</TD><TD>Windowsバージョン情報クラス。</TD></TR>
+<!--TR><TD>bug_thread_local_storage_base</TD><TD></TD></TR-->
+</TABLE>
 
-    <H5>profile time</H5>
-    <TABLE class="list">
-    <TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
-    <TR><TD>bug_profile_time_type</TD><TD>高精度時間型。</TD></TR>
-    <TR class="check"><TD>bug_profile_time_set</TD><TD>bug_profile_time_type で、稼働時間、バグ時間、実働時間を保持します。</TD></TR>
-    <TR><TD>bug_profile_time_score</TD><TD>bug_profile_time_set で、自スコープと子スコープの時間を保持します。</TD></TR>
-    <TR class="check"><TD>bug_profile_time_score_set</TD><TD>特定のスコープに関する全プロファイルデータを保持します。</TD></TR>
-    <TR><TD>bug_bug_time_scope</TD><TD>その生存期間でバグベアードによるオーバーヘッド(バグ時間)を測定します。</TD></TR>
-    <TR class="check"><TD>bug_profile_scope</TD><TD>その生存期間でスコープの稼働時間を測定します。</TD></TR>
-    </TABLE>
+<H5>writer</H5>
+このクラス群はバグベアードによるログの出力先を指定するのに使用されます。
+<TABLE class="list">
+<TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
+<TR><TD>bug_writer</TD><TD>ライター基本クラス。このクラスはインターフェイスを提供する為の抽象クラスなので直接は利用できません。</TD></TR>
+<TR class="check"><TD>bug_file_writer_base</TD><TD>指定されたファイルポインタ(FILE*)に対して書き込みを行うライター。</TD></TR>
+<TR><TD>bug_file_writer</TD><TD>指定されたファイルパスに対して書き込みを行うライター。Windows 環境下では bug_handle_writer の派生型として実装され、その他の環境下では bug_file_writer_base の派生型として実装されます。なお、Windows環境では UNICODE/_UNICODE マクロや BUG_USE_CHAR/BUG_USE_WCHAR マクロに関係なく常に MBCS および UNICODE でファイルパスを指定できます。</TD></TR>
+<TR class="check"><TD>bug_stream_writer</TD><TD>指定されたストリーム(std::otream)に対して書き込みを行うライター。</TD></TR>
+<TR><TD>bug_fstream_writer</TD><TD>指定されたファイルパスに対して書き込みを行うライター。bug_file_writerとは異なり名前の通り std::ofstream ベースの実装。</TD></TR>
+<TR class="check"><TD>bug_handle_writer</TD><TD>指定されたハンドルに対して書き込みを行うライター。Windows専用。</TD></TR>
+<TR><TD>bug_OutputDebugString_writer</TD><TD>OutputDebugString()を利用するライター。Windows専用。</TD></TR>
+</TABLE>
 
-    <H5>logger</H5>
-    <TABLE class="list">
-    <TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
-    <TR><TD>bug_logger</TD><TD>ロガー基本クラス。このクラスは主にインターフェイスを提供する為の抽象クラスなので直接は利用できません。</TD></TR>
-    <TR class="check"><TD>bug_tsv_logger</TD><TD>.tsv(タブ区切り)形式のログを出力します。</TD></TR>
-    <TR><TD>bug_tree_logger</TD><TD>ツリー形式のログを出力します。</TD></TR>
-    <TR class="check"><TD>bug_compact_tree_logger</TD><TD>圧縮ツリー形式のログを出力します。ツリー部分が bug_tree_logger の約1/6に圧縮されます。</TD></TR>
-    </TABLE>
+<H5>stamp</H5>
+このクラス群はバグベアードによるログ中のタイムスタンプの種類・形式を指定するのに使用されます。
+<TABLE class="list">
+<TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
+<TR><TD>bug_stamp</TD><TD>タイムスタンプ基本クラス。このクラスはインターフェイスを提供する為の抽象クラスなので直接は利用できません。</TD></TR>
+<TR class="check"><TD>bug_counter_stamp</TD><TD>カウンタ型タイムスタンプ。形式：%d</TD></TR>
+<TR><TD>bug_hex_counter_stamp</TD><TD>16進表記のカウンタ型タイムスタンプ。形式：0x%08.8X</TD></TR>
+<TR class="check"><TD>bug_clock_stamp</TD><TD>時刻型タイムスタンプ。形式：%2.2d:%2.2d:%2.2d</TD></TR>
+<TR><TD>bug_clock_stamp_with_date</TD><TD>日付付き時刻型タイムスタンプ。形式：%4.4d-%2.2d-%2.2d(%s) %2.2d:%2.2d:%2.2d</TD></TR>
+<TR class="check"><TD>bug_short_clock_stamp</TD><TD>ショート時刻型タイムスタンプ。形式：%2.2d%2.2d%2.2d</TD></TR>
+<TR><TD>bug_short_clock_stamp_with_date</TD><TD>日付付きショート時刻型タイムスタンプ。形式：%4.4d%2.2d%2.2d%2.2:%2.2d%2.2d</TD></TR>
+<TR class="check"><TD>bug_clock_stamp_ex</TD><TD>精細時刻型タイムスタンプ。形式：%2.2d:%2.2d:%2.2d.%3.3d</TD></TR>
+<TR><TD>bug_clock_stamp_ex_with_date</TD><TD>日付付き精細時刻型タイムスタンプ。形式：%4.4d-%2.2d-%2.2d(%s) %2.2d:%2.2d:%2.2d.%3.3d</TD></TR>
+<TR class="check"><TD>bug_clock_stamp_ex2</TD><TD>高精細時刻型タイムスタンプ。形式：%2.2d:%2.2d:%2.2d.%6.6d</TD></TR>
+<TR><TD>bug_clock_stamp_ex2_with_date</TD><TD>日付付き高精細時刻型タイムスタンプ。形式：%4.4d-%2.2d-%2.2d(%s) %2.2d:%2.2d:%2.2d.%6.6d</TD></TR>
+<TR class="check"><TD>bug_GetTickCount_stamp</TD><TD>GetTickCount型タイムスタンプ。Windows専用。形式：%08.8X</TD></TR>
+<TR><TD>bug_QueryPerformanceCounter_stamp</TD><TD>QueryPerformanceCounter型タイムスタンプ(RAW)。Windows専用。形式：%08.8X%08.8X</TD></TR>
+<TR class="check"><TD>bug_QueryPerformanceSecond_stamp</TD><TD>QueryPerformanceCounter型タイムスタンプ(秒＋マイクロ秒)。Windows専用。形式：%7d.%06.6d</TD></TR>
+</TABLE>
 
-    <H5>profiler</H5>
-    <TABLE class="list">
-    <TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
-    <TR><TD>bug_profiler</TD><TD>プロファイラー基本クラス。このクラスはプロファイルデータを保持しますが、出力する機能を持ち合わせいないので直接指定しても意味がありません。このクラスの代わりに bug_tsv_profiler を指定してください。</TD></TR>
-    <TR class="check"><TD>bug_tsv_profiler</TD><TD>.tsv(タブ区切り)形式でプロファイルおよびカバレッジ測定結果を出力します。</TD></TR>
-    </TABLE>
+<H5>message</H5>
+<TABLE class="list">
+<TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
+<TR><TD>bug_message</TD><TD>ロケーション情報(__FILE__ 及び __LINE__)とログ出力するテキストを保持します。</TD></TR>
+</TABLE>
+
+<H5>profile time</H5>
+<TABLE class="list">
+<TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
+<TR><TD>bug_profile_time_type</TD><TD>高精度時間型。</TD></TR>
+<TR class="check"><TD>bug_profile_time_set</TD><TD>bug_profile_time_type で、稼働時間、バグ時間、実働時間を保持します。</TD></TR>
+<TR><TD>bug_profile_time_score</TD><TD>bug_profile_time_set で、自スコープと子スコープの時間を保持します。</TD></TR>
+<TR class="check"><TD>bug_profile_time_score_set</TD><TD>特定のスコープに関する全プロファイルデータを保持します。</TD></TR>
+<TR><TD>bug_bug_time_scope</TD><TD>その生存期間でバグベアードによるオーバーヘッド(バグ時間)を測定します。</TD></TR>
+<TR class="check"><TD>bug_profile_scope</TD><TD>その生存期間でスコープの稼働時間を測定します。</TD></TR>
+</TABLE>
+
+<H5>logger</H5>
+<TABLE class="list">
+<TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
+<TR><TD>bug_logger</TD><TD>ロガー基本クラス。このクラスは主にインターフェイスを提供する為の抽象クラスなので直接は利用できません。</TD></TR>
+<TR class="check"><TD>bug_tsv_logger</TD><TD>.tsv(タブ区切り)形式のログを出力します。</TD></TR>
+<TR><TD>bug_tree_logger</TD><TD>ツリー形式のログを出力します。</TD></TR>
+<TR class="check"><TD>bug_compact_tree_logger</TD><TD>圧縮ツリー形式のログを出力します。ツリー部分が bug_tree_logger の約1/6に圧縮されます。</TD></TR>
+</TABLE>
+
+<H5>profiler</H5>
+<TABLE class="list">
+<TR><TH class="header">クラス名</TH><TH class="header">説明</TH></TR>
+<TR><TD>bug_profiler</TD><TD>プロファイラー基本クラス。このクラスはプロファイルデータを保持しますが、出力する機能を持ち合わせいないので直接指定しても意味がありません。このクラスの代わりに bug_tsv_profiler を指定してください。</TD></TR>
+<TR class="check"><TD>bug_tsv_profiler</TD><TD>.tsv(タブ区切り)形式でプロファイルおよびカバレッジ測定結果を出力します。</TD></TR>
+</TABLE>
 
 <!--
-    <H4>element</H4>
+#### element
 bug_dummy_if
 bug_element
 bug_scope
@@ -2476,7 +2469,7 @@ bug_switch_core
 
 <!--
 <A name="const"></A>
-<H3>定数</H3>
+### 定数
 empty
 horizon_line
 level_line
@@ -2495,128 +2488,127 @@ stamp_title
 -->
 
 <A name="functions"></A>
-<H3>関数</H3>
-    <TABLE class="list">
-    <TR><TH class="header">関数名</TH><TH class="header">説明</TH></TR>
-    <TR><TD>bug_binary_prefix</TD><TD>符号なし64ビット値を<A href="http://ja.wikipedia.org/wiki/二進接頭辞" >二進接頭辞</A>で修飾した文字列(bug_string型)に変換します。bug_binary_prefix(39029211136, BUG_T("Byte")) で呼び出すと "36.3GiByte(39029211136)" のような文字列が返ります。第二引数は省略可。</TD></TR>
-    <TR class="check"><TD>bug_hex_encode</TD><TD>与えられたバイナリデータをHEXエンコードされた文字列(bug_string型)に変換します。</TD></TR>
-    <TR><TD>bug_encode_value</TD><TD>各種データを文字列(bug_string型)に変換します。BUG_VALマクロで呼び出される bug_encode() はこの bug_encode_value() を利用して各種データを文字列に変換します。その他なデータ型は bug_hex_encode() で HEX エンコードされます。独自のデータ型を HEX エンコード以外の形でログに残したい場合は自前でこの bug_encode_value() のオーバーロードを定義してください。</TD></TR>
-    <TR class="check"><TD>bug_encode</TD><TD>BUG_VALマクロ用の本体関数で、BUG_VALマクロで指定された変数の「名前」、「アドレス」、「内容」をひとつの文字列(bug_string型)にまとめます。</TD></TR>
-    <TR><TD>bug_run_string</TD><TD>第一引数で指定された数だけ第二引数で指定された文字列を繰り返した文字列(bug_string型)を返します。</TD></TR>
-    <TR class="check"><TD>bug_get_win32_err_msgA</TD><TD>Win32APIのエラーコード(GetLastError())に対応するエラーメッセージ(std::string型)を返します。Windows専用。</TD></TR>
-    <TR><TD>bug_get_win32_err_msgW</TD><TD>Win32APIのエラーコード(GetLastError())に対応するエラーメッセージ(std::wstring型)を返します。Windows専用。</TD></TR>
-    <TR class="check"><TD>bug_get_winver</TD><TD>Windows のバージョン＋エディション表記(bug_string型)を返します。Windows専用。<BR>ex. "Microsoft Windows Vista Business Edition, 32-bit"</TD></TR>
-    <TR><TD>bug_compile_info</TD><TD>コンパイルを行った日時、コンパイルに使用したコンパイラの名称およびバージョンを第一引数で指定されたロガーを使って出力します。</TD></TR>
-    <TR class="check"><TD>bug_arg_info</TD><TD>main()関数の引数の内容を第一引数で指定されたロガーを使って出力します。</TD></TR>
-    <TR><TD>bug_windows_version_info</TD><TD>Windowsのバージョン情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR class="check"><TD>bug_module_version_info</TD><TD>第二引数で指定された実行形式ファイル(*.exe;*.dll)のバージョン情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR><TD>bug_enum_module_version_info</TD><TD>カレントプロセスがロードしている全てのモジュール(*.exe;*.dll)のバージョン情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR class="check"><TD>bug_memory_info</TD><TD>システム全体のメモリの使用状況を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR><TD>bug_drive_info</TD><TD>第二引数で指定されたドライブの情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR class="check"><TD>bug_enum_drive_info</TD><TD>全てのドライブの情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR><TD>bug_MonitorEnumProc</TD><TD>第二引数で指定されたモニターの情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR class="check"><TD>bug_enum_monitor_info</TD><TD>全てのモニターの情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR><TD>bug_enum_display_info</TD><TD>全てのディスプレイの情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR class="check"><TD>bug_env</TD><TD>第二引数で指定された環境変数の内容を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR><TD>bug_enum_env</TD><TD>全ての環境変数の内容を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR class="check"><TD>bug_windows_system_info</TD><TD>Win32APIの GetSystemInfo() で得られた情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <TR><TD>bug_file_hash</TD><TD>第二引数で指定されたファイルのハッシュ値を第一引数で指定されたロガーを使って出力します。デフォルトではMD5が使用されますが第三引数＋第四引数でその他のハッシュ関数も指定できます。Windows専用。</TD></TR>
-    <TR class="check"><TD>bug_enum_module_hash</TD><TD>カレントプロセスがロードしている全てのモジュール(*.exe;*.dll)のハッシュ値を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
-    <!--TR class="check"><TD>get_bug_smart_by_target</TD><TD></TD></TR>
-    <TR><TD>get_target_by_bug_smart</TD><TD></TD></TR-->
-    </TABLE>
+### 関数
+
+<TABLE class="list">
+<TR><TH class="header">関数名</TH><TH class="header">説明</TH></TR>
+<TR><TD>bug_binary_prefix</TD><TD>符号なし64ビット値を<A href="http://ja.wikipedia.org/wiki/二進接頭辞" >二進接頭辞</A>で修飾した文字列(bug_string型)に変換します。bug_binary_prefix(39029211136, BUG_T("Byte")) で呼び出すと "36.3GiByte(39029211136)" のような文字列が返ります。第二引数は省略可。</TD></TR>
+<TR class="check"><TD>bug_hex_encode</TD><TD>与えられたバイナリデータをHEXエンコードされた文字列(bug_string型)に変換します。</TD></TR>
+<TR><TD>bug_encode_value</TD><TD>各種データを文字列(bug_string型)に変換します。BUG_VALマクロで呼び出される bug_encode() はこの bug_encode_value() を利用して各種データを文字列に変換します。その他なデータ型は bug_hex_encode() で HEX エンコードされます。独自のデータ型を HEX エンコード以外の形でログに残したい場合は自前でこの bug_encode_value() のオーバーロードを定義してください。</TD></TR>
+<TR class="check"><TD>bug_encode</TD><TD>BUG_VALマクロ用の本体関数で、BUG_VALマクロで指定された変数の「名前」、「アドレス」、「内容」をひとつの文字列(bug_string型)にまとめます。</TD></TR>
+<TR><TD>bug_run_string</TD><TD>第一引数で指定された数だけ第二引数で指定された文字列を繰り返した文字列(bug_string型)を返します。</TD></TR>
+<TR class="check"><TD>bug_get_win32_err_msgA</TD><TD>Win32APIのエラーコード(GetLastError())に対応するエラーメッセージ(std::string型)を返します。Windows専用。</TD></TR>
+<TR><TD>bug_get_win32_err_msgW</TD><TD>Win32APIのエラーコード(GetLastError())に対応するエラーメッセージ(std::wstring型)を返します。Windows専用。</TD></TR>
+<TR class="check"><TD>bug_get_winver</TD><TD>Windows のバージョン＋エディション表記(bug_string型)を返します。Windows専用。<BR>ex. "Microsoft Windows Vista Business Edition, 32-bit"</TD></TR>
+<TR><TD>bug_compile_info</TD><TD>コンパイルを行った日時、コンパイルに使用したコンパイラの名称およびバージョンを第一引数で指定されたロガーを使って出力します。</TD></TR>
+<TR class="check"><TD>bug_arg_info</TD><TD>main()関数の引数の内容を第一引数で指定されたロガーを使って出力します。</TD></TR>
+<TR><TD>bug_windows_version_info</TD><TD>Windowsのバージョン情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR class="check"><TD>bug_module_version_info</TD><TD>第二引数で指定された実行形式ファイル(*.exe;*.dll)のバージョン情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR><TD>bug_enum_module_version_info</TD><TD>カレントプロセスがロードしている全てのモジュール(*.exe;*.dll)のバージョン情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR class="check"><TD>bug_memory_info</TD><TD>システム全体のメモリの使用状況を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR><TD>bug_drive_info</TD><TD>第二引数で指定されたドライブの情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR class="check"><TD>bug_enum_drive_info</TD><TD>全てのドライブの情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR><TD>bug_MonitorEnumProc</TD><TD>第二引数で指定されたモニターの情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR class="check"><TD>bug_enum_monitor_info</TD><TD>全てのモニターの情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR><TD>bug_enum_display_info</TD><TD>全てのディスプレイの情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR class="check"><TD>bug_env</TD><TD>第二引数で指定された環境変数の内容を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR><TD>bug_enum_env</TD><TD>全ての環境変数の内容を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR class="check"><TD>bug_windows_system_info</TD><TD>Win32APIの GetSystemInfo() で得られた情報を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<TR><TD>bug_file_hash</TD><TD>第二引数で指定されたファイルのハッシュ値を第一引数で指定されたロガーを使って出力します。デフォルトではMD5が使用されますが第三引数＋第四引数でその他のハッシュ関数も指定できます。Windows専用。</TD></TR>
+<TR class="check"><TD>bug_enum_module_hash</TD><TD>カレントプロセスがロードしている全てのモジュール(*.exe;*.dll)のハッシュ値を第一引数で指定されたロガーを使って出力します。Windows専用。</TD></TR>
+<!--TR class="check"><TD>get_bug_smart_by_target</TD><TD></TD></TR>
+<TR><TD>get_target_by_bug_smart</TD><TD></TD></TR-->
+</TABLE>
 
 <A name="profile-columns"></A>
-<H3>プロファイルデータの項目</H3>
-    <TABLE class="list">
-    <TR><TH class="header">項目名</TH><TH class="header">説明</TH></TR>
-    <TR><TD>プロセスID</TD><TD>プロセスID。BUG_MULTI_PROCESS マクロが定義されている場合にのみ出力されます。</TD></TR>
-    <TR class="check"><TD>スレッドID</TD><TD>スレッドID。BUG_MULTI_THREAD マクロが定義されている場合にのみ出力されます。</TD></TR>
-    <TR><TD>__FILE__</TD><TD>ファイル名。オーバーオールスコープでは "@OVERALL_SCOPE" となります。</TD></TR>
-    <TR class="check"><TD>__LINE__</TD><TD>行番号。オーバーオールスコープでは 0 となります。</TD></TR>
-    <TR><TD>__function__</TD><TD>関数名。BUG_FUNCTION_NAME マクロが定義されている場合にのみ出力されます。オーバーオールスコープでは "@OVERALL_SCOPE" となります。</TD></TR>
-    <TR class="check"><TD>スコープ</TD><TD>スコープ。オーバーオールスコープでは "@OVERALL_SCOPE" となります。</TD></TR>
-    <TR><TD><NOBR>合計総稼働時間</NOBR></TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間の合計。合計総稼働時間＝(合計総バグ時間＋合計総実働時間)＝(合計自稼働時間＋合計子稼働時間)＝SUM(総稼働時間)。</TD></TR>
-    <TR class="check"><TD>合計総バグ時間</TD><TD>そのスコープ自身とその内包するスコープの測定の為に要した全てのオーバーヘッドの合計。合計総バグ時間＝(合計自バグ時間＋合計子バグ時間)＝SUM(総バグ時間)。</TD></TR>
-    <TR><TD>合計総実働時間</TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の合計。合計総実働時間＝(合計自実働時間＋合計子実働時間)＝SUM(総実働時間)。</TD></TR>
-    <TR class="check"><TD>合計自稼働時間</TD><TD>そのスコープ自身の実行に要した全ての時間の合計(内包するスコープの時間は除く)。合計自稼働時間＝(合計自バグ時間＋合計自実働時間)＝SUM(自実働時間)。</TD></TR>
-    <TR><TD>合計自バグ時間</TD><TD>そのスコープ自身の測定の為に要した全ての時間の合計(内包するスコープの時間は除く)。合計自バグ時間＝SUM(自バグ時間)。</TD></TR>
-    <TR class="check"><TD>合計自実働時間</TD><TD>そのスコープ自身の実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の合計(内包するスコープの時間は除く)。合計自実働時間＝SUM(自実働時間)。</TD></TR>
-    <TR><TD>合計子稼働時間</TD><TD>その内包するスコープの実行に要した全ての時間の合計。合計子稼働時間＝(合計子バグ時間＋合計子実働時間)＝SUM(子実働時間)。</TD></TR>
-    <TR class="check"><TD>合計子バグ時間</TD><TD>その内包するスコープの測定の為に要した全ての時間の合計。合計子バグ時間＝SUM(子バグ時間)。</TD></TR>
-    <TR><TD>合計子実働時間</TD><TD>その内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の合計。合計子実働時間＝SUM(子実働時間)。</TD></TR>
-    <TR class="check"><TD>コールカウント</TD><TD>そのスコープが実行された回数。</TD></TR>
-    <TR><TD>平均総稼働時間</TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間の平均。平均総稼働時間＝(合計総稼働時間÷コールカウント)＝(平均総バグ時間＋平均総実働時間)＝(平均自稼働時間＋平均子稼働時間)</TD></TR>
-    <TR class="check"><TD>平均総バグ時間</TD><TD>そのスコープ自身とその内包するスコープの測定の為に要した全てのオーバーヘッドの平均。平均総バグ時間＝(合計総バグ時間÷コールカウント)＝(平均自バグ時間＋平均子バグ時間)。</TD></TR>
-    <TR><TD>平均総実働時間</TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の平均。平均総実働時間＝(合計総実働時間÷コールカウント)＝(平均自実働時間＋平均子実働時間)。</TD></TR>
-    <TR class="check"><TD>平均自稼働時間</TD><TD>そのスコープ自身の実行に要した全ての時間の平均(内包するスコープの時間は除く)。平均自稼働時間＝(合計自稼働時間÷コールカウント)＝(平均自バグ時間＋平均自実働時間)。</TD></TR>
-    <TR><TD>平均自バグ時間</TD><TD>そのスコープ自身の測定の為に要した全ての時間の平均(内包するスコープの時間は除く)。平均自バグ時間＝(合計自バグ時間÷コールカウント)。</TD></TR>
-    <TR class="check"><TD>平均自実働時間</TD><TD>その内包するスコープの実行に要した全ての時間の平均。平均子稼働時間＝(合計子稼働時間÷コールカウント)＝(平均子バグ時間＋平均子実働時間)。</TD></TR>
-    <TR><TD>平均子稼働時間</TD><TD>その内包するスコープの実行に要した全ての時間の平均。平均子稼働時間＝(合計子稼働時間÷コールカウント)＝(平均子バグ時間＋平均子実働時間)。</TD></TR>
-    <TR class="check"><TD>平均子バグ時間</TD><TD>その内包するスコープの測定の為に要した全ての時間の平均。平均子バグ時間＝(合計子バグ時間÷コールカウント)。</TD></TR>
-    <TR><TD>平均子実働時間</TD><TD>その内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の平均。平均子実働時間＝(合計子実働時間÷コールカウント)。</TD></TR>
-    <TR class="check"><TD>最小スタンプ</TD><TD>総実働時間が最小となった時のそのスコープのロガー上でのスタンプ。</TD></TR>
-    <TR><TD>最小総稼働時間</TD><TD>総実働時間が最小となった時のそのスコープ自身とその内包するスコープの実行に要した全ての時間。最小総稼働時間＝(最小総バグ時間＋最小総実働時間)＝(最小自稼働時間＋最小子稼働時間)</TD></TR>
-    <TR class="check"><TD>最小総バグ時間</TD><TD>総実働時間が最小となった時のそのスコープ自身とその内包するスコープの測定の為に要した全てのオーバーヘッド。最小総バグ時間＝(最小自バグ時間＋最小子バグ時間)。</TD></TR>
-    <TR><TD>最小総実働時間</TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の最小値。最小総実働時間＝(最小自実働時間＋最小子実働時間)。</TD></TR>
-    <TR class="check"><TD>最小自稼働時間</TD><TD>総実働時間が最小となった時のそのスコープ自身の実行に要した全ての時間(内包するスコープの時間は除く)。最小自稼働時間＝(最小自バグ時間＋最小自実働時間)。</TD></TR>
-    <TR><TD>最小自バグ時間</TD><TD>総実働時間が最小となった時のそのスコープ自身の測定の為に要した全ての時間(内包するスコープの時間は除く)。</TD></TR>
-    <TR class="check"><TD>最小自実働時間</TD><TD>総実働時間が最小となった時のその内包するスコープの実行に要した全ての時間。最小子稼働時間＝(最小子バグ時間＋最小子実働時間)。</TD></TR>
-    <TR><TD>最小子稼働時間</TD><TD>総実働時間が最小となった時のその内包するスコープの実行に要した全ての時間。最小子稼働時間＝(最小子バグ時間＋最小子実働時間)。</TD></TR>
-    <TR class="check"><TD>最小子バグ時間</TD><TD>総実働時間が最小となった時のその内包するスコープの測定の為に要した全ての時間。</TD></TR>
-    <TR><TD>最小子実働時間</TD><TD>総実働時間が最小となった時のその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間。</TD></TR>
-    <TR class="check"><TD>最大スタンプ</TD><TD>総実働時間が最大となった時のそのスコープのロガー上でのスタンプ。</TD></TR>
-    <TR><TD>最大総稼働時間</TD><TD>総実働時間が最大となった時のそのスコープ自身とその内包するスコープの実行に要した全ての時間。最大総稼働時間＝(最大総バグ時間＋最大総実働時間)＝(最大自稼働時間＋最大子稼働時間)</TD></TR>
-    <TR class="check"><TD>最大総バグ時間</TD><TD>総実働時間が最大となった時のそのスコープ自身とその内包するスコープの測定の為に要した全てのオーバーヘッド。最大総バグ時間＝(最大自バグ時間＋最大子バグ時間)。</TD></TR>
-    <TR><TD>最大総実働時間</TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の最大値。最大総実働時間＝(最大自実働時間＋最大子実働時間)。</TD></TR>
-    <TR class="check"><TD>最大自稼働時間</TD><TD>総実働時間が最大となった時のそのスコープ自身の実行に要した全ての時間(内包するスコープの時間は除く)。最大自稼働時間＝(最大自バグ時間＋最大自実働時間)。</TD></TR>
-    <TR><TD>最大自バグ時間</TD><TD>総実働時間が最大となった時のそのスコープ自身の測定の為に要した全ての時間(内包するスコープの時間は除く)。</TD></TR>
-    <TR class="check"><TD>最大自実働時間</TD><TD>総実働時間が最大となった時のその内包するスコープの実行に要した全ての時間。最大子稼働時間＝(最大子バグ時間＋最大子実働時間)。</TD></TR>
-    <TR><TD>最大子稼働時間</TD><TD>総実働時間が最大となった時のその内包するスコープの実行に要した全ての時間。最大子稼働時間＝(最大子バグ時間＋最大子実働時間)。</TD></TR>
-    <TR class="check"><TD>最大子バグ時間</TD><TD>総実働時間が最大となった時のその内包するスコープの測定の為に要した全ての時間。</TD></TR>
-    <TR><TD>最大子実働時間</TD><TD>総実働時間が最大となった時のその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間。</TD></TR>
-    </TABLE>
-    <DIV class="comment">
-        <IMG class="accessary" alt="Wraith the Trickster" src="/image/icon/wrth32.png">
-        <P>
-            「総＝自＋子」及び「稼働＝バグ＋実働」なんだと理解して頂ければ後はそれの応用です。
-        </P>
-    </DIV>
+### プロファイルデータの項目
+
+<TABLE class="list">
+<TR><TH class="header">項目名</TH><TH class="header">説明</TH></TR>
+<TR><TD>プロセスID</TD><TD>プロセスID。BUG_MULTI_PROCESS マクロが定義されている場合にのみ出力されます。</TD></TR>
+<TR class="check"><TD>スレッドID</TD><TD>スレッドID。BUG_MULTI_THREAD マクロが定義されている場合にのみ出力されます。</TD></TR>
+<TR><TD>__FILE__</TD><TD>ファイル名。オーバーオールスコープでは "@OVERALL_SCOPE" となります。</TD></TR>
+<TR class="check"><TD>__LINE__</TD><TD>行番号。オーバーオールスコープでは 0 となります。</TD></TR>
+<TR><TD>__function__</TD><TD>関数名。BUG_FUNCTION_NAME マクロが定義されている場合にのみ出力されます。オーバーオールスコープでは "@OVERALL_SCOPE" となります。</TD></TR>
+<TR class="check"><TD>スコープ</TD><TD>スコープ。オーバーオールスコープでは "@OVERALL_SCOPE" となります。</TD></TR>
+<TR><TD><NOBR>合計総稼働時間</NOBR></TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間の合計。合計総稼働時間＝(合計総バグ時間＋合計総実働時間)＝(合計自稼働時間＋合計子稼働時間)＝SUM(総稼働時間)。</TD></TR>
+<TR class="check"><TD>合計総バグ時間</TD><TD>そのスコープ自身とその内包するスコープの測定の為に要した全てのオーバーヘッドの合計。合計総バグ時間＝(合計自バグ時間＋合計子バグ時間)＝SUM(総バグ時間)。</TD></TR>
+<TR><TD>合計総実働時間</TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の合計。合計総実働時間＝(合計自実働時間＋合計子実働時間)＝SUM(総実働時間)。</TD></TR>
+<TR class="check"><TD>合計自稼働時間</TD><TD>そのスコープ自身の実行に要した全ての時間の合計(内包するスコープの時間は除く)。合計自稼働時間＝(合計自バグ時間＋合計自実働時間)＝SUM(自実働時間)。</TD></TR>
+<TR><TD>合計自バグ時間</TD><TD>そのスコープ自身の測定の為に要した全ての時間の合計(内包するスコープの時間は除く)。合計自バグ時間＝SUM(自バグ時間)。</TD></TR>
+<TR class="check"><TD>合計自実働時間</TD><TD>そのスコープ自身の実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の合計(内包するスコープの時間は除く)。合計自実働時間＝SUM(自実働時間)。</TD></TR>
+<TR><TD>合計子稼働時間</TD><TD>その内包するスコープの実行に要した全ての時間の合計。合計子稼働時間＝(合計子バグ時間＋合計子実働時間)＝SUM(子実働時間)。</TD></TR>
+<TR class="check"><TD>合計子バグ時間</TD><TD>その内包するスコープの測定の為に要した全ての時間の合計。合計子バグ時間＝SUM(子バグ時間)。</TD></TR>
+<TR><TD>合計子実働時間</TD><TD>その内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の合計。合計子実働時間＝SUM(子実働時間)。</TD></TR>
+<TR class="check"><TD>コールカウント</TD><TD>そのスコープが実行された回数。</TD></TR>
+<TR><TD>平均総稼働時間</TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間の平均。平均総稼働時間＝(合計総稼働時間÷コールカウント)＝(平均総バグ時間＋平均総実働時間)＝(平均自稼働時間＋平均子稼働時間)</TD></TR>
+<TR class="check"><TD>平均総バグ時間</TD><TD>そのスコープ自身とその内包するスコープの測定の為に要した全てのオーバーヘッドの平均。平均総バグ時間＝(合計総バグ時間÷コールカウント)＝(平均自バグ時間＋平均子バグ時間)。</TD></TR>
+<TR><TD>平均総実働時間</TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の平均。平均総実働時間＝(合計総実働時間÷コールカウント)＝(平均自実働時間＋平均子実働時間)。</TD></TR>
+<TR class="check"><TD>平均自稼働時間</TD><TD>そのスコープ自身の実行に要した全ての時間の平均(内包するスコープの時間は除く)。平均自稼働時間＝(合計自稼働時間÷コールカウント)＝(平均自バグ時間＋平均自実働時間)。</TD></TR>
+<TR><TD>平均自バグ時間</TD><TD>そのスコープ自身の測定の為に要した全ての時間の平均(内包するスコープの時間は除く)。平均自バグ時間＝(合計自バグ時間÷コールカウント)。</TD></TR>
+<TR class="check"><TD>平均自実働時間</TD><TD>その内包するスコープの実行に要した全ての時間の平均。平均子稼働時間＝(合計子稼働時間÷コールカウント)＝(平均子バグ時間＋平均子実働時間)。</TD></TR>
+<TR><TD>平均子稼働時間</TD><TD>その内包するスコープの実行に要した全ての時間の平均。平均子稼働時間＝(合計子稼働時間÷コールカウント)＝(平均子バグ時間＋平均子実働時間)。</TD></TR>
+<TR class="check"><TD>平均子バグ時間</TD><TD>その内包するスコープの測定の為に要した全ての時間の平均。平均子バグ時間＝(合計子バグ時間÷コールカウント)。</TD></TR>
+<TR><TD>平均子実働時間</TD><TD>その内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の平均。平均子実働時間＝(合計子実働時間÷コールカウント)。</TD></TR>
+<TR class="check"><TD>最小スタンプ</TD><TD>総実働時間が最小となった時のそのスコープのロガー上でのスタンプ。</TD></TR>
+<TR><TD>最小総稼働時間</TD><TD>総実働時間が最小となった時のそのスコープ自身とその内包するスコープの実行に要した全ての時間。最小総稼働時間＝(最小総バグ時間＋最小総実働時間)＝(最小自稼働時間＋最小子稼働時間)</TD></TR>
+<TR class="check"><TD>最小総バグ時間</TD><TD>総実働時間が最小となった時のそのスコープ自身とその内包するスコープの測定の為に要した全てのオーバーヘッド。最小総バグ時間＝(最小自バグ時間＋最小子バグ時間)。</TD></TR>
+<TR><TD>最小総実働時間</TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の最小値。最小総実働時間＝(最小自実働時間＋最小子実働時間)。</TD></TR>
+<TR class="check"><TD>最小自稼働時間</TD><TD>総実働時間が最小となった時のそのスコープ自身の実行に要した全ての時間(内包するスコープの時間は除く)。最小自稼働時間＝(最小自バグ時間＋最小自実働時間)。</TD></TR>
+<TR><TD>最小自バグ時間</TD><TD>総実働時間が最小となった時のそのスコープ自身の測定の為に要した全ての時間(内包するスコープの時間は除く)。</TD></TR>
+<TR class="check"><TD>最小自実働時間</TD><TD>総実働時間が最小となった時のその内包するスコープの実行に要した全ての時間。最小子稼働時間＝(最小子バグ時間＋最小子実働時間)。</TD></TR>
+<TR><TD>最小子稼働時間</TD><TD>総実働時間が最小となった時のその内包するスコープの実行に要した全ての時間。最小子稼働時間＝(最小子バグ時間＋最小子実働時間)。</TD></TR>
+<TR class="check"><TD>最小子バグ時間</TD><TD>総実働時間が最小となった時のその内包するスコープの測定の為に要した全ての時間。</TD></TR>
+<TR><TD>最小子実働時間</TD><TD>総実働時間が最小となった時のその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間。</TD></TR>
+<TR class="check"><TD>最大スタンプ</TD><TD>総実働時間が最大となった時のそのスコープのロガー上でのスタンプ。</TD></TR>
+<TR><TD>最大総稼働時間</TD><TD>総実働時間が最大となった時のそのスコープ自身とその内包するスコープの実行に要した全ての時間。最大総稼働時間＝(最大総バグ時間＋最大総実働時間)＝(最大自稼働時間＋最大子稼働時間)</TD></TR>
+<TR class="check"><TD>最大総バグ時間</TD><TD>総実働時間が最大となった時のそのスコープ自身とその内包するスコープの測定の為に要した全てのオーバーヘッド。最大総バグ時間＝(最大自バグ時間＋最大子バグ時間)。</TD></TR>
+<TR><TD>最大総実働時間</TD><TD>そのスコープ自身とその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間の最大値。最大総実働時間＝(最大自実働時間＋最大子実働時間)。</TD></TR>
+<TR class="check"><TD>最大自稼働時間</TD><TD>総実働時間が最大となった時のそのスコープ自身の実行に要した全ての時間(内包するスコープの時間は除く)。最大自稼働時間＝(最大自バグ時間＋最大自実働時間)。</TD></TR>
+<TR><TD>最大自バグ時間</TD><TD>総実働時間が最大となった時のそのスコープ自身の測定の為に要した全ての時間(内包するスコープの時間は除く)。</TD></TR>
+<TR class="check"><TD>最大自実働時間</TD><TD>総実働時間が最大となった時のその内包するスコープの実行に要した全ての時間。最大子稼働時間＝(最大子バグ時間＋最大子実働時間)。</TD></TR>
+<TR><TD>最大子稼働時間</TD><TD>総実働時間が最大となった時のその内包するスコープの実行に要した全ての時間。最大子稼働時間＝(最大子バグ時間＋最大子実働時間)。</TD></TR>
+<TR class="check"><TD>最大子バグ時間</TD><TD>総実働時間が最大となった時のその内包するスコープの測定の為に要した全ての時間。</TD></TR>
+<TR><TD>最大子実働時間</TD><TD>総実働時間が最大となった時のその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間。</TD></TR>
+</TABLE>
+<DIV class="comment">
+    <IMG class="accessary" alt="Wraith the Trickster" src="/image/icon/wrth32.png">
+    <P>
+        「総＝自＋子」及び「稼働＝バグ＋実働」なんだと理解して頂ければ後はそれの応用です。
+    </P>
+</DIV>
 
 ## ダウンロード
 
-    バグベアード本体
-    <UL>
-        - <A class="bar" href="/cxx/ex/bugbeard/bug.h">バグベアードモジュールヘッダファイル ( bug.h )</A>
-    </UL>
-    サンプルコード
-    <UL>
-        - <A class="bar" href="/cxx/ex/bugbeard/simple.cpp">"Hello, Bugbeard!" ( simple.cpp )</A>
-        - <A class="bar" href="/cxx/ex/bugbeard/win.cpp">Windows用情報収集サンプル ( win.cpp )</A>
-        - <A class="bar" href="/cxx/ex/bugbeard/tsv.cpp">.tsv形式ログ出力＆マルチスレッドサンプル ( tsv.cpp )</A>
-        - <A class="bar" href="/cxx/ex/bugbeard/bulklog.cpp">バルクログ出力サンプル ( bulklog.cpp )</A>
-        - <A class="bar" href="/cxx/ex/bugbeard/profile.cpp">プロファイル＆カバレッジ測定サンプル ( profile.cpp )</A>
-    </UL>
-    アイコン
-    <UL>
-        - <A class="bar" href="/cxx/ex/bugbeard/bugbeard.ico">バグベアードアイコンファイル ( bugbeard.ico )</A>
-        - <A class="bar" href="/cxx/ex/bugbeard/mini-bugbeard.ico">バグベアードオーバーレイ用アイコンファイル ( mini-bugbeard.ico )</A>
-    </UL>
-    全ファイルパック
-    <UL>
-        - <A class="bar" href="/cxx/ex/bugbeard/bug.zip">バグベアード全ファイルZIPパック ( bug.zip )</A>
-    </UL>
+バグベアード本体
+
+- <A class="bar" href="/cxx/ex/bugbeard/bug.h">バグベアードモジュールヘッダファイル ( bug.h )</A>
+
+サンプルコード
+
+- <A class="bar" href="/cxx/ex/bugbeard/simple.cpp">"Hello, Bugbeard!" ( simple.cpp )</A>
+- <A class="bar" href="/cxx/ex/bugbeard/win.cpp">Windows用情報収集サンプル ( win.cpp )</A>
+- <A class="bar" href="/cxx/ex/bugbeard/tsv.cpp">.tsv形式ログ出力＆マルチスレッドサンプル ( tsv.cpp )</A>
+- <A class="bar" href="/cxx/ex/bugbeard/bulklog.cpp">バルクログ出力サンプル ( bulklog.cpp )</A>
+- <A class="bar" href="/cxx/ex/bugbeard/profile.cpp">プロファイル＆カバレッジ測定サンプル ( profile.cpp )</A>
+
+アイコン
+
+- <A class="bar" href="/cxx/ex/bugbeard/bugbeard.ico">バグベアードアイコンファイル ( bugbeard.ico )</A>
+- <A class="bar" href="/cxx/ex/bugbeard/mini-bugbeard.ico">バグベアードオーバーレイ用アイコンファイル ( mini-bugbeard.ico )</A>
+
+全ファイルパック
+
+- <A class="bar" href="/cxx/ex/bugbeard/bug.zip">バグベアード全ファイルZIPパック ( bug.zip )</A>
     
 ## バグベアード入門
 
 2009-12-12 に行われた<A href="http://atnd.org/events/1839">Boost.勉強会</A>で発表したバグベアード入門の ustream へのリンクと発表資料です。
-<UL>
-    - <A class="bar" href="http://www.ustream.tv/recorded/2980510">ustream の録画</A>
-</UL>
-<UL>
-    - <A class="bar" href="/cxx/ex/bugbeard/bugbeard.primer.pptx">発表資料 ( .pptx版 )</A>
-    - <A class="bar" href="/cxx/ex/bugbeard/bugbeard.primer.pdf">発表資料 ( .pdf版 )</A>
-</UL>
+
+- <A class="bar" href="http://www.ustream.tv/recorded/2980510">ustream の録画</A>
+
+- <A class="bar" href="/cxx/ex/bugbeard/bugbeard.primer.pptx">発表資料 ( .pptx版 )</A>
+- <A class="bar" href="/cxx/ex/bugbeard/bugbeard.primer.pdf">発表資料 ( .pdf版 )</A>
     
 ## links
 
