@@ -51,58 +51,58 @@
 - プロファイル対応
 - カバレッジ対応
 - プロファイル＆カバレッジのサンプルコードを追加。
-- bug_tsv_logger でヘッダー行を出力するように修正。
-- ヘッダー行の出力を抑止する指定マクロ(BUG_WITHOUT_TSV_LOG_HEADER, BUG_WITHOUT_TSV_PROFILE_HEADER, BUG_WITHOUT_TSV_COVERAGE_HEADER)の追加。
-- BUG_DISABLED_PSAPI指示マクロの追加( このマクロが定義されると bug_enum_module_version_info() の実装を行わない )。
-- QueryPerformance() の結果を秒＋マイクロ秒単位へ変換して表示を行う bug_QueryPerformanceSecond_stamp の追加。
-- OSVERSIONINFOEX まわりで WINVER の判定が精確でなかった箇所の修正。
-- bug_logger::stamp を private に変更し、bug_logger::get_new_stamp(), bug_logger::get_last_stamp() を追加。
-- bug_drive_info() の出力に sectors-per-cluster と bytes-per-sector を追加。
-- BUG_DEFINE_GLOBAL_LOGGER と BUG_DEFINE_GLOBAL_PROFILER の追加。
-- bug_windows_system_info() の追加。
-- bug_file_hash() を追加。
-- bug_enum_module_hash() を追加。
-- bug_logger::get_instance() の追加および BUG_LOG マクロの修正(ただのリファクタリング)。
-- bug_logger::get_process_id() および bug_logger::get_thread_id() をクラスの外に出しに bug_get_process_id() および bug_get_thread_id() に変更(ただのリファクタリング)。
-- 不必要な #include &lt;vector&gt; を削除。
-- #pragma warning(disable:1011) は VC じゃなくて Intel ででる警告なので icc に限定。
+- `bug_tsv_logger` でヘッダー行を出力するように修正。
+- ヘッダー行の出力を抑止する指定マクロ(`BUG_WITHOUT_TSV_LOG_HEADER`, `BUG_WITHOUT_TSV_PROFILE_HEADER`, `BUG_WITHOUT_TSV_COVERAGE_HEADER`)の追加。
+- `BUG_DISABLED_PSAPI` 指示マクロの追加( このマクロが定義されると `bug_enum_module_version_info()` の実装を行わない )。
+- `QueryPerformance()` の結果を秒＋マイクロ秒単位へ変換して表示を行う `bug_QueryPerformanceSecond_stamp` の追加。
+- `OSVERSIONINFOEX` まわりで `WINVER` の判定が精確でなかった箇所の修正。
+- `bug_logger::stamp` を `private` に変更し、`bug_logger::get_new_stamp()`, `bug_logger::get_last_stamp()` を追加。
+- `bug_drive_info()` の出力に sectors-per-cluster と bytes-per-sector を追加。
+- `BUG_DEFINE_GLOBAL_LOGGER` と `BUG_DEFINE_GLOBAL_PROFILER` の追加。
+- `bug_windows_system_info()` の追加。
+- `bug_file_hash()` を追加。
+- `bug_enum_module_hash()` を追加。
+- `bug_logger::get_instance()` の追加および `BUG_LOG` マクロの修正(ただのリファクタリング)。
+- `bug_logger::get_process_id()` および `bug_logger::get_thread_id()` をクラスの外に出しに `bug_get_process_id()` および `bug_get_thread_id()` に変更(ただのリファクタリング)。
+- 不必要な `#include <vector>` を削除。
+- `#pragma warning(disable:1011)` は VC じゃなくて Intel ででる警告なので icc に限定。
 
 2008-11-01 以下の点を修正。
 
-- プロファイル＆カバレッジ測定サンプル中の bug_tsv_profile_logger を bug_tsv_profiler に訂正。(間違っていたのはこのページ中の表記のみで、ダウンロード用の同サンプルのファイルは元から正しい記述である bug_tsv_profiler になっています。)
+- プロファイル＆カバレッジ測定サンプル中の `bug_tsv_profile_logger` を `bug_tsv_profiler` に訂正。(間違っていたのはこのページ中の表記のみで、ダウンロード用の同サンプルのファイルは元から正しい記述である `bug_tsv_profiler` になっています。)
 
 2010-02-14 以下の点を修正。
 
-- #include &lt;sys\stat.h&gt; を #include &lt;sys/stat.h&gt; に修正。(<A href="http://twitter.com/graighle/status/6722927223">ご指摘</A>、感謝)
-- 一部 BUT_T() が使用されていなかった箇所に BUT_T() を適用。(<A href="http://twitter.com/USAGI_WRP/status/6680888390">ご指摘</A>、感謝)
-- bug_get_winver() を Windows 7 などにも対応した最新の状態に更新。
-- <A href="http://atnd.org/events/1839">Boost.勉強会</A>で発表した<A href="#primer">バグベアード入門の ustream へのリンクと発表資料</A>の追加。
+- `#include <sys\stat.h>` を `#include <sys/stat.h>` に修正。([ご指摘](http://twitter.com/graighle/status/6722927223)、感謝)
+- 一部 `BUT_T()` が使用されていなかった箇所に `BUT_T()` を適用。([ご指摘](http://twitter.com/USAGI_WRP/status/6680888390)、感謝)
+- `bug_get_winver()` を Windows 7 などにも対応した最新の状態に更新。
+- [Boost.勉強会](http://atnd.org/events/1839)で発表した[バグベアード入門の ustream へのリンクと発表資料](#primer)の追加。
 
 2011-03-21 ステートメントハックを一度有効化した後、無効化できなくなっていた問題を修正
     
 ## contents
 
-- <A class="bar" href="#about">about バグベアード -bugbeard-</A>
-- <A class="bar" href="#why">why バグベアード？</A>
-- <A class="bar" href="#sample">ログ出力サンプル</A>
-- <A class="bar" href="#how-to-use">使用方法</A>
-- <A class="bar" href="#evil-contract">"悪魔の契約" -EVIL CONTRACT-</A>
-- <A class="bar" href="#tutorial">サンプルコード</A>
-    - <A class="bar" href="#step1">"Hello, Bugbeard!"</A>
-    - <A class="bar" href="#step2">Windows用情報収集サンプル</A>
-    - <A class="bar" href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A>
-    - <A class="bar" href="#step4">バルクログ出力サンプル</A>
-    - <A class="bar" href="#step5">プロファイル＆カバレッジ測定サンプル</A>
-    - <A class="bar" href="#reference">リファレンス</A>
-        - <A class="bar" href="#statements">ステートメントハックによってマクロ置換されるステートメント</A>
-        - <A class="bar" href="#macros">マクロ</A>
-        - <A class="bar" href="#namespace">名前空間</A>
-        - <A class="bar" href="#types">型</A>
-        - <A class="bar" href="#functions">関数</A>
-        - <A class="bar" href="#profile-columns">プロファイルデータの項目</A>
-- <A class="bar" href="#download">ダウンロード</A>
-- <A class="bar" href="#primer">バグベアード入門</A>
-- <A class="bar" href="#links">links</A>
+- [about バグベアード -bugbeard-](#about)
+- [why バグベアード？](#why)
+- [ログ出力サンプル](#sample)
+- [使用方法](#how-to-use)
+- ["悪魔の契約" -EVIL CONTRACT-](#evil-contract)
+- [サンプルコード](#tutorial)
+    - ["Hello, Bugbeard!"](#step1)
+    - [Windows用情報収集サンプル](#step2)
+    - [.tsv形式ログ出力＆マルチスレッドサンプル](#step3)
+    - [バルクログ出力サンプル](#step4)
+    - [プロファイル＆カバレッジ測定サンプル](#step5)
+    - [リファレンス](#reference)
+        - [ステートメントハックによってマクロ置換されるステートメント](#statements)
+        - [マクロ](#macros)
+        - [名前空間](#namespace)
+        - [型](#types)
+        - [関数](#functions)
+        - [プロファイルデータの項目](#profile-columns)
+- [ダウンロード](#download)
+- [バグベアード入門](#primer)
+- [links](#links)
     
 ## why バグベアード？
 
@@ -184,7 +184,7 @@
 
 > バグベアードにより出力されたログを追跡してデバッグする際は高速な検索ができるビューア(テキストエディタ)を使用することを強く推奨します。
 > バグベアードが出力するログは非常に膨大になりますので検索性能の差が残酷なまでに現れます。
-> 例えば、約200MBのログの末尾に現れる文字列を <A href="http://notepad-plus.sourceforge.net/uk/site.htm">Notepad++</A> で検索したところ約 3 分 30 秒もかかってしまいましたが、同じ環境下で<A href="http://sakura-editor.sourceforge.net/" target="_blank">サクラエディタ</A>で検索すれば 2 秒もかかりませんでした。その性能差は実に100倍以上にすら及びます。
+> 例えば、約200MBのログの末尾に現れる文字列を [Notepad++](http://notepad-plus.sourceforge.net/uk/site.htm) で検索したところ約 3 分 30 秒もかかってしまいましたが、同じ環境下で[サクラエディタ](http://sakura-editor.sourceforge.net/)で検索すれば 2 秒もかかりませんでした。その性能差は実に100倍以上にすら及びます。
     
     
 ## ログ出力サンプル
@@ -339,11 +339,11 @@
 
 ## サンプルコード
 
-- <A class="bar" href="#step1">"Hello, Bugbeard!"</A>
-- <A class="bar" href="#step2">Windows用情報収集サンプル</A>
-- <A class="bar" href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A>
-- <A class="bar" href="#step4">バルクログ出力サンプル</A>
-- <A class="bar" href="#step5">プロファイル＆カバレッジ測定サンプル</A>
+- ["Hello, Bugbeard!"](#step1)
+- [Windows用情報収集サンプル](#step2)
+- [.tsv形式ログ出力＆マルチスレッドサンプル](#step3)
+- [バルクログ出力サンプル](#step4)
+- [プロファイル＆カバレッジ測定サンプル](#step5)
             
 <A name="step1"></A>
 ### "Hello, Bugbeard!"
@@ -527,7 +527,7 @@ NDEBUG マクロが定義された場合の assert() マクロと同様に、BUG
 &nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;警告除け<br/>
 </span><span class="SpanClass0"><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">puts</span><span class="SpanClass10">(</span><span class="SpanClass6">"このサンプルでは Win32API の OutputDebugString() でログを出力しています。"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">puts</span><span class="SpanClass10">(</span><span class="SpanClass6">"ご利用のIDEのデバッグ出力表示機能や <A href="http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx" target="_blank">sysinternals の DebugView</A> などで出力内容を確認できます。"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">puts</span><span class="SpanClass10">(</span><span class="SpanClass6">"ご利用のIDEのデバッグ出力表示機能や [sysinternals の DebugView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx) などで出力内容を確認できます。"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コンパイル情報のログ出力<br/>
 </span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_compile_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
@@ -585,7 +585,7 @@ NDEBUG マクロが定義された場合の assert() マクロと同様に、BUG
 <DIV class="sample">
 <PRE>
 このサンプルでは Win32API の OutputDebugString() でログを出力しています。
-ご利用のIDEのデバッグ出力表示機能や <A href="http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx" target="_blank">sysinternals の DebugView</A> などで出力内容を確認できます。
+ご利用のIDEのデバッグ出力表示機能や [sysinternals の DebugView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx) などで出力内容を確認できます。
 </PRE>
 </DIV>
 
@@ -747,7 +747,7 @@ NDEBUG マクロが定義された場合の assert() マクロと同様に、BUG
 </span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tree_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_OutputDebugString_writer</span><span class="SpanClass10">()));</span><span class="SpanClass0"><br/>
 </DIV>
         ...この指定により標準エラーへの出力ではなく OutputDebugString() を使ってのログ出力を行っています。
-        <A href="http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx" target="_blank">DebugView</A> などでログ出力を確認できます。
+        [DebugView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx) などでログ出力を確認できます。
         上のようなログ出力結果は一見、過剰に思えるかもしれませんが、バグベアードによって出力されるログは一般的に非常に膨大なものになり、この程度ハッキリ言って誤差の範囲ですから Windows でバグベアードを利用される場合...
 <DIV class="sample">
 <span class="SpanClass0">
@@ -2141,7 +2141,7 @@ profile.cpp	107	for	0.001543	0.002672	0.003212	0.001543	0.000213	0.001330	0.0018
         <IMG class="accessary" alt="Wraith the Trickster" src="/image/icon/wrth32.png">
         <P>
             タブ区切りテキストなんで普通にテキスト表示しただけだとカラムがずれた状態で表示されます。MS-Excel のシートに貼り付けるなり、その他のデータ形式に変換するなりしてご利用ください。
-            各項目の意味については<A href="#profile-columns">リファレンス</A>を参照してください。
+            各項目の意味については[リファレンス](#profile-columns)を参照してください。
         </P>
         <P>
             このデータを元にプログラムの高速化を図る場合は、"合計自実働時間"順にソートし最も"合計自実働時間"が大きなスコープから高速化を検討するとよいでしょう。またその際には"最大スタンプ"や"最小スタンプ"を手がかりに、どういったフローの時に時間がかかって逆にどういったフローの時に時間がかかっていないのか参考にするのとよいでしょう。
@@ -2198,18 +2198,18 @@ profile.cpp	88	if (1 < pn) == true;	0
 ...このサンプルではプロファイルおよびカバレッジの測定結果を両方とも出力していますが、どちらか片方のみ出力させることも可能です。その場合は出力させたくないほうのライターとして NULL を指定してください。
         </P>
         <P>
-            尚、マルチスレッドの場合はスレッド毎に定義する必要があります。マルチスレッドでのプロファイラの使い方は基本的にロガーと同じですので *_logger と *_profiler という名称の違いはありますが、 <A href="#step3">.tsv形式ログ出力＆マルチスレッドサンプル</A> を参考してください。
+            尚、マルチスレッドの場合はスレッド毎に定義する必要があります。マルチスレッドでのプロファイラの使い方は基本的にロガーと同じですので *_logger と *_profiler という名称の違いはありますが、 [.tsv形式ログ出力＆マルチスレッドサンプル](#step3) を参考してください。
         </P>
 
 
 ## リファレンス
 
-- <A class="bar" href="#statements">ステートメントハックによってマクロ置換されるステートメント</A>
-- <A class="bar" href="#macros">マクロ</A>
-- <A class="bar" href="#namespace">名前空間</A>
-- <A class="bar" href="#types">型</A>
-- <A class="bar" href="#functions">関数</A>
-- <A class="bar" href="#profile-columns">プロファイルデータの項目</A>
+- [ステートメントハックによってマクロ置換されるステートメント](#statements)
+- [マクロ](#macros)
+- [名前空間](#namespace)
+- [型](#types)
+- [関数](#functions)
+- [プロファイルデータの項目](#profile-columns)
             
 <A name="statements"></A>
 ### ステートメントハックによってマクロ置換されるステートメント
@@ -2239,9 +2239,9 @@ profile.cpp	88	if (1 < pn) == true;	0
 
 <TABLE class="list">
 <TR><TH class="header">マクロ</TH><TH class="header">説明</TH></TR>
-<TR><TD>BUG_DISABLE_BUGBEARD</TD><TD>このマクロが定義されいる場合、バグベアードはロードされず、<A href="#evil-contract">"悪魔の契約"</A>も不要です。</TD></TR>
-<TR class="check"><TD>BUG_EVIL_CONTRACT</TD><TD>バグベアードを利用するには<A href="#evil-contract">"悪魔の契約"</A>をよく読んでその意味を理解した上でこのマクロを定義してください。</TD></TR>
-<TR><TD>BUG_STATEMENT_HACK</TD><TD>バグベアードの真骨頂であるステートメントハックを有効にするにはこのマクロを定義した上で bug.h をインクルードしてください。逆に一度有効にしたステートメントハックをソースコードの途中から無効したい場合はこのマクロの定義を解除(#undef)した上で再度 bug.h をインクルードしてください。<BR>cf. <A href="#statements">ステートメントハックによってマクロ置換されるステートメント</A></TD></TR>
+<TR><TD>BUG_DISABLE_BUGBEARD</TD><TD>このマクロが定義されいる場合、バグベアードはロードされず、["悪魔の契約"](#evil-contract)も不要です。</TD></TR>
+<TR class="check"><TD>BUG_EVIL_CONTRACT</TD><TD>バグベアードを利用するには["悪魔の契約"](#evil-contract)をよく読んでその意味を理解した上でこのマクロを定義してください。</TD></TR>
+<TR><TD>BUG_STATEMENT_HACK</TD><TD>バグベアードの真骨頂であるステートメントハックを有効にするにはこのマクロを定義した上で bug.h をインクルードしてください。逆に一度有効にしたステートメントハックをソースコードの途中から無効したい場合はこのマクロの定義を解除(#undef)した上で再度 bug.h をインクルードしてください。<BR>cf. [ステートメントハックによってマクロ置換されるステートメント](#statements)</TD></TR>
 <TR class="check"><TD>BUG_USE_CHAR</TD><TD>char型をバグベアードで使用する文字型として指定する場合にこのマクロを定義してください。このマクロも BUG_USE_WCHAR もともに定義されていない場合で且つ、UNICODE マクロおよび _UNICODE マクロが定義されていない場合、このマクロは自動で定義されます。</TD></TR>
 <TR><TD>BUG_USE_WCHAR</TD><TD>wchar_t型をバグベアードで使用する文字型として指定する場合にこのマクロを定義してください。このマクロも BUG_USE_CHAR もともに定義されていない場合で且つ、UNICODE マクロもしくは _UNICODE マクロが定義されていた場合、このマクロは自動で定義されます。</TD></TR>
 <TR class="check"><TD>BUG_SINGLE_PROCESS</TD><TD>シングルプロセスで動作するプログラム上でバグベアードを利用する場合、このマクロを定義してください。このマクロも BUG_MULTI_PROCESS マクロもともに定義されていない場合、このマクロは自動で定義されます。</TD></TR>
@@ -2254,8 +2254,8 @@ profile.cpp	88	if (1 < pn) == true;	0
 <TR><TD>BUG_FUNCTION_NAME</TD><TD>__function__ のような関数名を取得する組み込みマクロを利用できる処理系で、関数名をログに出力させた場合にこのマクロでその処理系が持つ関数名取得用組み込みマクロを指定してください。このマクロが定義されていない場合でも処理系によってはこのマクロは自動で定義されます。</TD></TR>
 <TR class="check"><TD>BUG_NO_FUNCTION_NAME</TD><TD>BUG_FUNCTION_NAME マクロが自動で定義される処理系で、関数名をログに出力させたく場合はこのマクロを定義することで BUG_FUNCTION_NAME マクロの自動定義を抑止できます。</TD></TR>
 <TR><TD>BUG_DISABLED_PSAPI</TD><TD>Windows で利用する際にお使いのコンパイル環境で PSAPI が利用できない場合は、このマクロを定義してください。このマクロが定義されると bug_enum_module_version_info() の実装が抑止されます。</TD></TR>
-<TR class="check"><TD>BUG_DEFINE_GLOBAL_LOGGER</TD><TD>このマクロはシンタックスシュガー的なもので、このマクロでグローバルなロガーの定義を指定おくとバグベアードのヘッダーファイル内でロガーの定義が行われます。このマクロを利用することでロガーを定義する際にバグベアードのヘッダーファイルを２度インクルードすることを回避できます。使用例は <A href="#step5">プロファイル＆カバレッジ測定サンプル</A> を参照してください。</TD></TR>
-<TR><TD>BUG_DEFINE_GLOBAL_PROFILER</TD><TD>このマクロはシンタックスシュガー的なもので、このマクロでグローバルなプロファイラの定義を指定おくとバグベアードのヘッダーファイル内でプロファイラの定義が行われます。このマクロを利用することでプロファイラを定義する際にバグベアードのヘッダーファイルを２度インクルードすることを回避できます。使用例は <A href="#step5">プロファイル＆カバレッジ測定サンプル</A> を参照してください。</TD></TR>
+<TR class="check"><TD>BUG_DEFINE_GLOBAL_LOGGER</TD><TD>このマクロはシンタックスシュガー的なもので、このマクロでグローバルなロガーの定義を指定おくとバグベアードのヘッダーファイル内でロガーの定義が行われます。このマクロを利用することでロガーを定義する際にバグベアードのヘッダーファイルを２度インクルードすることを回避できます。使用例は [プロファイル＆カバレッジ測定サンプル](#step5) を参照してください。</TD></TR>
+<TR><TD>BUG_DEFINE_GLOBAL_PROFILER</TD><TD>このマクロはシンタックスシュガー的なもので、このマクロでグローバルなプロファイラの定義を指定おくとバグベアードのヘッダーファイル内でプロファイラの定義が行われます。このマクロを利用することでプロファイラを定義する際にバグベアードのヘッダーファイルを２度インクルードすることを回避できます。使用例は [プロファイル＆カバレッジ測定サンプル](#step5) を参照してください。</TD></TR>
 <TR class="check"><TD>BUG_WITHOUT_TSV_LOG_HEADER</TD><TD>このマクロが定義されていると .tsv ログのヘッダー行を出力しなくなります。</TD></TR>
 <TR><TD>BUG_WITHOUT_TSV_PROFILE_HEADER</TD><TD>このマクロが定義されていると .tsv プロファイルデータのヘッダー行を出力しなくなります。</TD></TR>
 <TR class="check"><TD>BUG_WITHOUT_TSV_COVERAGE_HEADER</TD><TD>このマクロが定義されていると .tsv カバレッジデータのヘッダー行を出力しなくなります。</TD></TR>
@@ -2492,7 +2492,7 @@ stamp_title
 
 <TABLE class="list">
 <TR><TH class="header">関数名</TH><TH class="header">説明</TH></TR>
-<TR><TD>bug_binary_prefix</TD><TD>符号なし64ビット値を<A href="http://ja.wikipedia.org/wiki/二進接頭辞" >二進接頭辞</A>で修飾した文字列(bug_string型)に変換します。bug_binary_prefix(39029211136, BUG_T("Byte")) で呼び出すと "36.3GiByte(39029211136)" のような文字列が返ります。第二引数は省略可。</TD></TR>
+<TR><TD>bug_binary_prefix</TD><TD>符号なし64ビット値を[二進接頭辞](http://ja.wikipedia.org/wiki/二進接頭辞)で修飾した文字列(bug_string型)に変換します。bug_binary_prefix(39029211136, BUG_T("Byte")) で呼び出すと "36.3GiByte(39029211136)" のような文字列が返ります。第二引数は省略可。</TD></TR>
 <TR class="check"><TD>bug_hex_encode</TD><TD>与えられたバイナリデータをHEXエンコードされた文字列(bug_string型)に変換します。</TD></TR>
 <TR><TD>bug_encode_value</TD><TD>各種データを文字列(bug_string型)に変換します。BUG_VALマクロで呼び出される bug_encode() はこの bug_encode_value() を利用して各種データを文字列に変換します。その他なデータ型は bug_hex_encode() で HEX エンコードされます。独自のデータ型を HEX エンコード以外の形でログに残したい場合は自前でこの bug_encode_value() のオーバーロードを定義してください。</TD></TR>
 <TR class="check"><TD>bug_encode</TD><TD>BUG_VALマクロ用の本体関数で、BUG_VALマクロで指定された変数の「名前」、「アドレス」、「内容」をひとつの文字列(bug_string型)にまとめます。</TD></TR>
@@ -2582,33 +2582,33 @@ stamp_title
 
 バグベアード本体
 
-- <A class="bar" href="/cxx/ex/bugbeard/bug.h">バグベアードモジュールヘッダファイル ( bug.h )</A>
+- [バグベアードモジュールヘッダファイル ( bug.h )](/cxx/ex/bugbeard/bug.h)
 
 サンプルコード
 
-- <A class="bar" href="/cxx/ex/bugbeard/simple.cpp">"Hello, Bugbeard!" ( simple.cpp )</A>
-- <A class="bar" href="/cxx/ex/bugbeard/win.cpp">Windows用情報収集サンプル ( win.cpp )</A>
-- <A class="bar" href="/cxx/ex/bugbeard/tsv.cpp">.tsv形式ログ出力＆マルチスレッドサンプル ( tsv.cpp )</A>
-- <A class="bar" href="/cxx/ex/bugbeard/bulklog.cpp">バルクログ出力サンプル ( bulklog.cpp )</A>
-- <A class="bar" href="/cxx/ex/bugbeard/profile.cpp">プロファイル＆カバレッジ測定サンプル ( profile.cpp )</A>
+- ["Hello, Bugbeard!" ( simple.cpp )](/cxx/ex/bugbeard/simple.cpp)
+- [Windows用情報収集サンプル ( win.cpp )](/cxx/ex/bugbeard/win.cpp)
+- [.tsv形式ログ出力＆マルチスレッドサンプル ( tsv.cpp )](/cxx/ex/bugbeard/tsv.cpp)
+- [バルクログ出力サンプル ( bulklog.cpp )](/cxx/ex/bugbeard/bulklog.cpp)
+- [プロファイル＆カバレッジ測定サンプル ( profile.cpp )](/cxx/ex/bugbeard/profile.cpp)
 
 アイコン
 
-- <A class="bar" href="/cxx/ex/bugbeard/bugbeard.ico">バグベアードアイコンファイル ( bugbeard.ico )</A>
-- <A class="bar" href="/cxx/ex/bugbeard/mini-bugbeard.ico">バグベアードオーバーレイ用アイコンファイル ( mini-bugbeard.ico )</A>
+- [バグベアードアイコンファイル ( bugbeard.ico )](/cxx/ex/bugbeard/bugbeard.ico)
+- [バグベアードオーバーレイ用アイコンファイル ( mini-bugbeard.ico )](/cxx/ex/bugbeard/mini-bugbeard.ico)
 
 全ファイルパック
 
-- <A class="bar" href="/cxx/ex/bugbeard/bug.zip">バグベアード全ファイルZIPパック ( bug.zip )</A>
+- [バグベアード全ファイルZIPパック ( bug.zip )](/cxx/ex/bugbeard/bug.zip)
     
 ## バグベアード入門
 
-2009-12-12 に行われた<A href="http://atnd.org/events/1839">Boost.勉強会</A>で発表したバグベアード入門の ustream へのリンクと発表資料です。
+2009-12-12 に行われた[Boost.勉強会](http://atnd.org/events/1839)で発表したバグベアード入門の ustream へのリンクと発表資料です。
 
-- <A class="bar" href="http://www.ustream.tv/recorded/2980510">ustream の録画</A>
+- [ustream の録画](http://www.ustream.tv/recorded/2980510)
 
-- <A class="bar" href="/cxx/ex/bugbeard/bugbeard.primer.pptx">発表資料 ( .pptx版 )</A>
-- <A class="bar" href="/cxx/ex/bugbeard/bugbeard.primer.pdf">発表資料 ( .pdf版 )</A>
+- [発表資料 ( .pptx版 )](/cxx/ex/bugbeard/bugbeard.primer.pptx)
+- [発表資料 ( .pdf版 )](/cxx/ex/bugbeard/bugbeard.primer.pdf)
     
 ## links
 
