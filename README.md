@@ -447,147 +447,143 @@ int main(int argc, char args[])
 
 このサンプルでの一番の肝は...
 
-<DIV class="sample">
-<span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;[BUG]bugbeard<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(NDEBUG)<br/>
-#define&nbsp;BUG_DISABLE_BUGBEARD&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;リリース版ではバグベアードをロードしない<br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_EVIL_CONTRACT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"悪魔の契約"<br/>
-</span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ロガーを定義する為にステートメントハックを有効にしない状態で include<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass2">//&nbsp;&nbsp;標準エラーにツリー形式の出力を行うロガーの定義<br/>
-</span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tree_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_file_writer_base</span><span class="SpanClass10">(</span><span class="SpanClass11">stderr</span><span class="SpanClass10">)));</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_STATEMENT_HACK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックの設定<br/>
-</span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックを有効にする為、再度 include<br/>
-</span>
-</DIV>
+```c++
+///////////////////////////////////////////////////////////////////////////////
+//
+//  [BUG]bugbeard
+//
+
+#if defined(NDEBUG)
+#define BUG_DISABLE_BUGBEARD    //  リリース版ではバグベアードをロードしない
+#endif
+
+#define BUG_EVIL_CONTRACT       //  "悪魔の契約"
+#include "bug.h"                //  ロガーを定義する為にステートメントハックを有効にしない状態で include
+
+//  標準エラーにツリー形式の出力を行うロガーの定義
+BUG_define_logger(new bugbeard::bug_tree_logger(new bugbeard::bug_file_writer_base(stderr)));
+
+#define BUG_STATEMENT_HACK      //  ステートメントハックの設定
+#include "bug.h"                //  ステートメントハックを有効にする為、再度 include
+```
 
 ...この部分ですが、まぁ、最初は所謂 "おまじない" の類だとでも思ってください。
 
-BUG_define_logger() の行によりログの出力形式等を指定しています。
+`BUG_define_logger()` の行によりログの出力形式等を指定しています。
 
-NDEBUG マクロが定義された場合の assert() マクロと同様に、BUG_DISABLE_BUGBEARD マクロが定義されると BUG_* な命名になっているコードは全て消え去ります。
+`NDEBUG` マクロが定義された場合の `assert()` マクロと同様に、`BUG_DISABLE_BUGBEARD` マクロが定義されると `BUG_*` な命名になっているコードは全て消え去ります。
 
-なお、Windowsではデフォルトで標準エラーがアスキーモードになっている為、改行コード "\r\n" が無駄に拡張され "\r\r\n" になってしまうので標準エラーをファイルへリダイレクトすると不格好になります。Windowsでは bugbeard::bug_file_writer で直接ファイルに出力するか、bugbeard::bug_OutputDebugString_writer で OutputDebugString() で出力することを推奨します。
+なお、Windowsではデフォルトで標準エラーがアスキーモードになっている為、改行コード `"\r\n"` が無駄に拡張され `"\r\r\n"` になってしまうので標準エラーをファイルへリダイレクトすると不格好になります。Windowsでは `bugbeard::bug_file_writer` で直接ファイルに出力するか、`bugbeard::bug_OutputDebugString_writer` で `OutputDebugString()` で出力することを推奨します。
 
 <A name="step2"></A>
 ### Windows用情報収集サンプル
 
 #### サンプルコード
 
-<DIV class="sample">
-<span class="SpanClass3">/******************************************************************************<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;バグベアード&nbsp;-bugbeard-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;サンプル&nbsp;"win.cpp"&nbsp;ソースファイル<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coded&nbsp;by&nbsp;Wraith&nbsp;in&nbsp;Feb&nbsp;18,&nbsp;2007.<br/>
-******************************************************************************/</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;includes<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#include&nbsp;&lt;stdio.h&gt;<br/>
-#include&nbsp;&lt;stdlib.h&gt;<br/>
-</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;[BUG]bugbeard<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(NDEBUG)<br/>
-#define&nbsp;BUG_DISABLE_BUGBEARD&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;リリース版ではバグベアードをロードしない<br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_EVIL_CONTRACT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"悪魔の契約"<br/>
-</span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ロガーを定義する為にステートメントハックを有効にしない状態で include<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass2">//&nbsp;&nbsp;OutputDebugString()&nbsp;でツリー形式の出力を行うロガーの定義<br/>
-</span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tree_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_OutputDebugString_writer</span><span class="SpanClass10">()));</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_STATEMENT_HACK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックの設定<br/>
-</span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックを有効にする為、再度 include<br/>
-</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;user&nbsp;codes<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">main</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass16">char</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass11">args</span><span class="SpanClass10">[])</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;警告除け<br/>
-</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">puts</span><span class="SpanClass10">(</span><span class="SpanClass6">"このサンプルでは Win32API の OutputDebugString() でログを出力しています。"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">puts</span><span class="SpanClass10">(</span><span class="SpanClass6">"ご利用のIDEのデバッグ出力表示機能や [sysinternals の DebugView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx) などで出力内容を確認できます。"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コンパイル情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_compile_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コマンドライン引数のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_arg_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]Windowsバージョン情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_windows_version_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]Windowsシステム情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_windows_system_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-</span><span class="SpanClass9">#if&nbsp;0x0500&nbsp;&lt;=&nbsp;WINVER<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;各種モジュールバージョン情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_module_version_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-</span><span class="SpanClass9">#if&nbsp;0x0500&nbsp;&lt;=&nbsp;WINVER<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;各種モジュールハッシュ値のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_module_hash</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-</span><span class="SpanClass9">#if&nbsp;0x0500&nbsp;&lt;=&nbsp;WINVER<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]メモリ情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_memory_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]ドライブ情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_drive_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass9">#if&nbsp;0x0500&nbsp;&lt;=&nbsp;WINVER<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]モニター情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_monitor_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]ディスプレイ情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_display_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG](全ての)環境変数情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_env</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">EXIT_SUCCESS</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass3">/******************************************************************************<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;□■□■&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wraith&nbsp;the&nbsp;Trickster&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;□■□■<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;■□■□&nbsp;～I'll&nbsp;go&nbsp;with&nbsp;heaven's&nbsp;advantage&nbsp;and&nbsp;fool's&nbsp;wisdom.～&nbsp;■□■□<br/>
-******************************************************************************/</span><span class="SpanClass0"><br/>
-</span>
-</DIV>
+```c++
+/******************************************************************************
+    バグベアード -bugbeard-
+        サンプル "win.cpp" ソースファイル
+                                            Coded by Wraith in Feb 18, 2007.
+******************************************************************************/
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  includes
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  [BUG]bugbeard
+//
+
+#if defined(NDEBUG)
+#define BUG_DISABLE_BUGBEARD    //  リリース版ではバグベアードをロードしない
+#endif
+
+#define BUG_EVIL_CONTRACT       //  "悪魔の契約"
+#include "bug.h"                //  ロガーを定義する為にステートメントハックを有効にしない状態で include
+
+//  OutputDebugString() でツリー形式の出力を行うロガーの定義
+BUG_define_logger(new bugbeard::bug_tree_logger(new bugbeard::bug_OutputDebugString_writer()));
+
+#define BUG_STATEMENT_HACK      //  ステートメントハックの設定
+#include "bug.h"                //  ステートメントハックを有効にする為、再度 include
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  user codes
+//
+
+int main(int argc, char *args[])
+{
+    argc, args;                 //  警告除け
+
+    puts("このサンプルでは Win32API の OutputDebugString() でログを出力しています。");
+    puts("ご利用のIDEのデバッグ出力表示機能や [sysinternals の DebugView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx) などで出力内容を確認できます。");
+    
+    //  [BUG]コンパイル情報のログ出力
+    BUG_exec(bugbeard::bug_compile_info(BUG_LOG));
+
+    //  [BUG]コマンドライン引数のログ出力
+    BUG_exec(bugbeard::bug_arg_info(BUG_LOG, argc, args));
+    
+    //  [BUG]Windowsバージョン情報のログ出力
+    BUG_exec(bugbeard::bug_windows_version_info(BUG_LOG));
+    
+    //  [BUG]Windowsシステム情報のログ出力
+    BUG_exec(bugbeard::bug_windows_system_info(BUG_LOG));
+    
+#if 0x0500 <= WINVER
+    //  各種モジュールバージョン情報のログ出力
+    BUG_exec(bugbeard::bug_enum_module_version_info(BUG_LOG));
+#endif
+    
+#if 0x0500 <= WINVER
+    //  各種モジュールハッシュ値のログ出力
+    BUG_exec(bugbeard::bug_enum_module_hash(BUG_LOG));
+#endif
+    
+#if 0x0500 <= WINVER
+    //  [BUG]メモリ情報のログ出力
+    BUG_exec(bugbeard::bug_memory_info(BUG_LOG));
+#endif
+
+    //  [BUG]ドライブ情報のログ出力
+    BUG_exec(bugbeard::bug_enum_drive_info(BUG_LOG));
+
+#if 0x0500 <= WINVER
+    //  [BUG]モニター情報のログ出力
+    BUG_exec(bugbeard::bug_enum_monitor_info(BUG_LOG));
+    //  [BUG]ディスプレイ情報のログ出力
+    BUG_exec(bugbeard::bug_enum_display_info(BUG_LOG));
+#endif
+
+    //  [BUG](全ての)環境変数情報のログ出力
+    BUG_exec(bugbeard::bug_enum_env(BUG_LOG));
+    
+    return EXIT_SUCCESS;
+}
+
+
+/******************************************************************************
+    □■□■                  Wraith the Trickster                  □■□■
+    ■□■□ ～I'll go with heaven's advantage and fool's wisdom.～ ■□■□
+******************************************************************************/
+```
 
 #### 出力結果(標準出力)
 
-<DIV class="sample">
-<PRE>
+```txt
 このサンプルでは Win32API の OutputDebugString() でログを出力しています。
 ご利用のIDEのデバッグ出力表示機能や [sysinternals の DebugView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx) などで出力内容を確認できます。
-</PRE>
-</DIV>
+```
 
 #### 出力結果(OutputDebugString())
 
