@@ -228,35 +228,39 @@
 <A name="illegal"></A>
 <DT>規格違反</DT>
 <DD>
-    バグベアードは「ステートメントのマクロでの置換」という最上級の規格違反を犯しています。
-    これによりバグベアードを利用したプログラムはあらゆる C++ コンパイラでの動作保証は得られなくなります。
-    ただし、これはバグベアードの「ステートメントハック」が有効になっている場合の話であり、バグベアードがロードされていない状態を含め「ステートメントハック」が無効になっている場合はその限りではありません。
-    そして通常、リリース版のプログラムではバグベアードをロードしないことをオススメします。
+バグベアードは「ステートメントのマクロでの置換」という最上級の規格違反を犯しています。
+これによりバグベアードを利用したプログラムはあらゆる C++ コンパイラでの動作保証は得られなくなります。
+ただし、これはバグベアードの「ステートメントハック」が有効になっている場合の話であり、バグベアードがロードされていない状態を含め「ステートメントハック」が無効になっている場合はその限りではありません。
+そして通常、リリース版のプログラムではバグベアードをロードしないことをオススメします。
 </DD>
 
 <A name="stain-error-info"></A>
 <DT>エラー情報の侵食</DT>
 <DD>
-    ユーザプログラムを隅々まで侵食するバグベアードのログ出力コードの影響により、エラー情報(Win32API の GetLastError()で得られるエラーコードやグローバル変数に保持されるC/C++標準ライブラリのエラーコード)が上書きされてしまう可能性があります。
-    前項と同様にこれはバグベアードをロードしている状態でのみ発生しうる問題であり、バグベアードをロードしていない状態であればこの問題は発生しません。
+ユーザプログラムを隅々まで侵食するバグベアードのログ出力コードの影響により、エラー情報(Win32API の GetLastError()で得られるエラーコードやグローバル変数に保持されるC/C++標準ライブラリのエラーコード)が上書きされてしまう可能性があります。
+前項と同様にこれはバグベアードをロードしている状態でのみ発生しうる問題であり、バグベアードをロードしていない状態であればこの問題は発生しません。
 </DD>
 
 <A name="restrict-statement"></A>
 <DT>構文の制限</DT>
 <DD>
-    バグベアードのステートメントハックの実装の都合より...
-    <DIV class="sample">
-    <span class="SpanClass5">if</span>&nbsp;<span class="SpanClass10">(</span><span class="SpanClass16">int</span>&nbsp;<span class="SpanClass11">i</span>&nbsp;<span class="SpanClass10">=</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">)</span>&nbsp;<span class="SpanClass10">...</span><br/>
-    <span class="SpanClass5">switch</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span>&nbsp;<span class="SpanClass11">i</span>&nbsp;<span class="SpanClass10">=</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">)</span>&nbsp;<span class="SpanClass10">...</span><br/>
-    <span class="SpanClass5">while</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span>&nbsp;<span class="SpanClass11">i</span>&nbsp;<span class="SpanClass10">=</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">)</span>&nbsp;<span class="SpanClass10">...</span><br/>
-    </DIV>
-    ...のような形でステートメントに属する丸カッコで囲まれた箇所で変数を定義することができません。また...
-    <DIV class="sample">
-    <span class="SpanClass16">void</span>&nbsp;<span class="SpanClass11">func</span><span class="SpanClass10">(...)</span>&nbsp;<span class="SpanClass5">throw</span><span class="SpanClass10">(...);</span><br/>
-    </DIV>
-    ...のような例外仕様構文が一切使えません。
-    ただし、for ステートメントに関してはこの例外となり for(int i = 0;... などとしても問題ありません。
-    また、そもそもステートメントハックを適用しない箇所ではこの制限はありません。
+バグベアードのステートメントハックの実装の都合より...
+
+```c++
+if (int i = func) ...
+switch(int i = func) ...
+while(int i = func) ...
+```
+
+...のような形でステートメントに属する丸カッコで囲まれた箇所で変数を定義することができません。また...
+
+```c++
+void func(...) throw(...);
+```
+
+...のような例外仕様構文が一切使えません。
+ただし、for ステートメントに関してはこの例外となり for(int i = 0;... などとしても問題ありません。
+また、そもそもステートメントハックを適用しない箇所ではこの制限はありません。
 </DD>
 
 <A name="unstable-work"></A>
