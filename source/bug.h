@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
     バグベアード -bugbeard-
         バグベアードヘッダファイル
                                             Coded by Wraith in Feb 23, 2003.
@@ -13,9 +13,15 @@
 //      https://github.com/wraith13/bugbeard/blob/master/LICENSE_1_0.txt
 //
 
-#ifndef BUGBEARD_BUG_H
+#if !defined(BUGBEARD_BUG_H)
 
 #define BUGBEARD_BUG_H
+
+
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable:4456)
+#endif
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -272,6 +278,134 @@
 //#define BUG_WITHOUT_TSV_COVERAGE_HEADER
 
 
+//
+//  ☆.tsv コールグラフデータヘッダー出力拒否指定マクロ
+//
+
+//  このマクロが定義されていると .tsv コールグラフデータのヘッダー行を出力
+//  しなくなります。
+//
+//  コンパイル時に指定するのが面倒な場合は以下のコメント行(コメントを解除
+//  して)有効にしてください。
+//
+//#define BUG_WITHOUT_TSV_CALLGRAPH_HEADER
+
+
+//
+//  ☆プロファイル計算方式指定マクロ
+//
+
+//  再帰的関数呼び出しが行われた場合の [合計総稼働時間],[合計総バグ時間],
+//  [合計総実働時間],[合計子稼働時間],[合計子バグ時間],[合計子実働時間] の
+//  計算方法を指定します。([合計自稼働時間],[合計自バグ時間],[合計自実働時間] 
+//  はこの指定の影響を受けません。)
+//
+//  # 合計から平均を計算する為、 [平均総稼働時間],[平均総バグ時間],
+//  # [平均総実働時間],[平均子稼働時間],[平均子バグ時間],[平均子実働時間] も
+//  # 影響を受けます。
+//
+//  BUG_SMART_PROFILE を指定した場合、[合計総*時間], [合計子*時間] に再帰的
+//  関数呼び出しが行われた場合に重複して時間が加算されることはなく、必ず
+//  @OVERALL_SCOPE の同項目以下の時間に収まり直感的に理解しやすく且つチュー
+//  ニングの目安として望ましい時間となります。
+//
+//  BUG_STRICT_PROFILE を指定した場合、再帰的関数呼び出しが行われた場合でも
+//  特別扱いはせずに [合計総*時間], [合計子*時間] に通常の関数呼び出しと同様
+//  に加算します。この為、 @OVERALL_SCOPE の同項目を超えるようなケースも存在
+//  し、直感的には一見おかしな値に見えますが、厳密にはむしろこちらのほうが理
+//  屈的に正しい値であると言えます。
+//
+//  次の二つのコールスタックとその所要時間の例を考えてみてください。
+//
+//     例１： @OVERALL_SCOPE(3秒) → A1(3秒) → B1(2秒) → C1(1秒)
+//     例２： @OVERALL_SCOPE(3秒) → A2(3秒) → A2(2秒) → A2(1秒)
+//
+//  ...のようになる場合、例１のプロファイリングの結果は...
+//
+//     BUG_SMART_PROFILE:
+//         @OVERALL_SCOPE: 合計総時間:3秒 == 合計自時間:0秒 + 合計子時間:3秒
+//         A1:             合計総時間:3秒 == 合計自時間:1秒 + 合計子時間:2秒
+//         B1:             合計総時間:2秒 == 合計自時間:1秒 + 合計子時間:1秒
+//         C1:             合計総時間:1秒 == 合計自時間:1秒 + 合計子時間:0秒
+//
+//     BUG_STRICT_PROFILE:
+//         @OVERALL_SCOPE: 合計総時間:3秒 == 合計自時間:0秒 + 合計子時間:3秒
+//         A1:             合計総時間:3秒 == 合計自時間:1秒 + 合計子時間:2秒
+//         B1:             合計総時間:2秒 == 合計自時間:1秒 + 合計子時間:1秒
+//         C1:             合計総時間:1秒 == 合計自時間:1秒 + 合計子時間:0秒
+//
+//  ...のようになり内容は変わりませんが、例２のプロファイリングの結果は...
+//
+//     BUG_SMART_PROFILE:
+//         @OVERALL_SCOPE: 合計総時間:3秒 == 合計自時間:0秒 + 合計子時間:3秒
+//         A2:             合計総時間:3秒 == 合計自時間:3秒 + 合計子時間:0秒
+//
+//     BUG_STRICT_PROFILE:
+//         @OVERALL_SCOPE: 合計総時間:3秒 == 合計自時間:0秒 + 合計子時間:3秒
+//         A2:             合計総時間:6秒 == 合計自時間:3秒 + 合計子時間:3秒
+//
+//  ...のようになり大きく変わります。先述したように BUG_SMART_PROFILE のほう
+//  が直感的に正しく且つ分かりやすい値となっており、一方で BUG_STRICT_PROFILE 
+//  のほうは A2 の各計測時間が例１の A1, B1, C1 の合計と等しく厳密にはこちら
+//  の値こそが正しいと言えるでしょう。
+//
+//  理屈的には BUG_STRICT_PROFILE の計算方法が正しいのですが、プロファイリング
+//  機能はとしての目的を考えると BUG_STRICT_PROFILE の計算方法では紛らわしい為 
+//  BUG_SMART_PROFILE をデフォルトとしています。しかし、 BUG_STRICT_PROFILE で
+//  ないと計測上辻褄合わせができなくなる場面も考えられますので、状況に応じて
+//  適切な方を指定してください。
+//
+//  コンパイル時に指定するのが面倒な場合は以下のコメント行のどちらかを(コメン
+//  トを解除して)有効にしてください。
+//
+//#define BUG_SMART_PROFILE
+//#define BUG_STRICT_PROFILE
+
+#if !defined(BUG_SMART_PROFILE) && !defined(BUG_STRICT_PROFILE)
+#   define BUG_SMART_PROFILE
+#endif
+
+
+//
+//  ☆プロファイルデータ出力カラム指定マクロ
+//
+
+//  ....
+//
+//#define BUG_PROFILE_OUTPUT_FULL_DATA
+//#define BUG_PROFILE_OUTPUT_CORE_DATA
+
+#if !defined(BUG_PROFILE_OUTPUT_FULL_DATA) && !defined(BUG_PROFILE_OUTPUT_CORE_DATA)
+#   define BUG_PROFILE_OUTPUT_FULL_DATA
+#endif
+
+
+//
+//  ☆C++11モード有効化指定マクロ
+//
+
+//  ....
+//
+//#define BUG_ENABLED_CPP11_OR_LATER
+
+#if !defined(BUG_ENABLED_CPP11_OR_LATER)
+#   if 201103L <= __cplusplus
+#       define BUG_ENABLED_CPP11_OR_LATER
+#   endif
+#endif
+
+
+//
+//  ☆強制終了方法指定マクロ
+//
+
+//  timelimit violation 発生時のプログラムの停止方法を指定します。 
+
+#if !defined(TRICKLIB_BUG_TIMELIMIT_EXIT)
+#define TRICKLIB_BUG_TIMELIMIT_EXIT    exit(EXIT_FAILURE)
+#endif
+
+
 //  逆意定義
 
 #if !defined(BUG_DISABLE_BUGBEARD)
@@ -294,10 +428,14 @@
 
 #if defined(BUG_USE_CHAR)
 #   define BUG_CHAR_TYPE char
+#   define BUG_LPTSTR LPSTR
+#   define BUG_LPCTSTR LPCSTR
 #   define BUG_T_CORE(X) X
 #   define BUG_API_T(X) X##A
 #else
 #   define BUG_CHAR_TYPE wchar_t
+#   define BUG_LPTSTR LPWSTR
+#   define BUG_LPCTSTR LPCWSTR
 #   define BUG_T_CORE(X) L##X
 #   define BUG_API_T(X) X##W
 #endif
@@ -317,7 +455,7 @@
 //  コンパイラ情報
 //
 
-#ifndef BUG_COMPILER_NAME
+#if !defined(BUG_COMPILER_NAME)
 #   if  defined(__INTEL_COMPILER)
 #       define  BUG_COMPILER_NAME           "Intel C/C++ Compiler"
 #       define  BUG_COMPILER_VERSION_NUMBER __INTEL_COMPILER
@@ -564,7 +702,7 @@
 #include <assert.h>
 
 #include <string>
-#include <deque>
+#include <vector>
 #include <stack>
 #include <map>
 #include <iostream>
@@ -643,6 +781,9 @@ namespace bugbeard
 #   define BUG_FORM             bugbeard::bug_form
 #   define BUG_puts(X)          bugbeard::bug_log_message(BUG_LOG, BUG_MSG(X))
 #   define BUG_scope(X)         bugbeard::bug_scope BUG_ID(bugbeard_scope_temporary_object, __LINE__)(BUG_LOG, BUG_MSG(X))
+#   define BUG_scope_with_timelimit(X,timelimit)  bugbeard::bug_scope_with_timelimit BUG_ID(bugbeard_scope_temporary_object, __LINE__)(BUG_LOG, BUG_MSG(X), timelimit)
+#   define BUG_inline_scope(X)  bugbeard::bug_scope(BUG_LOG, BUG_MSG(X))
+#   define BUG_inline_scope_with_timelimit(X,timelimit)  bugbeard::bug_scope_with_timelimit(BUG_LOG, BUG_MSG(X), timelimit)
 #   define BUG_exec(X)          X
 #   define BUG_define_logger(X) bugbeard::bug_thread_local_storage<bugbeard::bug_logger> bug_user_logger(X)
 #   define BUG_define_profiler(X) \
@@ -767,6 +908,7 @@ namespace bugbeard
 #endif  //  defined(BUG_LANG_EN)
         
 #if defined(BUG_LANG_JP)
+        const bug_string cumulative_label   = BUG_T("延べ");
         const bug_string total_label        = BUG_T("合計");
         const bug_string average_label      = BUG_T("平均");
         const bug_string min_label          = BUG_T("最小");
@@ -782,6 +924,7 @@ namespace bugbeard
         const bug_string time_stamp_label   = BUG_T("スタンプ");
 #endif  //  defined(BUG_LANG_JP)
 #if defined(BUG_LANG_EN)
+        const bug_string cumulative_label   = BUG_T("Cumulative");
         const bug_string total_label        = BUG_T("Total");
         const bug_string average_label      = BUG_T("Average");
         const bug_string min_label          = BUG_T("Min");
@@ -796,7 +939,15 @@ namespace bugbeard
         const bug_string call_count_label   = BUG_T("CallCount");
         const bug_string time_stamp_label   = BUG_T("Stamp");
 #endif  //  defined(BUG_LANG_EN)
-        
+#if defined(BUG_LANG_JP)
+		const bug_string caller_label = BUG_T("呼び出し元");
+		const bug_string callee_label = BUG_T("呼び出し先");
+#endif  //  defined(BUG_LANG_JP)
+#if defined(BUG_LANG_EN)
+		const bug_string caller_label = BUG_T("Caller");
+		const bug_string callee_label = BUG_T("Callee");
+#endif  //  defined(BUG_LANG_EN)
+
         const bug_string whole_time_label   = whole_label +time_label;
         const bug_string bug_time_label     = bug_label +time_label;
         const bug_string work_time_label    = work_label +time_label;
@@ -811,12 +962,18 @@ namespace bugbeard
         const bug_string sub_bug_time_label     = sub_label +bug_time_label;
         const bug_string sub_work_time_label    = sub_label +work_time_label;
         
+        const bug_string cumulative_total_all_whole_time_label     = cumulative_label +total_label +all_whole_time_label;
+        const bug_string cumulative_total_all_bug_time_label       = cumulative_label +total_label +all_bug_time_label;
+        const bug_string cumulative_total_all_work_time_label      = cumulative_label +total_label +all_work_time_label;
         const bug_string total_all_whole_time_label     = total_label +all_whole_time_label;
         const bug_string total_all_bug_time_label       = total_label +all_bug_time_label;
         const bug_string total_all_work_time_label      = total_label +all_work_time_label;
         const bug_string total_self_whole_time_label    = total_label +self_whole_time_label;
         const bug_string total_self_bug_time_label      = total_label +self_bug_time_label;
         const bug_string total_self_work_time_label     = total_label +self_work_time_label;
+        const bug_string cumulative_total_sub_whole_time_label     = cumulative_label +total_label +sub_whole_time_label;
+        const bug_string cumulative_total_sub_bug_time_label       = cumulative_label +total_label +sub_bug_time_label;
+        const bug_string cumulative_total_sub_work_time_label      = cumulative_label +total_label +sub_work_time_label;
         const bug_string total_sub_whole_time_label     = total_label +sub_whole_time_label;
         const bug_string total_sub_bug_time_label       = total_label +sub_bug_time_label;
         const bug_string total_sub_work_time_label      = total_label +sub_work_time_label;
@@ -977,12 +1134,12 @@ class name :public demi<type> \
         const DWORD pump_buffer_size = sys_info.dwAllocationGranularity;
         while(0 < rest_size)
         {
-            SIZE_T data_size = ((__int64)pump_buffer_size <= rest_size) ? pump_buffer_size: rest_size;
+            __int64 data_size = ((__int64)pump_buffer_size <= rest_size) ? pump_buffer_size : rest_size;
             AUTO_MAPVIEW data;
             if
             (
-                NULL == (LPVOID)(data.value = MapViewOfFile(file_mapping, FILE_MAP_READ, file_pos.HighPart, file_pos.LowPart, data_size)) ||
-                FALSE == CryptHashData(hash_handle, (LPBYTE)(LPVOID)data, data_size, 0)
+                NULL == (LPVOID)(data.value = MapViewOfFile(file_mapping, FILE_MAP_READ, file_pos.HighPart, file_pos.LowPart, (SIZE_T)data_size)) ||
+                FALSE == CryptHashData(hash_handle, (LPBYTE)(LPVOID)data, (DWORD)data_size, 0)
             )
             {
                 //throw win32_error();
@@ -1020,6 +1177,10 @@ class name :public demi<type> \
     class bug_form_ex :public bug_string
     {
     public:
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable:4512)
+#endif
         class bug_form_string
         {
             const bug_char * const str;
@@ -1028,6 +1189,9 @@ class name :public demi<type> \
             bug_form_string(const bug_string & a_str) :str(a_str.c_str()) {}
             operator const bug_char * () const { return str; }
         };
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
 
         bug_form_ex(const bug_form_string format, ...)
         {
@@ -1388,6 +1552,97 @@ class name :public demi<type> \
 #define bug_get_win32_err_msg bug_get_win32_err_msgA
 #endif
 
+    struct bug_langandcodepage
+    {
+        WORD wLanguage;
+        WORD wCodePage;
+    };
+    struct bug_translation_set
+    {
+        bug_langandcodepage * body;
+        UINT body_byte_size;
+        size_t get_size()
+        {
+            return body_byte_size / sizeof(*body);
+        }
+        bug_langandcodepage & operator [] (size_t index)
+        {
+            return body[index];
+        }
+        const bug_langandcodepage & operator [] (size_t index) const
+        {
+            return body[index];
+        }
+    };
+    class bug_file_version_info
+    {
+      private:
+        BYTE * buffer;
+      public:
+        bug_file_version_info(const bug_char * dll_name)
+        {
+            buffer = NULL;
+            DWORD dummy = 0;
+            DWORD version_info_size = BUG_API_T(GetFileVersionInfoSize)((bug_char *)dll_name, & dummy);
+            if(version_info_size)
+            {
+                buffer = new BYTE[version_info_size];
+                BUG_API_T(GetFileVersionInfo)((bug_char *)dll_name, 0, version_info_size, buffer);
+
+            }
+        }
+        ~bug_file_version_info()
+        {
+            delete [] buffer;
+        }
+        bool is_valid()
+        {
+            return NULL != buffer;
+        }
+        bool query_value(BUG_LPTSTR lpSubBlock, LPVOID *lplpBuffer, PUINT puLen)
+        {
+            return 0 != BUG_API_T(VerQueryValue)(buffer, lpSubBlock, lplpBuffer, puLen);
+        }
+        bool query_value_translation(bug_langandcodepage * * lpTranslate, PUINT translate_length)
+        {
+            return query_value(BUG_T("\\VarFileInfo\\Translation"), (LPVOID *)lpTranslate, translate_length);
+        }
+        bool query_value_translation(bug_translation_set * translation_set)
+        {
+            translation_set->body = NULL;
+            translation_set->body_byte_size = 0;
+            return query_value_translation(&(translation_set->body), &(translation_set->body_byte_size));
+        }
+        bool query_string_value(BUG_LPTSTR lpSubBlock, bug_string * value)
+        {
+            LPVOID lpBuffer = NULL;
+            UINT uLen = 0;
+            bool result = query_value(lpSubBlock, &lpBuffer, &uLen);
+            if (result)
+            {
+                *value = bug_form(BUG_T("%*s"), uLen, lpBuffer);
+            }
+            return result;
+        }
+        bool query_value_string_file_info(const bug_langandcodepage & langandcodepage, const bug_char * param_name, bug_string * value)
+        {
+            return query_string_value
+            (
+                (bug_char *)
+                (
+                    bug_form
+                    (
+                        BUG_T("\\StringFileInfo\\%04x%04x\\%s"),
+                        langandcodepage.wLanguage,
+                        langandcodepage.wCodePage,
+                        param_name
+                    ).c_str()
+                ),
+                value
+            );
+        }
+    };
+
     class bug_OSVERSIONINFO
 #if 0x0500 <= WINVER
         :public OSVERSIONINFOEX
@@ -1400,21 +1655,112 @@ class name :public demi<type> \
         {
             ZeroMemory(this, sizeof(*this));
             dwOSVersionInfoSize = sizeof(*this);
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable:4996)
+#endif
             if (0 == BUG_API_T(GetVersionEx)((BUG_API_T(OSVERSIONINFO)*)this))
             {
                 dwOSVersionInfoSize = sizeof(BUG_API_T(OSVERSIONINFO));
                 BUG_API_T(GetVersionEx)((BUG_API_T(OSVERSIONINFO)*)this);
             }
+            
+            //  http://msdn.microsoft.com/en-us/library/windows/desktop/dn302074(v=vs.85).aspx
+            //  manifest で Windows 8.1 以降への対応を謳っていないと 6.2 でクリップされてしまう為、
+            //  バージョンが 6.2 以降の場合 KERNEL32.DLL のバージョン番号をカンニングして上書きする。
+            //
+            //  この細工によって、実行形式ファイルの[プロパティ]から[互換性]タブの互換モードが
+            //  指定されててもその環境本来のバージョンを返す事になります。
+            //
+            //  manifest で最新の Windows への対応が指定されている場合は不要な処理であり、上記の
+            //  ような副作用もある為、必要に応じて BUG_DISABLED_CHEAT_GET_WINDOWS_VERSION を指定
+            //  してこの処理を無効にしてください。
+#if !defined(BUG_DISABLED_CHEAT_GET_WINDOWS_VERSION)
+            //  manifest で宣言されてるより新しいバージョンの Windows では manifest で対応を宣言
+            //  しているバージョンでクリップされると予想されるので Windows 8 以降のバージョン番号
+            //  が返された場合、 KERNEL32.DLL のバージョン番号をカンニングして上書きする。
+            if (is_windows_8_or_later()) {
+                bug_file_version_info file_version_info(BUG_T("kernel32.dll"));
+                if(file_version_info.is_valid())
+                {
+                    bug_translation_set translation_set;
+                    file_version_info.query_value_translation(&translation_set);
+                    
+                    for(size_t i = 0, size = translation_set.get_size(); i < size; ++i)
+                    {
+                        bug_string file_version_raw_string;
+                        if (file_version_info.query_value_string_file_info(translation_set[i], BUG_T("FileVersion"), &file_version_raw_string))
+                        {
+                            const bug_char * numbers = BUG_T("0123456789");
+                            std::vector<int> file_version_elements;
+                            size_t begin = 0, end = 0;
+                            do
+                            {
+                                begin = file_version_raw_string.find_first_of(numbers, end);
+                                if (begin == bug_string::npos)
+                                {
+                                    break;
+                                }
+                                end = file_version_raw_string.find_first_not_of(numbers, begin);
+                                const bug_string current = file_version_raw_string.substr
+                                (
+                                    begin,
+                                    end != bug_string::npos ? end -begin: end
+                                );
+#if defined(BUG_USE_CHAR)
+                                file_version_elements.push_back(atoi(current.c_str()));
+#else
+                                std::string narrow_current;
+                                for(bug_string::const_iterator i = current.begin(), end = current.end(); i != end; ++i)
+                                {
+                                    narrow_current.push_back(static_cast<char>(*i));
+                                }
+                                file_version_elements.push_back(atoi(narrow_current.c_str()));
+#endif
+                            }
+                            while(end != bug_string::npos);
+                            
+                            if (3 <= file_version_elements.size())
+                            {
+                                dwMajorVersion = file_version_elements[0];
+                                dwMinorVersion = file_version_elements[1];
+                                dwBuildNumber = file_version_elements[2];
+                            }
+                        }
+                    }
+                }
+            }
+#endif
+            
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
         }
-        bool is_target_or_later(DWORD major_vesion, DWORD minor_version = 0)
+        bool is_target_or_later(DWORD major_vesion, DWORD minor_version = 0) const
         {
             return (major_vesion == dwMajorVersion && minor_version <= dwMinorVersion) || major_vesion < dwMajorVersion;
         }
-        bool is_windows_vista_or_later()
+        bool is_windows_10_or_later() const
+        {
+            return is_target_or_later(10, 0);
+        }
+        bool is_windows_8_1_or_later() const
+        {
+            return is_target_or_later(6, 3);
+        }
+        bool is_windows_8_or_later() const
+        {
+            return is_target_or_later(6, 2);
+        }
+        bool is_windows_7_or_later() const
+        {
+            return is_target_or_later(6, 1);
+        }
+        bool is_windows_vista_or_later() const
         {
             return is_target_or_later(6, 0);
         }
-        bool is_windows_xp_or_later()
+        bool is_windows_xp_or_later() const
         {
             return is_target_or_later(5, 1);
         }
@@ -1475,6 +1821,28 @@ class name :public demi<type> \
                     else
                     {
                         result = BUG_T("Windows Server 2008 R2");
+                    }
+                }
+                if (2 == osvi.dwMinorVersion)
+                {
+                    if(osvi.wProductType == VER_NT_WORKSTATION)
+                    {
+                        result = BUG_T("Microsoft Windows 8");
+                    }
+                    else
+                    {
+                        result = BUG_T("Windows Server 2012");
+                    }
+                }
+                if (3 == osvi.dwMinorVersion)
+                {
+                    if(osvi.wProductType == VER_NT_WORKSTATION)
+                    {
+                        result = BUG_T("Microsoft Windows 8.1");
+                    }
+                    else
+                    {
+                        result = BUG_T("Windows Server 2012 R2");
                     }
                 }
                 if (0 == osvi.dwMinorVersion || 1 == osvi.dwMinorVersion)
@@ -1967,6 +2335,10 @@ class name :public demi<type> \
         }
     };
 #endif
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable:4512)
+#endif
     class bug_lock
     {
         bug_mutex & mutex;
@@ -1993,6 +2365,9 @@ class name :public demi<type> \
             mutex.lock();
         }
     };
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
 
     
     ///////////////////////////////////////////////////////////////////////////////
@@ -2411,6 +2786,10 @@ class name :public demi<type> \
             };
 #endif
         
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable:4512)
+#endif
         class bug_stream_writer :public bug_writer
         {
         protected:
@@ -2426,6 +2805,9 @@ class name :public demi<type> \
                 }
             };
         };
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
 
             class bug_fstream_writer :public bug_stream_writer
             {
@@ -2461,8 +2843,8 @@ class name :public demi<type> \
                     OVERLAPPED ol;
                     memset(&ol, 0, sizeof(ol));
                     ol.Offset = FILE_WRITE_TO_END_OF_FILE;
-                    ol.OffsetHigh = -1;
-                    WriteFile(handle, message.data(), message.size() *sizeof(bug_string::value_type), &written_size, &ol);
+                    ol.OffsetHigh = (DWORD)-1;
+                    WriteFile(handle, message.data(), (DWORD)(message.size() *sizeof(bug_string::value_type)), &written_size, &ol);
                     //FlushFileBuffers(handle);
                     //↑その都度フラッシュをやってると環境によってはフラッシュを
                     //その都度やらない場合に比べて動作が数十倍も重くなる。
@@ -2704,7 +3086,7 @@ class name :public demi<type> \
                 static bug_QueryPerformanceFrequency frequency; // 本当は排他をかけた初期化を行うべき。
                 LARGE_INTEGER performance_counter;
                 QueryPerformanceCounter(&performance_counter);
-                int sec = performance_counter.QuadPart /frequency.value.QuadPart;
+                int sec = static_cast<int>(performance_counter.QuadPart /frequency.value.QuadPart);
                 LONGLONG usec64 = (performance_counter.QuadPart %frequency.value.QuadPart) *1000000 /frequency.value.QuadPart;
                 int usec = static_cast<int>(usec64);
                 
@@ -2861,6 +3243,19 @@ class name :public demi<type> \
         {
             return this_type(*this, a_message);
         }
+		static const bug_message get_overall()
+		{
+			return this_type
+			(
+#if !defined(BUG_WITHOUT_LOCATION_INFO)
+				bug_term::overall_scope_label, 0,
+#if defined(BUG_FUNCTION_NAME)
+				bug_term::overall_scope_label,
+#endif
+#endif
+				bug_term::overall_scope_label
+			);
+		}
 
         this_type & operator = (const this_type & a)
         {
@@ -3178,7 +3573,7 @@ class name :public demi<type> \
             {
                 const bug_string long_stamp = stamp_with_date_type().get_stamp();
 #if defined(BUG_LANG_JP)
-                const int X = (get_new_stamp().length() +1) /2 -1;
+                const int X = (int)((get_new_stamp().length() +1) /2 -1);
                 if (BUG_T("") != long_stamp) {
                     log_message_line(BUG_T("┌") +bug_run_string(38, bug_term::horizon_line));
                     log_message_line(BUG_T("│") +long_stamp);
@@ -3211,7 +3606,7 @@ class name :public demi<type> \
             {
                 const bug_string long_stamp = stamp_with_date_type().get_stamp();
 #if defined(BUG_LANG_JP)
-                const int X = (get_new_stamp().length() +1) /2 -1;
+                const int X = (int)((get_new_stamp().length() +1) /2 -1);
                 if (BUG_T("") != long_stamp)
                 {
                     if (0 <= X)
@@ -3334,7 +3729,7 @@ class name :public demi<type> \
             {
                 const bug_string long_stamp = stamp_with_date_type().get_stamp();
 #if defined(BUG_LANG_JP)
-                const int X = (get_new_stamp().length() +1) /2 -1;
+                const int X = (int)((get_new_stamp().length() +1) /2 -1);
                 if (BUG_T("") != long_stamp) {
                     log_message_line(BUG_T("┌") +bug_run_string(38, bug_term::horizon_line));
                     log_message_line(BUG_T("│") +long_stamp);
@@ -3367,7 +3762,7 @@ class name :public demi<type> \
             {
                 const bug_string long_stamp = stamp_with_date_type().get_stamp();
 #if defined(BUG_LANG_JP)
-                const int X = (get_new_stamp().length() +1) /2 -1;
+                const int X = (int)((get_new_stamp().length() +1) /2 -1);
                 if (BUG_T("") != long_stamp)
                 {
                     if (0 <= X)
@@ -3452,6 +3847,80 @@ class name :public demi<type> \
                 return *this;
             }
         };
+        class bug_outline_logger :public bug_logger
+        {
+        public:
+            typedef bug_outline_logger  this_type;
+            typedef bug_logger          base_type;
+#if defined(__MWERKS__)
+            typedef bug_clock_stamp_with_date stamp_with_date_type;
+#else
+            typedef bug_clock_stamp_ex_with_date stamp_with_date_type;
+#endif
+
+#if defined(BUG_MULTI_PROCESS) || defined(BUG_MULTI_THREAD)
+            bug_string logger_id;
+#endif
+            bug_string indent_base;
+            
+            bug_outline_logger(bug_string a_indent_base, bug_writer * a_writer = new bug_stream_writer, bug_stamp * a_stamp = new bug_default_stamp)
+                :bug_logger(a_writer, a_stamp)
+                ,indent_base(a_indent_base)
+#if defined(BUG_MULTI_PROCESS) && defined(BUG_MULTI_THREAD)
+                ,logger_id(bug_form(BUG_T("%d\t%d\t"), bug_get_process_id(), bug_get_thread_id()))
+#elif defined(BUG_MULTI_PROCESS)
+                ,logger_id(bug_form(BUG_T("%d\t"), bug_get_process_id()))
+#elif defined(BUG_MULTI_THREAD)
+                ,logger_id(bug_form(BUG_T("%d\t"), bug_get_thread_id()))
+#endif
+            {
+                top_sign();
+            }
+            ~bug_outline_logger() { bottom_sign(); }
+
+            this_type & top_sign()
+            {
+                log_message_line(stamp_with_date_type().get_stamp());
+                return *this;
+            }
+            this_type & bottom_sign()
+            {
+                log_message_line(indent_base +stamp_with_date_type().get_stamp());
+                return *this;
+            }
+
+        private:
+            base_type & log_message_core(const bug_message & message)
+            {
+                log_message_with_stamp(message.get_full_message());
+                return *this;
+            }
+            base_type & log_level_up_core(const bug_message & message)
+            {
+                log_message_with_stamp(message.get_full_message());
+                return *this;
+            }
+            base_type & log_level_down_core(const bug_message & message)
+            {
+                log_message_with_stamp(message.get_full_message());
+                return *this;
+            }
+
+            this_type & log_message_with_stamp(const bug_string & message)
+            {
+                log_message_line(bug_run_string(level +1, indent_base) +message +BUG_T("|") +get_new_stamp());
+                return *this;
+            }
+            this_type & log_message_line(const bug_string & message)
+            {
+#if defined(BUG_SINGLE_THREAD) && !defined(BUG_MULTI_PROCESS)
+                writer->write(message +bug_term::return_code);
+#else
+                writer->write(message +BUG_T("|") +logger_id +bug_term::return_code);
+#endif
+                return *this;
+            }
+        };
 
         
     ///////////////////////////////////////////////////////////////////////////
@@ -3491,6 +3960,15 @@ class name :public demi<type> \
 #endif
             return result;
         }
+        static bug_profile_time_type get_by_msec(value_type msec)
+        {
+            return bug_profile_time_type
+            (
+                msec
+                *get_tick_resolution()
+                /1000
+            );
+        }
         
         static value_type get_tick_resolution()
         {
@@ -3510,11 +3988,15 @@ class name :public demi<type> \
         {
             return value /get_tick_resolution();
         }
-        value_type get_usec() const
+        value_type get_usec() const // without sec
         {
             const value_type tick_resolution = get_tick_resolution();
             const value_type scale = 1000000;
             return ((value %tick_resolution) *scale) /tick_resolution;
+        }
+        value_type get_total_msec() const // with sec
+        {
+            return (get_sec() *1000) +(get_usec() /1000);
         }
         
         this_type operator = (const this_type & a)
@@ -3642,6 +4124,13 @@ class name :public demi<type> \
             work_time += a.work_time;
             return *this;
         }
+        this_type & operator -= (const this_type & a)
+        {
+            whole_time -= a.whole_time;
+            bug_time -= a.bug_time;
+            work_time -= a.work_time;
+            return *this;
+        }
         this_type & operator /= (const bug_sint64_type & a)
         {
             whole_time /= a;
@@ -3653,6 +4142,12 @@ class name :public demi<type> \
         {
             this_type result(*this);
             result += a;
+            return result;
+        }
+        this_type operator - (const this_type & a) const
+        {
+            this_type result(*this);
+            result -= a;
             return result;
         }
         this_type operator / (const bug_sint64_type & a) const
@@ -3701,6 +4196,7 @@ class name :public demi<type> \
         bug_profile_time_set get_all_time_set() const
         {
             bug_profile_time_set result(self_time_set);
+            result.whole_time += sub_time_set.whole_time;
             result.bug_time += sub_time_set.bug_time;
             result.work_time += sub_time_set.work_time;
             return result;
@@ -3763,6 +4259,7 @@ class name :public demi<type> \
     class bug_profile_time_score_set
     {
     private:
+        bug_profile_time_score cumulative_total_score;
         bug_profile_time_score total_score;
         bug_string min_begin_stamp;
         bug_profile_time_score min_score;
@@ -3774,13 +4271,18 @@ class name :public demi<type> \
         typedef bug_profile_time_score_set this_type;
         
         bug_profile_time_score_set()
-            :total_score(), min_score(), max_score(), count(0) { }
+            :cumulative_total_score(), total_score(), min_score(), max_score(), count(0) { }
         bug_profile_time_score_set(const this_type & a)
-            :total_score(a.total_score),
+            :cumulative_total_score(a.cumulative_total_score),
+            total_score(a.total_score),
             min_score(a.min_score),
             max_score(a.max_score),
             count(a.count) { }
 
+        bug_profile_time_score get_cumulative_total_score() const
+        {
+            return cumulative_total_score;
+        }
         bug_profile_time_score get_total_score() const
         {
             return total_score;
@@ -3812,26 +4314,30 @@ class name :public demi<type> \
         bug_string get_string(const bug_string & separetor) const
         {
             return
-                get_total_score().get_string(separetor)     +separetor
-                +bug_form(BUG_T("%d"), get_count())         +separetor
-                +get_average_score().get_string(separetor)  +separetor
-                +min_begin_stamp                            +separetor
-                +get_min_score().get_string(separetor)      +separetor
-                +max_begin_stamp                            +separetor
+                get_cumulative_total_score().get_all_time_set().get_string(separetor)   +separetor
+                +get_total_score().get_all_time_set().get_string(separetor)             +separetor
+                +get_total_score().get_self_time_set().get_string(separetor)            +separetor
+                +get_cumulative_total_score().get_sub_time_set().get_string(separetor)  +separetor
+                +get_total_score().get_sub_time_set().get_string(separetor)             +separetor
+                +bug_form(BUG_T("%d"), get_count())                                     +separetor
+                +get_average_score().get_string(separetor)                              +separetor
+                +min_begin_stamp                                                        +separetor
+                +get_min_score().get_string(separetor)                                  +separetor
+                +max_begin_stamp                                                        +separetor
                 +get_max_score().get_string(separetor);
         }
         
-        void add_score(bug_string a_begin_stamp, bug_profile_time_score a_time_score)
+        void add_score(bug_string a_begin_stamp, bug_profile_time_score a_time_score, const bug_profile_time_set & backup_self_time_set)
         {
             if (!get_count())
             {
-                total_score = a_time_score;
                 set_min_score(a_begin_stamp, a_time_score);
                 set_max_score(a_begin_stamp, a_time_score);
+                cumulative_total_score = a_time_score;
+                total_score = a_time_score;
             }
             else
             {
-                total_score += a_time_score;
                 if (a_time_score < min_score)
                 {
                     set_min_score(a_begin_stamp, a_time_score);
@@ -3840,6 +4346,14 @@ class name :public demi<type> \
                 {
                     set_max_score(a_begin_stamp, a_time_score);
                 }
+                
+                //  こちらはそのまま加算する
+                cumulative_total_score += a_time_score;
+                
+                //  再帰呼び出しにより self として加算済みの時間が sub に再加算されるのを防ぐ処置。
+                a_time_score.sub_time_set -= (total_score.get_self_time_set() -backup_self_time_set);
+            
+                total_score += a_time_score;
             }
             ++count;
         }
@@ -3863,6 +4377,40 @@ class name :public demi<type> \
 
     ///////////////////////////////////////////////////////////////////////////
     //
+    //  bug_timelimit
+    //
+    
+    class  bug_timelimit
+    {
+    public:
+        bug_message message;
+        bug_profile_time_type start_tick;
+        bug_profile_time_type bug_tick;
+        bug_profile_time_type limit_tick;
+
+        bug_timelimit(const bug_message & a_message, int timelimit, const bug_profile_time_type & a_start_tick = bug_profile_time_type::get_current_tick())
+            :message(a_message), 
+            start_tick(a_start_tick),
+            bug_tick(0),
+            limit_tick(bug_profile_time_type::get_by_msec(timelimit))
+        {
+        }
+        bug_profile_time_type get_rest_tick(const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
+        {
+            return (start_tick +limit_tick +bug_tick) -a_current_tick;
+        }
+        void heart_beat(bug_logger & logger, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
+        {
+            if (get_rest_tick(a_current_tick) < 0)
+            {
+                logger.log_message(message.create(BUG_T("Time limit violation: ") +message.get_message()));
+                TRICKLIB_BUG_TIMELIMIT_EXIT;
+            }
+        }
+    };
+    
+    ///////////////////////////////////////////////////////////////////////////
+    //
     //  bug_profiler
     //
     
@@ -3874,11 +4422,15 @@ class name :public demi<type> \
     protected:
         bug_writer * profile_writer;
         bug_writer * coverage_writer;
-        unsigned int level;
+		bug_writer * callgraph_writer;
+		unsigned int level;
         int bug_scope_count;
         bug_profile_time_type bug_scope_begin_time;
         std::stack<bug_profile_time_score *> score_stack;
-        std::map<bug_message, bug_profile_time_score_set> profile_db;
+		std::stack<bug_message> scope_stack;
+		std::map<bug_message, bug_profile_time_score_set> profile_db;
+		std::map<std::pair<bug_message, bug_message>, bug_sint64_type> callgraph_db;
+		std::stack<bug_timelimit *> timelimit_stack;
         
         bug_profile_time_type overall_start_time;
         bug_profile_time_score overall_time_score;
@@ -3890,13 +4442,14 @@ class name :public demi<type> \
         bug_profiler(const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
             :profile_writer(new bug_stream_writer()),
             coverage_writer(NULL),
-            level(0),
+			callgraph_writer(NULL),
+			level(0),
             bug_scope_count(0),
             bug_scope_begin_time(0),
             overall_start_time(a_current_tick)
         {
             begin_bug_time(a_current_tick);
-            push_time_score(&overall_time_score);
+			push_time_score(bug_message::get_overall(), &overall_time_score);
             end_bug_time();
         }
         bug_profiler(bug_writer * a_profile_writer, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
@@ -3905,40 +4458,95 @@ class name :public demi<type> \
 #endif
             :profile_writer(a_profile_writer),
             coverage_writer(NULL),
-            level(0),
+			callgraph_writer(NULL),
+			level(0),
             bug_scope_count(0),
             bug_scope_begin_time(0),
             overall_start_time(a_current_tick)
         {
             begin_bug_time(a_current_tick);
-            push_time_score(&overall_time_score);
+			push_time_score(bug_message::get_overall(), &overall_time_score);
             end_bug_time();
         }
         bug_profiler(bug_writer * a_profile_writer, bug_writer * a_coverage_writer, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
             :profile_writer(a_profile_writer),
             coverage_writer(a_coverage_writer),
-            level(0),
+			callgraph_writer(NULL),
+			level(0),
             bug_scope_count(0),
             bug_scope_begin_time(0),
             overall_start_time(a_current_tick)
         {
             begin_bug_time(a_current_tick);
-            push_time_score(&overall_time_score);
+			push_time_score(bug_message::get_overall(), &overall_time_score);
             end_bug_time();
         }
+		bug_profiler(bug_writer * a_profile_writer, bug_writer * a_coverage_writer, bug_writer * a_callgraph_writer, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
+			:profile_writer(a_profile_writer),
+			coverage_writer(a_coverage_writer),
+			callgraph_writer(a_callgraph_writer),
+			level(0),
+			bug_scope_count(0),
+			bug_scope_begin_time(0),
+			overall_start_time(a_current_tick)
+		{
+			begin_bug_time(a_current_tick);
+			push_time_score(bug_message::get_overall(), &overall_time_score);
+			end_bug_time();
+		}
         virtual ~bug_profiler()
         {
             delete profile_writer;
             delete coverage_writer;
-        }
+			delete callgraph_writer;
+		}
 
+        void push_timelimit(bug_timelimit * i)
+        {
+            if (this)
+            {
+                const bug_profile_time_type current_tick = bug_profile_time_type::get_current_tick();
+                if (timelimit_stack.empty() || i->get_rest_tick(current_tick) < timelimit_stack.top()->get_rest_tick(current_tick))
+                {
+                    timelimit_stack.push(i);
+                }
+            }
+        }
+        void pop_timelimit(bug_timelimit * i)
+        {
+            if (this)
+            {
+                if (!timelimit_stack.empty() && i == timelimit_stack.top())
+                {
+                    timelimit_stack.pop();
+                }
+            }
+        }
+        void timelimit_heart_beat(bug_logger & logger, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
+        {
+            if (this)
+            {
+                if (!timelimit_stack.empty())
+                {
+                    timelimit_stack.top()->heart_beat(logger, a_current_tick);
+                }
+            }
+            else
+            {
+                if (!timelimit_stack.empty())
+                {
+                    logger.log_message(timelimit_stack.top()->message.create(BUG_T("time limit require profiler: ") +timelimit_stack.top()->message.get_message()));
+                    TRICKLIB_BUG_TIMELIMIT_EXIT;
+                }
+            }
+        }
         
         static bug_profiler & get_instance()
         {
             return *(bugbeard::bug_thread_local_storage<this_type>::get_target());
         }
         
-        void push_time_score(bug_profile_time_score * a_time_score, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
+		void push_time_score(const bug_message & a_message, bug_profile_time_score * a_time_score, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
         {
             if (this)
             {
@@ -3952,11 +4560,20 @@ class name :public demi<type> \
                             bug_scope_begin_time = a_current_tick;
                         }
                     }
-                }
+					if (false == scope_stack.empty())
+					{
+						++callgraph_db[std::pair<bug_message, bug_message>(scope_stack.top(), a_message)];
+					}
+				}
                 score_stack.push(a_time_score);
-            }
+				scope_stack.push(a_message);
+			}
         }
-        void add_time_score(const bug_message & a_message, const bug_string a_start_stamp, bug_profile_time_score & a_time_score)
+        const bug_profile_time_set get_current_self_time_set(const bug_message & a_message)
+        {
+            return profile_db[a_message].get_total_score().get_self_time_set();
+        }
+        void add_time_score(const bug_message & a_message, const bug_string a_start_stamp, bug_profile_time_score & a_time_score, const bug_profile_time_set & backup_self_time_set)
         {
             if (this)
             {
@@ -3964,8 +4581,8 @@ class name :public demi<type> \
                 {
                     score_stack.top()->sub_time_set += a_time_score.get_all_time_set();
                 }
-                profile_db[a_message].add_score(a_start_stamp, a_time_score);
-            }
+                profile_db[a_message].add_score(a_start_stamp, a_time_score, backup_self_time_set);
+			}
         }
         void pop_time_score(const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
         {
@@ -3983,7 +4600,8 @@ class name :public demi<type> \
                         }
                     }
                     score_stack.pop();
-                }
+					scope_stack.pop();
+				}
             }
         }
 
@@ -4018,18 +4636,9 @@ class name :public demi<type> \
         {
             begin_bug_time(a_current_tick);
             pop_time_score();
-            overall_time_score.self_time_set.whole_time = bug_profile_time_type::get_current_tick() -overall_start_time;
-            const bug_message overall_message
-            (
-#if !defined(BUG_WITHOUT_LOCATION_INFO)
-                bug_term::overall_scope_label, 0,
-#if defined(BUG_FUNCTION_NAME)
-                bug_term::overall_scope_label,
-#endif
-#endif
-                bug_term::overall_scope_label
-            );
-            add_time_score(overall_message, bug_term::overall_scope_label, overall_time_score);
+            overall_time_score.self_time_set.whole_time = bug_profile_time_type::get_current_tick() -overall_start_time -overall_time_score.get_sub_time_set().get_whole_time();
+            overall_time_score.self_time_set.work_time = overall_time_score.get_self_time_set().get_whole_time() -overall_time_score.get_self_time_set().get_bug_time();
+			add_time_score(bug_message::get_overall(), bug_term::overall_scope_label, overall_time_score, bug_profile_time_set());
             end_bug_time();
         }
     };
@@ -4043,8 +4652,18 @@ class name :public demi<type> \
             typedef bug_tsv_profiler  this_type;
             typedef bug_profiler      base_type;
 
-            bug_tsv_profiler(bug_writer * a_profile_writer = new bug_stream_writer, bug_writer * a_coverage_writer = NULL)
-                :bug_profiler(a_profile_writer, a_coverage_writer)
+			bug_tsv_profiler
+			(
+				bug_writer * a_profile_writer = new bug_stream_writer,
+				bug_writer * a_coverage_writer = NULL,
+				bug_writer * a_callgraph_writer = NULL
+			)
+				:bug_profiler
+				(
+					a_profile_writer,
+					a_coverage_writer,
+					a_callgraph_writer
+				)
             {
             }
             ~bug_tsv_profiler()
@@ -4059,7 +4678,11 @@ class name :public demi<type> \
                     make_coverage_data();
                     output_coverage();
                 }
-            }
+				if (callgraph_writer)
+				{
+					output_callgraph();
+				}
+			}
             void output_profile()
             {
 #if !defined(BUG_WITHOUT_TSV_PROFILE_HEADER)
@@ -4095,12 +4718,18 @@ class name :public demi<type> \
 #endif
 #endif
                     bug_term::scope_label +separetor +
+                    bug_term::cumulative_total_all_whole_time_label +separetor +
+                    bug_term::cumulative_total_all_bug_time_label +separetor +
+                    bug_term::cumulative_total_all_work_time_label +separetor +
                     bug_term::total_all_whole_time_label +separetor +
                     bug_term::total_all_bug_time_label +separetor +
                     bug_term::total_all_work_time_label +separetor +
                     bug_term::total_self_whole_time_label +separetor +
                     bug_term::total_self_bug_time_label +separetor +
                     bug_term::total_self_work_time_label +separetor +
+                    bug_term::cumulative_total_sub_whole_time_label +separetor +
+                    bug_term::cumulative_total_sub_bug_time_label +separetor +
+                    bug_term::cumulative_total_sub_work_time_label +separetor +
                     bug_term::total_sub_whole_time_label +separetor +
                     bug_term::total_sub_bug_time_label +separetor +
                     bug_term::total_sub_work_time_label +separetor +
@@ -4256,14 +4885,95 @@ class name :public demi<type> \
                 );
                 return *this;
             }
-        };
-    
+			void output_callgraph()
+			{
+#if !defined(BUG_WITHOUT_TSV_CALLGRAPH_HEADER)
+				output_callgraph_header();
+#endif // !defined(BUG_WITHOUT_TSV_CALLGRAPH_HEADER)
+				for
+					(
+					std::map<std::pair<bug_message, bug_message>, bug_sint64_type>::iterator i = callgraph_db.begin();
+					i != callgraph_db.end();
+					++i
+					)
+				{
+					output_callgraph_core(i->first.first, i->first.second, i->second);
+				}
+			}
+#if !defined(BUG_WITHOUT_TSV_CALLGRAPH_HEADER)
+			base_type & output_callgraph_header()
+			{
+				const bug_string separetor = BUG_T("\t");
+				callgraph_writer->write
+					(
+#if !defined(BUG_WITHOUT_LOCATION_INFO)
+					bug_term::caller_label + bug_term::file_label + separetor +
+					bug_term::caller_label + bug_term::line_label + separetor +
+#if defined(BUG_FUNCTION_NAME)
+					bug_term::caller_label + bug_term::function_label + separetor +
+#endif
+#endif
+					bug_term::caller_label + bug_term::scope_label + separetor +
+					bug_term::call_count_label + separetor +
+#if !defined(BUG_WITHOUT_LOCATION_INFO)
+					bug_term::callee_label + bug_term::file_label + separetor +
+					bug_term::callee_label + bug_term::line_label + separetor +
+#if defined(BUG_FUNCTION_NAME)
+					bug_term::callee_label + bug_term::function_label + separetor +
+#endif
+#endif
+					bug_term::callee_label + bug_term::scope_label + bug_term::return_code
+					);
+				return *this;
+			}
+#endif // !defined(BUG_WITHOUT_TSV_CALLGRAPH_HEADER)
+			base_type & output_callgraph_core(const bug_message & caller_message, const bug_message & callee_message, const bug_sint64_type & a_call_count)
+			{
+				const bug_string separetor = BUG_T("\t");
+				callgraph_writer->write
+					(
+#if defined(BUG_WITHOUT_LOCATION_INFO)
+					BUG_T("")
+#else
+					caller_message.get_file()
+					+ bug_form(BUG_T("\t%d\t"), caller_message.get_line())
+#if defined(BUG_FUNCTION_NAME)
+					+caller_message.get_function_name()
+					+ BUG_T("\t")
+#endif
+#endif
+					+ caller_message.get_message() + separetor
+
+					+ bug_form(BUG_T("%") BUG_T(BUG_FORM_I64) BUG_T("d"), a_call_count) + separetor
+
+#if defined(BUG_WITHOUT_LOCATION_INFO)
+					+BUG_T("")
+#else
+					+callee_message.get_file()
+					+ bug_form(BUG_T("\t%d\t"), callee_message.get_line())
+#if defined(BUG_FUNCTION_NAME)
+					+callee_message.get_function_name()
+					+ BUG_T("\t")
+#endif
+#endif
+					+ callee_message.get_message() + separetor
+
+					+ bug_term::return_code
+					);
+				return *this;
+			}
+		};
+		
 
     ///////////////////////////////////////////////////////////////////////////
     //
     //  bug_bug_time_scope
     //
 
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable:4512)
+#endif
     class bug_bug_time_scope
     {
     public:
@@ -4278,6 +4988,9 @@ class name :public demi<type> \
             profiler.end_bug_time();
         }
     };
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
     
     
     ///////////////////////////////////////////////////////////////////////////
@@ -4285,6 +4998,10 @@ class name :public demi<type> \
     //  bug_profile_scope
     //
     
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable:4512)
+#endif
     class bug_profile_scope :public bug_smart_ptr_ref_cnt
     {
     public:
@@ -4292,13 +5009,16 @@ class name :public demi<type> \
         const bug_string start_stamp;
         bug_profile_time_type start_time;
         bug_profile_time_score time_score;
+        bug_profile_time_set backup_self_time_set;
         const bug_message message;
         
         bug_profile_scope(bug_logger & a_logger, const bug_message & a_message, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
             :profiler(bugbeard::bug_profiler::get_instance()), start_stamp(a_logger.get_last_stamp()), start_time(a_current_tick), time_score(), message(a_message)
         {
-            profiler.push_time_score(&time_score, a_current_tick);
             bug_bug_time_scope bug_time_scope(a_current_tick);
+			profiler.push_time_score(a_message, &time_score, a_current_tick);
+            backup_self_time_set = profiler.get_current_self_time_set(message);
+            profiler.timelimit_heart_beat(a_logger, a_current_tick);
         }
         ~bug_profile_scope()
         {
@@ -4307,9 +5027,12 @@ class name :public demi<type> \
             profiler.pop_time_score(current_tick);
             time_score.self_time_set.whole_time = current_tick -start_time -time_score.get_sub_time_set().get_whole_time();
             time_score.self_time_set.work_time = time_score.get_self_time_set().get_whole_time() -time_score.get_self_time_set().get_bug_time();
-            profiler.add_time_score(message, start_stamp, time_score);
+            profiler.add_time_score(message, start_stamp, time_score, backup_self_time_set);
         }
     };
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
 
     
     ///////////////////////////////////////////////////////////////////////////
@@ -4317,6 +5040,10 @@ class name :public demi<type> \
     //  bug_element
     //
 
+#if defined(_MSC_VER)
+#   pragma warning(push)
+#   pragma warning(disable:4512)
+#endif
     class bug_element
     {
     private:
@@ -4325,11 +5052,10 @@ class name :public demi<type> \
         bug_message down_message;
     protected:
         bug_logger & logger;
-        bug_profiler  & profiler;
         bug_smart_ptr<bug_profile_scope> profile_scope;
     public:
         bug_element(bug_logger & a_logger, bool a_leveled, const bug_message & a_message, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
-            :scoped(true), leveled(a_leveled), logger(a_logger), profiler(bugbeard::bug_profiler::get_instance())
+            :scoped(true), leveled(a_leveled), logger(a_logger)
         {
             bug_bug_time_scope bug_time_scope(a_current_tick);
             if (leveled)
@@ -4350,18 +5076,17 @@ class name :public demi<type> \
         }
 #if 0 // 廃止
         bug_element(bug_logger & a_logger, const bug_message & a_up_message, const bug_message & a_down_message, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
-            :scoped(true), leveled(true), logger(a_logger), profiler(bugbeard::bug_profiler::get_instance()), down_message(a_down_message)
+            :scoped(true), leveled(true), logger(a_logger), down_message(a_down_message)
         {
             bug_bug_time_scope bug_time_scope(a_current_tick);
             logger.log_level_up(a_up_message);
         }
 #endif
-        bug_element(bug_logger & a_logger, const bug_dummy_if &) :scoped(false), leveled(false), logger(a_logger), profiler(bugbeard::bug_profiler::get_instance()) { }
+        bug_element(bug_logger & a_logger, const bug_dummy_if &) :scoped(false), leveled(false), logger(a_logger) { }
         bug_element(const bug_element & a)
             :scoped(a.scoped)
             ,leveled(a.leveled)
             ,logger(a.logger)
-            ,profiler(bugbeard::bug_profiler::get_instance())
             ,down_message(a.down_message)
         {
             a.scoped = false;
@@ -4391,12 +5116,27 @@ class name :public demi<type> \
     class bug_scope :public bug_element
     {
     public:
-        bug_scope(bug_logger & a_logger, const bug_message & a_message)
-            :bug_element(a_logger, true, a_message) { }
+        bug_scope(bug_logger & a_logger, const bug_message & a_message, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
+            :bug_element(a_logger, true, a_message, a_current_tick) { }
 #if 0 // 廃止
         bug_scope(bug_logger & a_logger, const bug_message & a_up_message, const bug_message & a_down_message)
             :bug_element(a_logger, a_up_message, a_down_message) { }
 #endif
+    };
+    class bug_scope_with_timelimit :public bug_scope
+    {
+        bug_timelimit timelimit;
+    public:
+        bug_scope_with_timelimit(bug_logger & a_logger, const bug_message & a_message, int timelimit_ms, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
+            :bug_scope(a_logger, a_message, a_current_tick),
+            timelimit(a_message, timelimit_ms, a_current_tick)
+        {
+            profile_scope->profiler.push_timelimit(&timelimit);
+        }
+        ~bug_scope_with_timelimit()
+        {
+            profile_scope->profiler.pop_timelimit(&timelimit);
+        }
     };
     class bug_scope_out :public bug_element
     {
@@ -4427,7 +5167,7 @@ class name :public demi<type> \
         bug_if_core(bug_logger & a_logger, const bug_message &, const bug_dummy_if & a)
             :bug_element(a_logger, a), result(false) { }
         bug_if_core(bug_logger & a_logger, const bug_message &, const bug_element & a)
-            :bug_element(a), result(false) { }
+            :bug_element(a), result(false) { a_logger; }
         bug_if_core(const bug_if_core & a)
             :bug_element(a), result(a.result) { }
         operator const bool & () const
@@ -4451,7 +5191,7 @@ class name :public demi<type> \
             log_message(a_logger, a_message);
         }
         bug_while_core(bug_logger & a_logger, const bug_message & a_message, const void * a_result, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
-            :result(a_result)
+            :result(NULL != a_result)
         {
             bug_bug_time_scope bug_time_scope(a_current_tick);
             log_message(a_logger, a_message);
@@ -4484,7 +5224,7 @@ class name :public demi<type> \
         bug_switch_core(bug_logger & a_logger, const bug_message &, const bug_dummy_if & a)
             :bug_element(a_logger, a), result(false) { }
         bug_switch_core(bug_logger & a_logger, const bug_message &, const bug_element & a)
-            :bug_element(a), result(false) { }
+            :bug_element(a), result(false) { a_logger; }
         bug_switch_core(const bug_switch_core & a)
             :bug_element(a), result(a.result) { }
 #if defined(__MWERKS__)
@@ -4496,6 +5236,57 @@ class name :public demi<type> \
             return result;
         }
     };
+#if defined(BUG_ENABLED_CPP11_OR_LATER)
+    template<class value_T>
+    class bug_switch_core_ex :public bug_dummy_if, protected bug_element
+    {
+        const value_T result;
+    public:
+        bug_switch_core_ex(bug_logger & a_logger, const bug_message & a_message, const value_T & a_result)
+            :bug_element(a_logger, true, a_message.create(a_message.get_message() +bug_encode_value(result))), result(a_result) { }
+        //bug_switch_core_ex(bug_logger & a_logger, const bug_message &, const bug_dummy_if & a)
+        //    :bug_element(a_logger, a), result(false) { }
+        //bug_switch_core_ex(bug_logger & a_logger, const bug_message &, const bug_element & a)
+        //    :bug_element(a), result(false) { a_logger; }
+        bug_switch_core_ex(const bug_switch_core_ex<value_T> & a)
+            :bug_element(a), result(a.result) { }
+            
+        operator const value_T & () const
+        {
+            return result;
+        }
+    };
+    inline bug_switch_core bug_switch_helper(bug_logger & a_logger, const bug_message & dummy_message, const bug_dummy_if & a)
+    {
+        return bug_switch_core(a_logger, dummy_message, a);
+    }
+    inline bug_switch_core bug_switch_helper(bug_logger & a_logger, const bug_message & dummy_message, const bug_element & a)
+    {
+        return bug_switch_core(a_logger, dummy_message, a);
+    }
+    inline bug_switch_core bug_switch_helper(bug_logger & a_logger, const bug_message & dummy_message, const bug_scope_out & a)
+    {
+        return bug_switch_core(a_logger, dummy_message, a);
+    }
+    template<class value_T>
+    inline bug_switch_core_ex<value_T> bug_switch_helper(bug_logger & a_logger, const bug_message & a_message, const value_T & a_result)
+    {
+        return bug_switch_core_ex<value_T>(a_logger, a_message, a_result);
+    }
+    inline bug_switch_core bug_switch_helper(const bug_switch_core & a)
+    {
+        return a;
+    }
+    template<class value_T>
+    inline bug_switch_core_ex<value_T> bug_switch_helper(const bug_switch_core_ex<value_T> & a)
+    {
+        return a;
+    }
+#endif
+    
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -4606,24 +5397,17 @@ class name :public demi<type> \
     inline void bug_module_version_info(bug_logger & a_logger, const bug_char * dll_name, const bug_profile_time_type & a_current_tick = bug_profile_time_type::get_current_tick())
     {
         bug_bug_time_scope bug_time_scope(a_current_tick);
-        UINT translate_length = 0;
-        DWORD dummy = 0;
-        DWORD version_info_size = BUG_API_T(GetFileVersionInfoSize)((bug_char *)dll_name, & dummy);
-        if(version_info_size)
+        bool has_version_information = false;
+        
+        bug_file_version_info file_version_info(dll_name);
+        if(file_version_info.is_valid())
         {
-            BYTE * version_info_buffer = new BYTE[version_info_size];
-            BUG_API_T(GetFileVersionInfo)((bug_char *)dll_name, 0, version_info_size, version_info_buffer);
-
-            struct LANGANDCODEPAGE
-            {
-                WORD wLanguage;
-                WORD wCodePage;
-            } * lpTranslate;
-            BUG_API_T(VerQueryValue)(version_info_buffer, BUG_T("\\VarFileInfo\\Translation"), (LPVOID *)&lpTranslate, &translate_length);
+            bug_translation_set translation_set;
+            file_version_info.query_value_translation(&translation_set);
             
-            for(size_t i = 0; i < translate_length / sizeof(*lpTranslate); ++i)
+            for(size_t i = 0, size = translation_set.get_size(); i < size; ++i)
             {
-                bug_string current = bug_form(BUG_T("module:\"%s\" / language:%04x%04x"), dll_name, lpTranslate[i].wLanguage, lpTranslate[i].wCodePage);
+                bug_string current = bug_form(BUG_T("module:\"%s\" / language:%04x%04x"), dll_name, translation_set[i].wLanguage, translation_set[i].wCodePage);
                 const bug_char * param_list[] =
                 {
                     BUG_T("FileDescription"),
@@ -4635,19 +5419,19 @@ class name :public demi<type> \
                 };
                 for(size_t j = 0; j < (sizeof(param_list)/sizeof(param_list[0])); ++j)
                 {
-                    void * version_param_data;
-                    UINT version_param_data_length;
-                    if (BUG_API_T(VerQueryValue)(version_info_buffer, (bug_char *)(bug_form(BUG_T("\\StringFileInfo\\%04x%04x\\%s"), lpTranslate[i].wLanguage, lpTranslate[i].wCodePage, param_list[j]).c_str()), &version_param_data, &version_param_data_length))
+                    bug_string version_param_data;
+                    if (file_version_info.query_value_string_file_info(translation_set[i], param_list[j], &version_param_data))
                     {
-                        current += bug_form(BUG_T(" / %s:%*s"), param_list[j], version_param_data_length, version_param_data);
+                        current += bug_form(BUG_T(" / %s:%s"), param_list[j], version_param_data.c_str());
                     }
                 }
+                
                 a_logger.log_message(BUG_MSG(current));
+                has_version_information = true;
             }
-            delete [] version_info_buffer;
         }
 
-        if (!translate_length)
+        if (!has_version_information)
         {
             a_logger.log_message(BUG_MSG(BUG_FORM(BUG_T("module:\"%s\" / no version information"), dll_name)));
         }
@@ -4972,13 +5756,22 @@ BUG_define_profiler(BUG_DEFINE_GLOBAL_PROFILER);
 #   define BUG_FORM
 #   define BUG_puts(X)          BUG_NOTHING
 #   define BUG_scope(X)         BUG_NOTHING
+#   define BUG_scope_with_timelimit(X,timelimit) BUG_NOTHING
+#   define BUG_inline_scope(X)  BUG_NOTHING
+#   define BUG_inline_scope_with_timelimit(X,timelimit)  BUG_NOTHING
 #   define BUG_exec(X)          
 #   define BUG_define_logger(X)
 #   define BUG_define_profiler(X)
 
 #endif  //  defined(BUG_LOAD_BUGBEARD)
 
-#endif  //  BUGBEARD_BUG_H
+
+#if defined(_MSC_VER)
+#   pragma warning(pop)
+#endif
+
+
+#endif  //  !defined(BUGBEARD_BUG_H)
 
 
 #if defined(BUG_LOAD_BUGBEARD)
@@ -4992,18 +5785,22 @@ BUG_define_profiler(BUG_DEFINE_GLOBAL_PROFILER);
 #else
 #   define while(X)     while(bugbeard::bug_while_core BUG_ID(bugbeard_while_temporary_object, __LINE__) = bugbeard::bug_while_core(BUG_LOG, BUG_MSG(BUG_T("while (") BUG_T(BUG_MASK_TARGET(#X)) BUG_T(") == ")), X))
 #endif
-#if defined(BUG_DISABLED_SWITCH_SCOPE)
-#if defined(BUG_NEED_WHILE_CAST)
-#   define switch(X)    switch((int)bugbeard::bug_switch_core(BUG_LOG, BUG_MSG(BUG_T("switch (") BUG_T(BUG_MASK_TARGET(#X)) BUG_T(") == ")), X))
+#if defined(BUG_ENABLED_CPP11_OR_LATER)
+#   define switch(X)    switch(auto BUG_ID(bugbeard_switch_temporary_object, __LINE__) = bugbeard::bug_switch_helper(BUG_LOG, BUG_MSG(BUG_T("switch (") BUG_T(BUG_MASK_TARGET(#X)) BUG_T(") == ")), X))
 #else
-#   define switch(X)    switch(bugbeard::bug_switch_core(BUG_LOG, BUG_MSG(BUG_T("switch (") BUG_T(BUG_MASK_TARGET(#X)) BUG_T(") == ")), X))
-#endif
-#else
-#if defined(BUG_NEED_WHILE_CAST)
-#   define switch(X)    switch((int)bugbeard::bug_switch_core BUG_ID(bugbeard_switch_temporary_object, __LINE__) = bugbeard::bug_switch_core(BUG_LOG, BUG_MSG(BUG_T("switch (") BUG_T(BUG_MASK_TARGET(#X)) BUG_T(") == ")), X))
-#else
-#   define switch(X)    switch(bugbeard::bug_switch_core BUG_ID(bugbeard_switch_temporary_object, __LINE__) = bugbeard::bug_switch_core(BUG_LOG, BUG_MSG(BUG_T("switch (") BUG_T(BUG_MASK_TARGET(#X)) BUG_T(") == ")), X))
-#endif
+#   if defined(BUG_DISABLED_SWITCH_SCOPE)
+#       if defined(BUG_NEED_WHILE_CAST)
+#           define switch(X)    switch((int)bugbeard::bug_switch_core(BUG_LOG, BUG_MSG(BUG_T("switch (") BUG_T(BUG_MASK_TARGET(#X)) BUG_T(") == ")), X))
+#       else
+#           define switch(X)    switch(bugbeard::bug_switch_core(BUG_LOG, BUG_MSG(BUG_T("switch (") BUG_T(BUG_MASK_TARGET(#X)) BUG_T(") == ")), X))
+#       endif
+#   else
+#       if defined(BUG_NEED_WHILE_CAST)
+#           define switch(X)    switch((int)bugbeard::bug_switch_core BUG_ID(bugbeard_switch_temporary_object, __LINE__) = bugbeard::bug_switch_core(BUG_LOG, BUG_MSG(BUG_T("switch (") BUG_T(BUG_MASK_TARGET(#X)) BUG_T(") == ")), X))
+#       else
+#           define switch(X)    switch(bugbeard::bug_switch_core BUG_ID(bugbeard_switch_temporary_object, __LINE__) = bugbeard::bug_switch_core(BUG_LOG, BUG_MSG(BUG_T("switch (") BUG_T(BUG_MASK_TARGET(#X)) BUG_T(") == ")), X))
+#       endif
+#   endif
 #endif
 #   define goto         if (BUG_puts(BUG_T("goto"))) assert(false); else goto
 #   define break        if (BUG_puts(BUG_T("break"))) break; else break
@@ -5073,8 +5870,11 @@ BUG_define_profiler(BUG_DEFINE_GLOBAL_PROFILER);
 //  bugbeardを使用することで過剰に発生することになる警告の回避
 //
 
-#if defined(_MSC_VER) && _MSC_VER <= 1200
-#   pragma warning(disable:4715)
+#if defined(_MSC_VER)
+#   if _MSC_VER <= 1200
+#       pragma warning(disable:4715)
+#   endif
+#   pragma warning(disable:4065)
 #endif
 
 #if  defined(__INTEL_COMPILER)
