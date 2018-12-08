@@ -117,40 +117,39 @@
 <DL>
 <DT>見ようとしたものしか見えない。</DT>
 <DD>
-    デバッガによるデバッグでは一般的にプログラマ自身が見ようとした情報しか得られません。プログラマが見ようとした情報の直近であからさまにおかしい挙動があってもプログラマにはそれが伝わらないのです。これでは目隠しされて手探りしているようなものです。
-    多くの場合、デバッガを利用してのデバッグではバグの原因を突き止めるに足る決定的なポイントを捕らえる必要があるにも関わらず、そのポイントを捕らえる為の情報はこのような手探りで積み重ねていかねばなりません。
+デバッガによるデバッグでは一般的にプログラマ自身が見ようとした情報しか得られません。プログラマが見ようとした情報の直近であからさまにおかしい挙動があってもプログラマにはそれが伝わらないのです。これでは目隠しされて手探りしているようなものです。
+多くの場合、デバッガを利用してのデバッグではバグの原因を突き止めるに足る決定的なポイントを捕らえる必要があるにも関わらず、そのポイントを捕らえる為の情報はこのような手探りで積み重ねていかねばなりません。
 </DD>
 
 <DT>処理の流れを把握しづらい。</DT>
 <DD>
-    デバッガにはステップ実行や逆実行などの機能もありますが、それでもデバッガでは常にある特定の瞬間のデータしか扱えず、これではなかなか処理の流れを把握できません。
-    この為、ステップ実行をやってる最中に明らかにおかしい分岐に入ってもそれがその時に注意を傾けているポイントでなければうっかり見過ごしてしまうのも無理のないことです。
-    また、処理の流れが可視化されていない為、デバッガでは正常な場合の処理の流れと異常な場合の処理の流れの比較に困難がつきまといます。
+デバッガにはステップ実行や逆実行などの機能もありますが、それでもデバッガでは常にある特定の瞬間のデータしか扱えず、これではなかなか処理の流れを把握できません。
+この為、ステップ実行をやってる最中に明らかにおかしい分岐に入ってもそれがその時に注意を傾けているポイントでなければうっかり見過ごしてしまうのも無理のないことです。
+また、処理の流れが可視化されていない為、デバッガでは正常な場合の処理の流れと異常な場合の処理の流れの比較に困難がつきまといます。
 </DD>
 
 <DT>エンドユーザ環境では無力。</DT>
 <DD>
-    特定のエンドユーザ環境でしか再現しないバグというのは普通によくある話であるにも関わらずデバッガはこの種の再現条件を抱えるバグに対して全く無力です。
+特定のエンドユーザ環境でしか再現しないバグというのは普通によくある話であるにも関わらずデバッガはこの種の再現条件を抱えるバグに対して全く無力です。
 </DD>
 </DL>
-
 
 他のも問題はあるでしょうがこれらの問題に対しバグベアードでは次のようになります。
 
 <DL>
 <DT>見ようとしたもの以外の情報も見える。</DT>
 <DD>
-    裏を返せば見たくもないものを見せられたり肝心な情報がその他の情報に埋もれてしまうリスクもあるわけですが、バグベアードでは意識して見ようとした以外の情報も見える為、バグの痕跡を発見しやすくなります。
+裏を返せば見たくもないものを見せられたり肝心な情報がその他の情報に埋もれてしまうリスクもあるわけですが、バグベアードでは意識して見ようとした以外の情報も見える為、バグの痕跡を発見しやすくなります。
 </DD>
 
 <DT>処理の流れを把握しやすい。</DT>
 <DD>
-    特にツリー形式のログでは処理の流れを把握しやすく、テキストデータの形になっているので正常の場合の処理の流れと異常な場合の処理の流れの比較も容易です。
+特にツリー形式のログでは処理の流れを把握しやすく、テキストデータの形になっているので正常の場合の処理の流れと異常な場合の処理の流れの比較も容易です。
 </DD>
 
 <DT>エンドユーザ環境でも利用可能。</DT>
 <DD>
-    エンドユーザにログ上のソースコード断片を見られてしまったり、膨大なログをどうやってエンドユーザに送り返してもらうのかで困ったりすることはあるかもしれませんが、エンドユーザ環境であってもバグベアードは利用できます。
+エンドユーザにログ上のソースコード断片を見られてしまったり、膨大なログをどうやってエンドユーザに送り返してもらうのかで困ったりすることはあるかもしれませんが、エンドユーザ環境であってもバグベアードは利用できます。
 </DD>
 </DL>
 
@@ -161,23 +160,23 @@
 <DL>
 <DT>ログがでかすぎ。</DT>
 <DD>
-    『とにかくログでかすぎ。時間あたりのログ出力量が動画ファイルを余裕で上回るとかね、もう馬鹿？って感じ。』
-    『エンドユーザ環境でも利用可能？こんなでかいログどうやってユーザから送ってもらうのよ？』
-    ...とでも言いたくなるようなログ出力量になり、バグベアードを利用してのデバッグはバグの原因を特定する為に必要なほんの数行を見つけ出す為に数十万行のログを追いかけるようなものとなります。
-    そのログのサイズは時には数百万行あるいは数千万行以上の非常に膨大なサイズに達することでしょう。
-    バグベアードは昨今のPCの強力なパワーがあって初めて実用的なデバッグの手段となり得ます。
+『とにかくログでかすぎ。時間あたりのログ出力量が動画ファイルを余裕で上回るとかね、もう馬鹿？って感じ。』
+『エンドユーザ環境でも利用可能？こんなでかいログどうやってユーザから送ってもらうのよ？』
+...とでも言いたくなるようなログ出力量になり、バグベアードを利用してのデバッグはバグの原因を特定する為に必要なほんの数行を見つけ出す為に数十万行のログを追いかけるようなものとなります。
+そのログのサイズは時には数百万行あるいは数千万行以上の非常に膨大なサイズに達することでしょう。
+バグベアードは昨今のPCの強力なパワーがあって初めて実用的なデバッグの手段となり得ます。
 </DD>
 
 <DT>ソースコード漏洩</DT>
 <DD>
-    断片的ではあるのですが相当量のソースコードがログに含まれます。
-    エンドユーザ環境などでテストしてもらった際にソースコードが漏洩するリスクを考慮する必要があります。
+断片的ではあるのですが相当量のソースコードがログに含まれます。
+エンドユーザ環境などでテストしてもらった際にソースコードが漏洩するリスクを考慮する必要があります。
 </DD>
 
 <DT>バグベアードをロードしていると実行形式ファイルが馬鹿でかくなる。</DT>
 <DD>
-    ログの膨大さに比べれば全然カワイイものですが、バグベアードをロードしていると実行形式ファイルが馬鹿でかくなります。
-    大きすぎてメールの添付ファイルで送れなくて困るといったこともあるかもしれません。
+ログの膨大さに比べれば全然カワイイものですが、バグベアードをロードしていると実行形式ファイルが馬鹿でかくなります。
+大きすぎてメールの添付ファイルで送れなくて困るといったこともあるかもしれません。
 </DD>
 
 </DL>
@@ -218,7 +217,6 @@
     
 ## "悪魔の契約" -EVIL CONTRACT-
 
-<P>
 邪道な技術により構築されたバグベアードは邪悪で忌むべき存在です。
 またバグベアードの肝であるステートメントハックにより、さながらナノマシンの如くバグベアードのコードはユーザプログラムを隅々まで侵食します。
 故にバグベアードの利用にあたっては以下のような注意が必要となります。
@@ -297,7 +295,6 @@ void func(...) throw(...);
 
 これらを踏まえてなお、悪魔の契約を締結するならばその意思表明として `BUG_EVIL_CONTRACT` `マクロを定義してください。BUG_EVIL_CONTRACT` はユーザプログラム全体に非常に強力な影響を及ぼすバグベアードのセーフティを解除する為のマクロです。
 契約締結の暁にはバグベアードはさまざまな恩恵と災いをあなたにもたらすでしょう。
-</P>
 
 ## バグベアードをご利用に当たってのヒント
 
@@ -593,198 +590,197 @@ int main(int argc, char *args[])
 
 > ※意図的に一部編集してます。
 
-<DIV class="sample">
-<PRE>
+```txt
 ┌────────────────────────────────────── 
 │日付＆時刻：2008-09-23(火) 22:06:59.771 
 └─────┬──────────────────────────────── 
-22:06:59.772├┬▽Compile Information <bug.h>#4450 
-22:06:59.772│├・Compiler:Borland C++(0x0564) <bug.h>#4452 
-22:06:59.772│├・Compile Date:Sep 23 2008 / Compile Time:22:06:25 <bug.h>#4454 
-22:06:59.772│└△Compile Information <bug.h>#4450 
-22:06:59.772├┬▽Commandline Argument Information <bug.h>#4461 
-22:06:59.772│├・argc(0x0012D500) = 1(0x00000001) <bug.h>#4462 
-22:06:59.772│├・args[0]:O:\cxx\bugbeard\work\win.exe <bug.h>#4465 
-22:06:59.772│└△Commandline Argument Information <bug.h>#4461 
-22:06:59.773├┬▽Windows Version Information <bug.h>#4505 
-22:06:59.773│├・Microsoft Windows Vista Business Edition, 32-bit <bug.h>#4508 
-22:06:59.773│├・OSVERSIONINFO dwMajorVersion:6 / dwMinorVersion:0 / dwBuildNumber:6001 / dwPlatformId:2 / szCSDVersion:Service Pack 1 <bug.h>#4510 
-22:06:59.773│├・OSVERSIONINFOEX wServicePackMajor:1 / wServicePackMinor:0 / wSuiteMask:256 / wProductType:1 / wReserved:30 <bug.h>#4514 
-22:06:59.773│└△Windows Version Information <bug.h>#4505 
-22:06:59.773├┬▽Windows System Information <bug.h>#4474 
-22:06:59.773│├・wProcessorArchitecture:0 <bug.h>#4488 
-22:06:59.773│├・wReserved:0 <bug.h>#4489 
-22:06:59.773│├・dwPageSize:4096 <bug.h>#4490 
-22:06:59.773│├・lpMinimumApplicationAddress:00010000 <bug.h>#4491 
-22:06:59.773│├・lpMaximumApplicationAddress:7FFEFFFF <bug.h>#4492 
-22:06:59.773│├・dwActiveProcessorMask:3 <bug.h>#4493 
-22:06:59.773│├・dwNumberOfProcessors:2 <bug.h>#4494 
-22:06:59.773│├・dwProcessorType:586 <bug.h>#4495 
-22:06:59.773│├・dwAllocationGranularity:65536 <bug.h>#4496 
-22:06:59.773│├・wProcessorLevel:6 <bug.h>#4497 
-22:06:59.773│├・wProcessorRevision:3846 <bug.h>#4498 
-22:06:59.773│└△Windows System Information <bug.h>#4474 
-22:06:59.773├┬▽Module Version Information <bug.h>#4591 
-22:06:59.773│├・module:"O:\cxx\bugbeard\work\win.exe" / no version information <bug.h>#4584 
-22:06:59.773│├・module:"C:\Windows\system32\ntdll.dll" / language:041104b0 / FileDescription: NT レイヤ DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: ntdll.dll.mui <bug.h>#4577 
-22:06:59.774│├・module:"C:\Windows\system32\kernel32.dll" / language:041104b0 / FileDescription: Windows NT ベース API クライアント DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: kernel32 <bug.h>#4577 
-22:06:59.774│├・module:"C:\Windows\system32\ADVAPI32.DLL" / language:041104b0 / FileDescription: Advanced Windows 32 ベース API / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: advapi32.dll.mui <bug.h>#4577 
-22:06:59.774│├・module:"C:\Windows\system32\RPCRT4.dll" / language:041104b0 / FileDescription: リモート プロシージャ コール ランタイム / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: rpcrt4.dll.mui <bug.h>#4577 
-22:06:59.774│├・module:"C:\Windows\system32\VERSION.DLL" / language:040904b0 / FileDescription: Version Checking and File Installation Libraries / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: VERSION.DLL <bug.h>#4577 
-22:06:59.774│├・module:"C:\Windows\system32\msvcrt.dll" / language:040904b0 / FileDescription: Windows NT CRT DLL / FileVersion: 7.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 7.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: msvcrt.dll <bug.h>#4577 
-22:06:59.775│├・module:"C:\Windows\system32\USER32.DLL" / language:041104b0 / FileDescription: マルチユーザー Windows ユーザー API クライアント DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: user32 <bug.h>#4577 
-22:06:59.775│├・module:"C:\Windows\system32\GDI32.dll" / language:040904b0 / FileDescription: GDI Client DLL / FileVersion: 6.0.6001.18023 (vistasp1_gdr.080221-1537) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18023 / CompanyName: Microsoft Corporation / OriginalFilename: gdi32 <bug.h>#4577 
-22:06:59.775│├・module:"C:\Windows\system32\PSAPI.DLL" / language:040904b0 / FileDescription: Process Status Helper / FileVersion: 6.0.6000.16386 (vista_rtm.061101-2205) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6000.16386 / CompanyName: Microsoft Corporation / OriginalFilename: PSAPI <bug.h>#4577 
-22:06:59.775│├・module:"C:\Windows\system32\IMM32.DLL" / language:040904b0 / FileDescription: Multi-User Windows IMM32 API Client DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: imm32 <bug.h>#4577 
-22:06:59.775│├・module:"C:\Windows\system32\MSCTF.dll" / language:041104b0 / FileDescription: MSCTF サーバー DLL / FileVersion: 6.0.6000.16386 (vista_rtm.061101-2205) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6000.16386 / CompanyName: Microsoft Corporation / OriginalFilename: MSCTF.DLL.MUI <bug.h>#4577 
-22:06:59.776│├・module:"C:\Windows\system32\LPK.DLL" / language:040904b0 / FileDescription: Language Pack / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: LanguagePack <bug.h>#4577 
-22:06:59.776│├・module:"C:\Windows\system32\USP10.dll" / language:040904b0 / FileDescription: Uniscribe Unicode script processor / FileVersion: 1.0626.6001.18000 (longhorn_rtm.080118-1840) / ProductName: Microsoft(R) Uniscribe Unicode script processor / ProductVersion: 1.0626.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: Uniscribe <bug.h>#4577 
-22:06:59.776│└△Module Version Information <bug.h>#4591 
-22:06:59.776├┬▽Module Hash <bug.h>#4605 
-22:06:59.789│├・file:"O:\cxx\bugbeard\work\win.exe" / hash(MD5):DA0A29DA42E371316446BFE64A528921 <bug.h>#4528 
-22:06:59.792│├・file:"C:\Windows\system32\ntdll.dll" / hash(MD5):172E1B9EB61167AD232291A6761501BF <bug.h>#4528 
-22:06:59.796│├・file:"C:\Windows\system32\kernel32.dll" / hash(MD5):DC2338093F91BA4E0512208E60206DDD <bug.h>#4528 
-22:06:59.799│├・file:"C:\Windows\system32\ADVAPI32.DLL" / hash(MD5):C44A1766E93E506EE2102A305799E1A1 <bug.h>#4528 
-22:06:59.802│├・file:"C:\Windows\system32\RPCRT4.dll" / hash(MD5):520CE99A9C1A3B14078BB39272424652 <bug.h>#4528 
-22:06:59.802│├・file:"C:\Windows\system32\VERSION.DLL" / hash(MD5):187D588F7A1A45DE48B8540401A90850 <bug.h>#4528 
-22:06:59.805│├・file:"C:\Windows\system32\msvcrt.dll" / hash(MD5):04CBEAA089B6A752B3EB660BEE8C4964 <bug.h>#4528 
-22:06:59.808│├・file:"C:\Windows\system32\USER32.DLL" / hash(MD5):B974D9F06DC7D1908E825DC201681269 <bug.h>#4528 
-22:06:59.809│├・file:"C:\Windows\system32\GDI32.dll" / hash(MD5):F77456EB036D834BFBC700EB2414879E <bug.h>#4528 
-22:06:59.810│├・file:"C:\Windows\system32\PSAPI.DLL" / hash(MD5):93A1732F7F997E36A5C3893539E2FF02 <bug.h>#4528 
-22:06:59.811│├・file:"C:\Windows\system32\IMM32.DLL" / hash(MD5):EC17194A193CD8E90D27CFB93DFA9A2E <bug.h>#4528 
-22:06:59.814│├・file:"C:\Windows\system32\MSCTF.dll" / hash(MD5):030981927E732FD4013910B3B06BD45B <bug.h>#4528 
-22:06:59.815│├・file:"C:\Windows\system32\LPK.DLL" / hash(MD5):DD496299B7351E16E602FC4299345A33 <bug.h>#4528 
-22:06:59.817│├・file:"C:\Windows\system32\USP10.dll" / hash(MD5):3122DAF86B33ED8AC4662D07593025D7 <bug.h>#4528 
-22:06:59.817│└△Module Hash <bug.h>#4605 
-22:06:59.817├┬▽Memory Information <bug.h>#4623 
-22:06:59.817│├・load:61% <bug.h>#4628 
-22:06:59.817│├・TotalPhys:2.98GiByte(3201634304) <bug.h>#4629 
-22:06:59.817│├・AvailPhys:1.14GiByte(1222332416) <bug.h>#4630 
-22:06:59.817│├・Used-Phys:1.84GiByte(1979301888) <bug.h>#4631 
-22:06:59.817│├・TotalPageFile:6.16GiByte(6611963904) <bug.h>#4632 
-22:06:59.817│├・AvailPageFile:1.14GiByte(1222332416) <bug.h>#4633 
-22:06:59.817│├・Used-PageFile:5.02GiByte(5389631488) <bug.h>#4634 
-22:06:59.817│├・TotalVirtual:2.00GiByte(2147352576) <bug.h>#4635 
-22:06:59.817│├・AvailVirtual:1.14GiByte(1222332416) <bug.h>#4636 
-22:06:59.817│├・Used-Virtual:882MiByte(925020160) <bug.h>#4637 
-22:06:59.817│├・AvailExtendedVirtual:0Byte(0) <bug.h>#4638 
-22:06:59.817│└△Memory Information <bug.h>#4623 
-22:06:59.817├┬▽Drives Information <bug.h>#4752 
-22:06:59.817│├・drive:C / type:fixed / label:***** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:6.08GiByte(6528913408) / total:74.5GiByte(80003198976) / free:6.08GiByte(6528913408) <bug.h>#4747 
-22:06:59.818│├・drive:D / type:fixed / label:** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:39.0GiByte(41832468480) / total:74.5GiByte(80007262208) / free:39.0GiByte(41832468480) <bug.h>#4747 
-22:06:59.818│├・drive:F / type:fixed / label:*** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:726GiByte(779961614336) / total:931GiByte(1000202240000) / free:726GiByte(779961614336) <bug.h>#4747 
-22:06:59.819│├・drive:G / type:cdrom <bug.h>#4747 
-22:06:59.831│├・drive:I / type:removable <bug.h>#4747 
-22:06:59.842│├・drive:J / type:removable <bug.h>#4747 
-22:06:59.854│├・drive:K / type:removable <bug.h>#4747 
-22:06:59.866│├・drive:L / type:removable <bug.h>#4747 
-22:06:59.866│├・drive:O / type:fixed / label:**** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:10.4GiByte(11172679680) / total:114GiByte(122683387904) / free:10.4GiByte(11172679680) <bug.h>#4747 
-22:06:59.866│├・drive:X / type:fixed / label:***** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:143GiByte(154588205056) / total:202GiByte(217409646592) / free:143GiByte(154588205056) <bug.h>#4747 
-22:06:59.866│└△Drives Information <bug.h>#4752 
-22:06:59.866├┬▽Monitor Information <bug.h>#4793 
-22:06:59.866│├・Monitor Rect:(0,0)-(1920,1200) / Work:(0,0)-(1920,1200) / Device:\\.\DISPLAY1 <bug.h>#4786 
-22:06:59.866│├・Monitor Rect:(1920,176)-(3200,1200) / Work:(1920,176)-(3200,1200) / Device:\\.\DISPLAY2 <bug.h>#4786 
-22:06:59.866│└△Monitor Information <bug.h>#4793 
-22:06:59.866├┬▽Display Information <bug.h>#4851 
-22:06:59.866│├・Display Name:\\.\DISPLAY1 / Context:NVIDIA GeForce 8600 GTS <bug.h>#4867 
-22:06:59.867│├・Display Name:\\.\DISPLAY2 / Context:NVIDIA GeForce 8600 GTS <bug.h>#4867 
-22:06:59.867│├・Display Name:\\.\DISPLAYV1 / Context:RDPDD Chained DD <bug.h>#4867 
-22:06:59.867│├・Display Name:\\.\DISPLAYV2 / Context:RDP Encoder Mirror Driver <bug.h>#4867 
-22:06:59.867│└△Display Information <bug.h>#4851 
-22:06:59.867├┬▽All Environment Information <bug.h>#4838 
-22:06:59.867│├・=::=::\ <bug.h>#4842 
-22:06:59.867│├・=C:=C:\Users\wraith <bug.h>#4842 
-22:06:59.867│├・=ExitCode=00000000 <bug.h>#4842 
-22:06:59.867│├・=O:=O:\cxx\bugbeard\work <bug.h>#4842 
-22:06:59.867│├・ALLUSERSPROFILE=C:\ProgramData <bug.h>#4842 
-22:06:59.867│├・APPDATA=C:\Users\wraith\AppData\Roaming <bug.h>#4842 
-22:06:59.867│├・BDSCOMMONDIR=C:\Users\Public\Documents\RAD Studio\5.0 <bug.h>#4842 
-22:06:59.867│├・CLASSPATH=.;C:\Program Files\Java\jre1.5.0_10\lib\ext\QTJava.zip <bug.h>#4842 
-22:06:59.867│├・CommonProgramFiles=C:\Program Files\Common Files <bug.h>#4842 
-22:06:59.867│├・COMPUTERNAME=CRUISER <bug.h>#4842 
-22:06:59.867│├・ComSpec=C:\Windows\system32\cmd.exe <bug.h>#4842 
-22:06:59.867│├・FP_NO_HOST_CHECK=NO <bug.h>#4842 
-22:06:59.867│├・HOMEDRIVE=C: <bug.h>#4842 
-22:06:59.867│├・HOMEPATH=\Users\wraith <bug.h>#4842 
-22:06:59.867│├・LOCALAPPDATA=C:\Users\wraith\AppData\Local <bug.h>#4842 
-22:06:59.867│├・LOGONSERVER=\\CRUISER <bug.h>#4842 
-22:06:59.867│├・NUMBER_OF_PROCESSORS=2 <bug.h>#4842 
-22:06:59.867│├・OS=Windows_NT <bug.h>#4842 
-22:06:59.867│├・Path=************************************************************************************************************************* <bug.h>#4842 
-22:06:59.867│├・PATHEXT=**************************************************** <bug.h>#4842 
-22:06:59.867│├・PROCESSOR_ARCHITECTURE=x86 <bug.h>#4842 
-22:06:59.867│├・PROCESSOR_IDENTIFIER=x86 Family 6 Model 15 Stepping 6, GenuineIntel <bug.h>#4842 
-22:06:59.868│├・PROCESSOR_LEVEL=6 <bug.h>#4842 
-22:06:59.868│├・PROCESSOR_REVISION=**** <bug.h>#4842 
-22:06:59.868│├・ProgramData=C:\ProgramData <bug.h>#4842 
-22:06:59.868│├・ProgramFiles=C:\Program Files <bug.h>#4842 
-22:06:59.868│├・PROMPT=$P$G <bug.h>#4842 
-22:06:59.868│├・PUBLIC=C:\Users\Public <bug.h>#4842 
-22:06:59.868│├・QTJAVA=C:\Program Files\Java\jre1.5.0_10\lib\ext\QTJava.zip <bug.h>#4842 
-22:06:59.868│├・SESSIONNAME=Console <bug.h>#4842 
-22:06:59.868│├・solomoncmd="O:\solomon\bcc32" win.cpp  <bug.h>#4842 
-22:06:59.868│├・SystemDrive=C: <bug.h>#4842 
-22:06:59.868│├・SystemRoot=C:\Windows <bug.h>#4842 
-22:06:59.868│├・TEMP=C:\Users\wraith\AppData\Local\Temp <bug.h>#4842 
-22:06:59.868│├・TMP=C:\Users\wraith\AppData\Local\Temp <bug.h>#4842 
-22:06:59.868│├・UGII_3DCONNEXION_LIBRARY=%UGII_BASE_DIR%\ugalliance\vendor\startup\3DxNX.dll <bug.h>#4842 
-22:06:59.868│├・USERDOMAIN=cruiser <bug.h>#4842 
-22:06:59.868│├・USERNAME=wraith <bug.h>#4842 
-22:06:59.868│├・USERPROFILE=C:\Users\wraith <bug.h>#4842 
-22:06:59.868│├・windir=C:\Windows <bug.h>#4842 
-22:06:59.868│└△All Environment Information <bug.h>#4838 
-22:06:59.868├・return <win.cpp>#88 
+22:06:59.772├┬▽Compile Information #4450 
+22:06:59.772│├・Compiler:Borland C++(0x0564) #4452 
+22:06:59.772│├・Compile Date:Sep 23 2008 / Compile Time:22:06:25 #4454 
+22:06:59.772│└△Compile Information #4450 
+22:06:59.772├┬▽Commandline Argument Information #4461 
+22:06:59.772│├・argc(0x0012D500) = 1(0x00000001) #4462 
+22:06:59.772│├・args[0]:O:\cxx\bugbeard\work\win.exe #4465 
+22:06:59.772│└△Commandline Argument Information #4461 
+22:06:59.773├┬▽Windows Version Information #4505 
+22:06:59.773│├・Microsoft Windows Vista Business Edition, 32-bit #4508 
+22:06:59.773│├・OSVERSIONINFO dwMajorVersion:6 / dwMinorVersion:0 / dwBuildNumber:6001 / dwPlatformId:2 / szCSDVersion:Service Pack 1 #4510 
+22:06:59.773│├・OSVERSIONINFOEX wServicePackMajor:1 / wServicePackMinor:0 / wSuiteMask:256 / wProductType:1 / wReserved:30 #4514 
+22:06:59.773│└△Windows Version Information #4505 
+22:06:59.773├┬▽Windows System Information #4474 
+22:06:59.773│├・wProcessorArchitecture:0 #4488 
+22:06:59.773│├・wReserved:0 #4489 
+22:06:59.773│├・dwPageSize:4096 #4490 
+22:06:59.773│├・lpMinimumApplicationAddress:00010000 #4491 
+22:06:59.773│├・lpMaximumApplicationAddress:7FFEFFFF #4492 
+22:06:59.773│├・dwActiveProcessorMask:3 #4493 
+22:06:59.773│├・dwNumberOfProcessors:2 #4494 
+22:06:59.773│├・dwProcessorType:586 #4495 
+22:06:59.773│├・dwAllocationGranularity:65536 #4496 
+22:06:59.773│├・wProcessorLevel:6 #4497 
+22:06:59.773│├・wProcessorRevision:3846 #4498 
+22:06:59.773│└△Windows System Information #4474 
+22:06:59.773├┬▽Module Version Information #4591 
+22:06:59.773│├・module:"O:\cxx\bugbeard\work\win.exe" / no version information #4584 
+22:06:59.773│├・module:"C:\Windows\system32\ntdll.dll" / language:041104b0 / FileDescription: NT レイヤ DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: ntdll.dll.mui #4577 
+22:06:59.774│├・module:"C:\Windows\system32\kernel32.dll" / language:041104b0 / FileDescription: Windows NT ベース API クライアント DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: kernel32 #4577 
+22:06:59.774│├・module:"C:\Windows\system32\ADVAPI32.DLL" / language:041104b0 / FileDescription: Advanced Windows 32 ベース API / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: advapi32.dll.mui #4577 
+22:06:59.774│├・module:"C:\Windows\system32\RPCRT4.dll" / language:041104b0 / FileDescription: リモート プロシージャ コール ランタイム / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: rpcrt4.dll.mui #4577 
+22:06:59.774│├・module:"C:\Windows\system32\VERSION.DLL" / language:040904b0 / FileDescription: Version Checking and File Installation Libraries / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: VERSION.DLL #4577 
+22:06:59.774│├・module:"C:\Windows\system32\msvcrt.dll" / language:040904b0 / FileDescription: Windows NT CRT DLL / FileVersion: 7.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 7.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: msvcrt.dll #4577 
+22:06:59.775│├・module:"C:\Windows\system32\USER32.DLL" / language:041104b0 / FileDescription: マルチユーザー Windows ユーザー API クライアント DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: user32 #4577 
+22:06:59.775│├・module:"C:\Windows\system32\GDI32.dll" / language:040904b0 / FileDescription: GDI Client DLL / FileVersion: 6.0.6001.18023 (vistasp1_gdr.080221-1537) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18023 / CompanyName: Microsoft Corporation / OriginalFilename: gdi32 #4577 
+22:06:59.775│├・module:"C:\Windows\system32\PSAPI.DLL" / language:040904b0 / FileDescription: Process Status Helper / FileVersion: 6.0.6000.16386 (vista_rtm.061101-2205) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6000.16386 / CompanyName: Microsoft Corporation / OriginalFilename: PSAPI #4577 
+22:06:59.775│├・module:"C:\Windows\system32\IMM32.DLL" / language:040904b0 / FileDescription: Multi-User Windows IMM32 API Client DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: imm32 #4577 
+22:06:59.775│├・module:"C:\Windows\system32\MSCTF.dll" / language:041104b0 / FileDescription: MSCTF サーバー DLL / FileVersion: 6.0.6000.16386 (vista_rtm.061101-2205) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6000.16386 / CompanyName: Microsoft Corporation / OriginalFilename: MSCTF.DLL.MUI #4577 
+22:06:59.776│├・module:"C:\Windows\system32\LPK.DLL" / language:040904b0 / FileDescription: Language Pack / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: LanguagePack #4577 
+22:06:59.776│├・module:"C:\Windows\system32\USP10.dll" / language:040904b0 / FileDescription: Uniscribe Unicode script processor / FileVersion: 1.0626.6001.18000 (longhorn_rtm.080118-1840) / ProductName: Microsoft(R) Uniscribe Unicode script processor / ProductVersion: 1.0626.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: Uniscribe #4577 
+22:06:59.776│└△Module Version Information #4591 
+22:06:59.776├┬▽Module Hash #4605 
+22:06:59.789│├・file:"O:\cxx\bugbeard\work\win.exe" / hash(MD5):DA0A29DA42E371316446BFE64A528921 #4528 
+22:06:59.792│├・file:"C:\Windows\system32\ntdll.dll" / hash(MD5):172E1B9EB61167AD232291A6761501BF #4528 
+22:06:59.796│├・file:"C:\Windows\system32\kernel32.dll" / hash(MD5):DC2338093F91BA4E0512208E60206DDD #4528 
+22:06:59.799│├・file:"C:\Windows\system32\ADVAPI32.DLL" / hash(MD5):C44A1766E93E506EE2102A305799E1A1 #4528 
+22:06:59.802│├・file:"C:\Windows\system32\RPCRT4.dll" / hash(MD5):520CE99A9C1A3B14078BB39272424652 #4528 
+22:06:59.802│├・file:"C:\Windows\system32\VERSION.DLL" / hash(MD5):187D588F7A1A45DE48B8540401A90850 #4528 
+22:06:59.805│├・file:"C:\Windows\system32\msvcrt.dll" / hash(MD5):04CBEAA089B6A752B3EB660BEE8C4964 #4528 
+22:06:59.808│├・file:"C:\Windows\system32\USER32.DLL" / hash(MD5):B974D9F06DC7D1908E825DC201681269 #4528 
+22:06:59.809│├・file:"C:\Windows\system32\GDI32.dll" / hash(MD5):F77456EB036D834BFBC700EB2414879E #4528 
+22:06:59.810│├・file:"C:\Windows\system32\PSAPI.DLL" / hash(MD5):93A1732F7F997E36A5C3893539E2FF02 #4528 
+22:06:59.811│├・file:"C:\Windows\system32\IMM32.DLL" / hash(MD5):EC17194A193CD8E90D27CFB93DFA9A2E #4528 
+22:06:59.814│├・file:"C:\Windows\system32\MSCTF.dll" / hash(MD5):030981927E732FD4013910B3B06BD45B #4528 
+22:06:59.815│├・file:"C:\Windows\system32\LPK.DLL" / hash(MD5):DD496299B7351E16E602FC4299345A33 #4528 
+22:06:59.817│├・file:"C:\Windows\system32\USP10.dll" / hash(MD5):3122DAF86B33ED8AC4662D07593025D7 #4528 
+22:06:59.817│└△Module Hash #4605 
+22:06:59.817├┬▽Memory Information #4623 
+22:06:59.817│├・load:61% #4628 
+22:06:59.817│├・TotalPhys:2.98GiByte(3201634304) #4629 
+22:06:59.817│├・AvailPhys:1.14GiByte(1222332416) #4630 
+22:06:59.817│├・Used-Phys:1.84GiByte(1979301888) #4631 
+22:06:59.817│├・TotalPageFile:6.16GiByte(6611963904) #4632 
+22:06:59.817│├・AvailPageFile:1.14GiByte(1222332416) #4633 
+22:06:59.817│├・Used-PageFile:5.02GiByte(5389631488) #4634 
+22:06:59.817│├・TotalVirtual:2.00GiByte(2147352576) #4635 
+22:06:59.817│├・AvailVirtual:1.14GiByte(1222332416) #4636 
+22:06:59.817│├・Used-Virtual:882MiByte(925020160) #4637 
+22:06:59.817│├・AvailExtendedVirtual:0Byte(0) #4638 
+22:06:59.817│└△Memory Information #4623 
+22:06:59.817├┬▽Drives Information #4752 
+22:06:59.817│├・drive:C / type:fixed / label:***** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:6.08GiByte(6528913408) / total:74.5GiByte(80003198976) / free:6.08GiByte(6528913408) #4747 
+22:06:59.818│├・drive:D / type:fixed / label:** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:39.0GiByte(41832468480) / total:74.5GiByte(80007262208) / free:39.0GiByte(41832468480) #4747 
+22:06:59.818│├・drive:F / type:fixed / label:*** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:726GiByte(779961614336) / total:931GiByte(1000202240000) / free:726GiByte(779961614336) #4747 
+22:06:59.819│├・drive:G / type:cdrom #4747 
+22:06:59.831│├・drive:I / type:removable #4747 
+22:06:59.842│├・drive:J / type:removable #4747 
+22:06:59.854│├・drive:K / type:removable #4747 
+22:06:59.866│├・drive:L / type:removable #4747 
+22:06:59.866│├・drive:O / type:fixed / label:**** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:10.4GiByte(11172679680) / total:114GiByte(122683387904) / free:10.4GiByte(11172679680) #4747 
+22:06:59.866│├・drive:X / type:fixed / label:***** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:143GiByte(154588205056) / total:202GiByte(217409646592) / free:143GiByte(154588205056) #4747 
+22:06:59.866│└△Drives Information #4752 
+22:06:59.866├┬▽Monitor Information #4793 
+22:06:59.866│├・Monitor Rect:(0,0)-(1920,1200) / Work:(0,0)-(1920,1200) / Device:\\.\DISPLAY1 #4786 
+22:06:59.866│├・Monitor Rect:(1920,176)-(3200,1200) / Work:(1920,176)-(3200,1200) / Device:\\.\DISPLAY2 #4786 
+22:06:59.866│└△Monitor Information #4793 
+22:06:59.866├┬▽Display Information #4851 
+22:06:59.866│├・Display Name:\\.\DISPLAY1 / Context:NVIDIA GeForce 8600 GTS #4867 
+22:06:59.867│├・Display Name:\\.\DISPLAY2 / Context:NVIDIA GeForce 8600 GTS #4867 
+22:06:59.867│├・Display Name:\\.\DISPLAYV1 / Context:RDPDD Chained DD #4867 
+22:06:59.867│├・Display Name:\\.\DISPLAYV2 / Context:RDP Encoder Mirror Driver #4867 
+22:06:59.867│└△Display Information #4851 
+22:06:59.867├┬▽All Environment Information #4838 
+22:06:59.867│├・=::=::\ #4842 
+22:06:59.867│├・=C:=C:\Users\wraith #4842 
+22:06:59.867│├・=ExitCode=00000000 #4842 
+22:06:59.867│├・=O:=O:\cxx\bugbeard\work #4842 
+22:06:59.867│├・ALLUSERSPROFILE=C:\ProgramData #4842 
+22:06:59.867│├・APPDATA=C:\Users\wraith\AppData\Roaming #4842 
+22:06:59.867│├・BDSCOMMONDIR=C:\Users\Public\Documents\RAD Studio\5.0 #4842 
+22:06:59.867│├・CLASSPATH=.;C:\Program Files\Java\jre1.5.0_10\lib\ext\QTJava.zip #4842 
+22:06:59.867│├・CommonProgramFiles=C:\Program Files\Common Files #4842 
+22:06:59.867│├・COMPUTERNAME=CRUISER #4842 
+22:06:59.867│├・ComSpec=C:\Windows\system32\cmd.exe #4842 
+22:06:59.867│├・FP_NO_HOST_CHECK=NO #4842 
+22:06:59.867│├・HOMEDRIVE=C: #4842 
+22:06:59.867│├・HOMEPATH=\Users\wraith #4842 
+22:06:59.867│├・LOCALAPPDATA=C:\Users\wraith\AppData\Local #4842 
+22:06:59.867│├・LOGONSERVER=\\CRUISER #4842 
+22:06:59.867│├・NUMBER_OF_PROCESSORS=2 #4842 
+22:06:59.867│├・OS=Windows_NT #4842 
+22:06:59.867│├・Path=************************************************************************************************************************* #4842 
+22:06:59.867│├・PATHEXT=**************************************************** #4842 
+22:06:59.867│├・PROCESSOR_ARCHITECTURE=x86 #4842 
+22:06:59.867│├・PROCESSOR_IDENTIFIER=x86 Family 6 Model 15 Stepping 6, GenuineIntel #4842 
+22:06:59.868│├・PROCESSOR_LEVEL=6 #4842 
+22:06:59.868│├・PROCESSOR_REVISION=**** #4842 
+22:06:59.868│├・ProgramData=C:\ProgramData #4842 
+22:06:59.868│├・ProgramFiles=C:\Program Files #4842 
+22:06:59.868│├・PROMPT=$P$G #4842 
+22:06:59.868│├・PUBLIC=C:\Users\Public #4842 
+22:06:59.868│├・QTJAVA=C:\Program Files\Java\jre1.5.0_10\lib\ext\QTJava.zip #4842 
+22:06:59.868│├・SESSIONNAME=Console #4842 
+22:06:59.868│├・solomoncmd="O:\solomon\bcc32" win.cpp  #4842 
+22:06:59.868│├・SystemDrive=C: #4842 
+22:06:59.868│├・SystemRoot=C:\Windows #4842 
+22:06:59.868│├・TEMP=C:\Users\wraith\AppData\Local\Temp #4842 
+22:06:59.868│├・TMP=C:\Users\wraith\AppData\Local\Temp #4842 
+22:06:59.868│├・UGII_3DCONNEXION_LIBRARY=%UGII_BASE_DIR%\ugalliance\vendor\startup\3DxNX.dll #4842 
+22:06:59.868│├・USERDOMAIN=cruiser #4842 
+22:06:59.868│├・USERNAME=wraith #4842 
+22:06:59.868│├・USERPROFILE=C:\Users\wraith #4842 
+22:06:59.868│├・windir=C:\Windows #4842 
+22:06:59.868│└△All Environment Information #4838 
+22:06:59.868├・return #88 
 ┌─────┴──────────────────────────────── 
 │日付＆時刻：2008-09-23(火) 22:06:59.868 
 └────────────────────────────────────── 
-</PRE>
-</DIV>
+```
 
 #### 解説
 
-<DIV class="sample">
-<span class="SpanClass2">//&nbsp;&nbsp;OutputDebugString()&nbsp;でツリー形式の出力を行うロガーの定義<br/>
-</span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tree_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_OutputDebugString_writer</span><span class="SpanClass10">()));</span><span class="SpanClass0"><br/>
-</DIV>
-        ...この指定により標準エラーへの出力ではなく OutputDebugString() を使ってのログ出力を行っています。
-        [DebugView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx) などでログ出力を確認できます。
-        上のようなログ出力結果は一見、過剰に思えるかもしれませんが、バグベアードによって出力されるログは一般的に非常に膨大なものになり、この程度ハッキリ言って誤差の範囲ですから Windows でバグベアードを利用される場合...
-<DIV class="sample">
-<span class="SpanClass0">
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コンパイル情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_compile_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コマンドライン引数のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_arg_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]Windowsバージョン情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_windows_version_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-</span><span class="SpanClass9">#if&nbsp;0x0500&nbsp;&lt;=&nbsp;WINVER<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;各種モジュールバージョン情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_module_version_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-</span><span class="SpanClass9">#if&nbsp;0x0500&nbsp;&lt;=&nbsp;WINVER<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]メモリ情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_memory_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]ドライブ情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_drive_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass9">#if&nbsp;0x0500&nbsp;&lt;=&nbsp;WINVER<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]モニター情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_monitor_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]ディスプレイ情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_display_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG](全ての)環境変数情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_enum_env</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-</span>
-</DIV>
-        ...この部分のコードを丸々コピペして利用されることを強く推奨いたします。
+```c++
+//  OutputDebugString() でツリー形式の出力を行うロガーの定義
+BUG_define_logger(new bugbeard::bug_tree_logger(new bugbeard::bug_OutputDebugString_writer()));
+```
+
+...この指定により標準エラーへの出力ではなく OutputDebugString() を使ってのログ出力を行っています。
+[DebugView](http://technet.microsoft.com/en-us/sysinternals/bb896647.aspx) などでログ出力を確認できます。
+上のようなログ出力結果は一見、過剰に思えるかもしれませんが、バグベアードによって出力されるログは一般的に非常に膨大なものになり、この程度ハッキリ言って誤差の範囲ですから Windows でバグベアードを利用される場合...
+
+```c++
+    //  [BUG]コンパイル情報のログ出力
+    BUG_exec(bugbeard::bug_compile_info(BUG_LOG));
+
+    //  [BUG]コマンドライン引数のログ出力
+    BUG_exec(bugbeard::bug_arg_info(BUG_LOG, argc, args));
+    
+    //  [BUG]Windowsバージョン情報のログ出力
+    BUG_exec(bugbeard::bug_windows_version_info(BUG_LOG));
+    
+#if 0x0500 <= WINVER
+    //  各種モジュールバージョン情報のログ出力
+    BUG_exec(bugbeard::bug_enum_module_version_info(BUG_LOG));
+#endif
+    
+#if 0x0500 <= WINVER
+    //  [BUG]メモリ情報のログ出力
+    BUG_exec(bugbeard::bug_memory_info(BUG_LOG));
+#endif
+
+    //  [BUG]ドライブ情報のログ出力
+    BUG_exec(bugbeard::bug_enum_drive_info(BUG_LOG));
+
+#if 0x0500 <= WINVER
+    //  [BUG]モニター情報のログ出力
+    BUG_exec(bugbeard::bug_enum_monitor_info(BUG_LOG));
+    //  [BUG]ディスプレイ情報のログ出力
+    BUG_exec(bugbeard::bug_enum_display_info(BUG_LOG));
+#endif
+
+    //  [BUG](全ての)環境変数情報のログ出力
+    BUG_exec(bugbeard::bug_enum_env(BUG_LOG));
+```
+
+...この部分のコードを丸々コピペして利用されることを強く推奨いたします。
 
 <A name="step3"></A>
 ### .tsv形式ログ出力＆マルチスレッドサンプル
@@ -1932,7 +1928,6 @@ BUG_MULTI_THREAD マクロを定義してバグベアードをマルチスレッ
         ./buglog/YYYY/MM/DD/bulklog.log なパスにファイルとして出力されることを除けば内容的には先の tsv.cpp によるログ出力とあまり変わり映えしないので割愛。
 
 #### 解説
-        <P>
         このサンプルのコードでは日付別のディレクトリにログファイルを出力します。
 <DIV class="sample">
 <span class="SpanClass9">#if&nbsp;defined(BUG_LOAD_BUGBEARD)<br/>
@@ -1956,7 +1951,6 @@ BUG_MULTI_THREAD マクロを定義してバグベアードをマルチスレッ
 </span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tree_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_file_writer</span><span class="SpanClass10">(</span><span class="SpanClass11">bug_log_filename</span><span class="SpanClass10">())));</span>
 </DIV>
         bugbeard::bug_dir はディレクトリを自動で作成しつつパス文字列を形成するユーティリティです。
-        </P>
 
 
 <A name="step5"></A>
@@ -2137,19 +2131,13 @@ profile.cpp	88	if (1 < pn) == false;	0.000125	0.000123	0.000002	0.000125	0.00012
 profile.cpp	107	for	0.001543	0.002672	0.003212	0.001543	0.000213	0.001330	0.001865	0.002458	0.001882	1	0.001543	0.002672	0.003212	0.001543	0.000213	0.001330	0.001865	0.002458	0.001882	07:07:06.587	0.001543	0.002672	0.003212	0.001543	0.000213	0.001330	0.001865	0.002458	0.001882	07:07:06.587	0.001543	0.002672	0.003212	0.001543	0.000213	0.001330	0.001865	0.002458	0.001882
 </PRE>
 </DIV>
-    <DIV class="comment">
-        <IMG class="accessary" alt="Wraith the Trickster" src="/image/icon/wrth32.png">
-        <P>
-            タブ区切りテキストなんで普通にテキスト表示しただけだとカラムがずれた状態で表示されます。MS-Excel のシートに貼り付けるなり、その他のデータ形式に変換するなりしてご利用ください。
-            各項目の意味については[リファレンス](#profile-columns)を参照してください。
-        </P>
-        <P>
-            このデータを元にプログラムの高速化を図る場合は、"合計自実働時間"順にソートし最も"合計自実働時間"が大きなスコープから高速化を検討するとよいでしょう。またその際には"最大スタンプ"や"最小スタンプ"を手がかりに、どういったフローの時に時間がかかって逆にどういったフローの時に時間がかかっていないのか参考にするのとよいでしょう。
-        </P>
-        <P>
-            このプロファイルデータにはどうしても測定誤差というものがあることにご留意ください。特にコールカウントが大きなスコープの合計時間に関しては積み重なりにより誤差が大きくなる傾向があります。
-        </P>
-    </DIV>
+
+> タブ区切りテキストなんで普通にテキスト表示しただけだとカラムがずれた状態で表示されます。MS-Excel のシートに貼り付けるなり、その他のデータ形式に変換するなりしてご利用ください。
+> 各項目の意味については[リファレンス](#profile-columns)を参照してください。
+
+> このデータを元にプログラムの高速化を図る場合は、"合計自実働時間"順にソートし最も"合計自実働時間"が大きなスコープから高速化を検討するとよいでしょう。またその際には"最大スタンプ"や"最小スタンプ"を手がかりに、どういったフローの時に時間がかかって逆にどういったフローの時に時間がかかっていないのか参考にするのとよいでしょう。
+
+>このプロファイルデータにはどうしても測定誤差というものがあることにご留意ください。特にコールカウントが大きなスコープの合計時間に関しては積み重なりにより誤差が大きくなる傾向があります。
 
 #### 出力結果( coverage.tsv )
 <DIV class="sample">
@@ -2167,18 +2155,13 @@ profile.cpp	88	if (1 < pn) == false;	1
 profile.cpp	88	if (1 < pn) == true;	0
 </PRE>
 </DIV>
-    <DIV class="comment">
-        <IMG class="accessary" alt="Wraith the Trickster" src="/image/icon/wrth32.png">
-        <P>
-            タブ区切りテキストなんで普通にテキスト表示しただけだとカラムがずれた状態で表示されます。MS-Excel のシートに貼り付けるなり、その他のデータ形式に変換するなりしてご利用ください。
-        </P>
-        <P>
-            プロファイルのデータと異なり if スコープだけが抽出され、且つ if の条件式が true あるいは false のどちらか片方しかしか実行されなかった if スコープの実行されなかった側をコールカウントが 0 のデータとして挿入します。
-        </P>
-    </DIV>
+
+> タブ区切りテキストなんで普通にテキスト表示しただけだとカラムがずれた状態で表示されます。MS-Excel のシートに貼り付けるなり、その他のデータ形式に変換するなりしてご利用ください。
+
+> プロファイルのデータと異なり if スコープだけが抽出され、且つ if の条件式が true あるいは false のどちらか片方しかしか実行されなかった if スコープの実行されなかった側をコールカウントが 0 のデータとして挿入します。
 
 #### 解説
-        <P>
+
             このサンプルのコードでは以下の指定により、プロファイルおよびカバレッジの測定結果をそれぞれ "profile.tsv" および "coverage.tsv" に出力します。(＋メインのログを "trace.log" に出力します。 )
 <DIV class="sample">
 <span class="SpanClass9">#if&nbsp;!defined(NDEBUG)<br/>
@@ -2196,10 +2179,8 @@ profile.cpp	88	if (1 < pn) == true;	0
 </span>
 </DIV>
 ...このサンプルではプロファイルおよびカバレッジの測定結果を両方とも出力していますが、どちらか片方のみ出力させることも可能です。その場合は出力させたくないほうのライターとして NULL を指定してください。
-        </P>
-        <P>
-            尚、マルチスレッドの場合はスレッド毎に定義する必要があります。マルチスレッドでのプロファイラの使い方は基本的にロガーと同じですので *_logger と *_profiler という名称の違いはありますが、 [.tsv形式ログ出力＆マルチスレッドサンプル](#step3) を参考してください。
-        </P>
+
+尚、マルチスレッドの場合はスレッド毎に定義する必要があります。マルチスレッドでのプロファイラの使い方は基本的にロガーと同じですので *_logger と *_profiler という名称の違いはありますが、 [.tsv形式ログ出力＆マルチスレッドサンプル](#step3) を参考してください。
 
 
 ## リファレンス
@@ -2571,12 +2552,8 @@ stamp_title
 <TR class="check"><TD>最大子バグ時間</TD><TD>総実働時間が最大となった時のその内包するスコープの測定の為に要した全ての時間。</TD></TR>
 <TR><TD>最大子実働時間</TD><TD>総実働時間が最大となった時のその内包するスコープの実行に要した全ての時間から測定の為のオーバーヘッドを差し引いた時間。</TD></TR>
 </TABLE>
-<DIV class="comment">
-    <IMG class="accessary" alt="Wraith the Trickster" src="/image/icon/wrth32.png">
-    <P>
-        「総＝自＋子」及び「稼働＝バグ＋実働」なんだと理解して頂ければ後はそれの応用です。
-    </P>
-</DIV>
+
+> 「総＝自＋子」及び「稼働＝バグ＋実働」なんだと理解して頂ければ後はそれの応用です。
 
 ## ダウンロード
 
