@@ -591,148 +591,148 @@ int main(int argc, char *args[])
 > ※意図的に一部編集してます。
 
 ```txt
-┌────────────────────────────────────── 
-│日付＆時刻：2008-09-23(火) 22:06:59.771 
-└─────┬──────────────────────────────── 
-22:06:59.772├┬▽Compile Information #4450 
-22:06:59.772│├・Compiler:Borland C++(0x0564) #4452 
-22:06:59.772│├・Compile Date:Sep 23 2008 / Compile Time:22:06:25 #4454 
-22:06:59.772│└△Compile Information #4450 
-22:06:59.772├┬▽Commandline Argument Information #4461 
-22:06:59.772│├・argc(0x0012D500) = 1(0x00000001) #4462 
-22:06:59.772│├・args[0]:O:\cxx\bugbeard\work\win.exe #4465 
-22:06:59.772│└△Commandline Argument Information #4461 
-22:06:59.773├┬▽Windows Version Information #4505 
-22:06:59.773│├・Microsoft Windows Vista Business Edition, 32-bit #4508 
-22:06:59.773│├・OSVERSIONINFO dwMajorVersion:6 / dwMinorVersion:0 / dwBuildNumber:6001 / dwPlatformId:2 / szCSDVersion:Service Pack 1 #4510 
-22:06:59.773│├・OSVERSIONINFOEX wServicePackMajor:1 / wServicePackMinor:0 / wSuiteMask:256 / wProductType:1 / wReserved:30 #4514 
-22:06:59.773│└△Windows Version Information #4505 
-22:06:59.773├┬▽Windows System Information #4474 
-22:06:59.773│├・wProcessorArchitecture:0 #4488 
-22:06:59.773│├・wReserved:0 #4489 
-22:06:59.773│├・dwPageSize:4096 #4490 
-22:06:59.773│├・lpMinimumApplicationAddress:00010000 #4491 
-22:06:59.773│├・lpMaximumApplicationAddress:7FFEFFFF #4492 
-22:06:59.773│├・dwActiveProcessorMask:3 #4493 
-22:06:59.773│├・dwNumberOfProcessors:2 #4494 
-22:06:59.773│├・dwProcessorType:586 #4495 
-22:06:59.773│├・dwAllocationGranularity:65536 #4496 
-22:06:59.773│├・wProcessorLevel:6 #4497 
-22:06:59.773│├・wProcessorRevision:3846 #4498 
-22:06:59.773│└△Windows System Information #4474 
-22:06:59.773├┬▽Module Version Information #4591 
-22:06:59.773│├・module:"O:\cxx\bugbeard\work\win.exe" / no version information #4584 
-22:06:59.773│├・module:"C:\Windows\system32\ntdll.dll" / language:041104b0 / FileDescription: NT レイヤ DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: ntdll.dll.mui #4577 
-22:06:59.774│├・module:"C:\Windows\system32\kernel32.dll" / language:041104b0 / FileDescription: Windows NT ベース API クライアント DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: kernel32 #4577 
-22:06:59.774│├・module:"C:\Windows\system32\ADVAPI32.DLL" / language:041104b0 / FileDescription: Advanced Windows 32 ベース API / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: advapi32.dll.mui #4577 
-22:06:59.774│├・module:"C:\Windows\system32\RPCRT4.dll" / language:041104b0 / FileDescription: リモート プロシージャ コール ランタイム / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: rpcrt4.dll.mui #4577 
-22:06:59.774│├・module:"C:\Windows\system32\VERSION.DLL" / language:040904b0 / FileDescription: Version Checking and File Installation Libraries / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: VERSION.DLL #4577 
-22:06:59.774│├・module:"C:\Windows\system32\msvcrt.dll" / language:040904b0 / FileDescription: Windows NT CRT DLL / FileVersion: 7.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 7.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: msvcrt.dll #4577 
-22:06:59.775│├・module:"C:\Windows\system32\USER32.DLL" / language:041104b0 / FileDescription: マルチユーザー Windows ユーザー API クライアント DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: user32 #4577 
-22:06:59.775│├・module:"C:\Windows\system32\GDI32.dll" / language:040904b0 / FileDescription: GDI Client DLL / FileVersion: 6.0.6001.18023 (vistasp1_gdr.080221-1537) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18023 / CompanyName: Microsoft Corporation / OriginalFilename: gdi32 #4577 
-22:06:59.775│├・module:"C:\Windows\system32\PSAPI.DLL" / language:040904b0 / FileDescription: Process Status Helper / FileVersion: 6.0.6000.16386 (vista_rtm.061101-2205) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6000.16386 / CompanyName: Microsoft Corporation / OriginalFilename: PSAPI #4577 
-22:06:59.775│├・module:"C:\Windows\system32\IMM32.DLL" / language:040904b0 / FileDescription: Multi-User Windows IMM32 API Client DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: imm32 #4577 
-22:06:59.775│├・module:"C:\Windows\system32\MSCTF.dll" / language:041104b0 / FileDescription: MSCTF サーバー DLL / FileVersion: 6.0.6000.16386 (vista_rtm.061101-2205) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6000.16386 / CompanyName: Microsoft Corporation / OriginalFilename: MSCTF.DLL.MUI #4577 
-22:06:59.776│├・module:"C:\Windows\system32\LPK.DLL" / language:040904b0 / FileDescription: Language Pack / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: LanguagePack #4577 
-22:06:59.776│├・module:"C:\Windows\system32\USP10.dll" / language:040904b0 / FileDescription: Uniscribe Unicode script processor / FileVersion: 1.0626.6001.18000 (longhorn_rtm.080118-1840) / ProductName: Microsoft(R) Uniscribe Unicode script processor / ProductVersion: 1.0626.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: Uniscribe #4577 
-22:06:59.776│└△Module Version Information #4591 
-22:06:59.776├┬▽Module Hash #4605 
-22:06:59.789│├・file:"O:\cxx\bugbeard\work\win.exe" / hash(MD5):DA0A29DA42E371316446BFE64A528921 #4528 
-22:06:59.792│├・file:"C:\Windows\system32\ntdll.dll" / hash(MD5):172E1B9EB61167AD232291A6761501BF #4528 
-22:06:59.796│├・file:"C:\Windows\system32\kernel32.dll" / hash(MD5):DC2338093F91BA4E0512208E60206DDD #4528 
-22:06:59.799│├・file:"C:\Windows\system32\ADVAPI32.DLL" / hash(MD5):C44A1766E93E506EE2102A305799E1A1 #4528 
-22:06:59.802│├・file:"C:\Windows\system32\RPCRT4.dll" / hash(MD5):520CE99A9C1A3B14078BB39272424652 #4528 
-22:06:59.802│├・file:"C:\Windows\system32\VERSION.DLL" / hash(MD5):187D588F7A1A45DE48B8540401A90850 #4528 
-22:06:59.805│├・file:"C:\Windows\system32\msvcrt.dll" / hash(MD5):04CBEAA089B6A752B3EB660BEE8C4964 #4528 
-22:06:59.808│├・file:"C:\Windows\system32\USER32.DLL" / hash(MD5):B974D9F06DC7D1908E825DC201681269 #4528 
-22:06:59.809│├・file:"C:\Windows\system32\GDI32.dll" / hash(MD5):F77456EB036D834BFBC700EB2414879E #4528 
-22:06:59.810│├・file:"C:\Windows\system32\PSAPI.DLL" / hash(MD5):93A1732F7F997E36A5C3893539E2FF02 #4528 
-22:06:59.811│├・file:"C:\Windows\system32\IMM32.DLL" / hash(MD5):EC17194A193CD8E90D27CFB93DFA9A2E #4528 
-22:06:59.814│├・file:"C:\Windows\system32\MSCTF.dll" / hash(MD5):030981927E732FD4013910B3B06BD45B #4528 
-22:06:59.815│├・file:"C:\Windows\system32\LPK.DLL" / hash(MD5):DD496299B7351E16E602FC4299345A33 #4528 
-22:06:59.817│├・file:"C:\Windows\system32\USP10.dll" / hash(MD5):3122DAF86B33ED8AC4662D07593025D7 #4528 
-22:06:59.817│└△Module Hash #4605 
-22:06:59.817├┬▽Memory Information #4623 
-22:06:59.817│├・load:61% #4628 
-22:06:59.817│├・TotalPhys:2.98GiByte(3201634304) #4629 
-22:06:59.817│├・AvailPhys:1.14GiByte(1222332416) #4630 
-22:06:59.817│├・Used-Phys:1.84GiByte(1979301888) #4631 
-22:06:59.817│├・TotalPageFile:6.16GiByte(6611963904) #4632 
-22:06:59.817│├・AvailPageFile:1.14GiByte(1222332416) #4633 
-22:06:59.817│├・Used-PageFile:5.02GiByte(5389631488) #4634 
-22:06:59.817│├・TotalVirtual:2.00GiByte(2147352576) #4635 
-22:06:59.817│├・AvailVirtual:1.14GiByte(1222332416) #4636 
-22:06:59.817│├・Used-Virtual:882MiByte(925020160) #4637 
-22:06:59.817│├・AvailExtendedVirtual:0Byte(0) #4638 
-22:06:59.817│└△Memory Information #4623 
-22:06:59.817├┬▽Drives Information #4752 
-22:06:59.817│├・drive:C / type:fixed / label:***** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:6.08GiByte(6528913408) / total:74.5GiByte(80003198976) / free:6.08GiByte(6528913408) #4747 
-22:06:59.818│├・drive:D / type:fixed / label:** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:39.0GiByte(41832468480) / total:74.5GiByte(80007262208) / free:39.0GiByte(41832468480) #4747 
-22:06:59.818│├・drive:F / type:fixed / label:*** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:726GiByte(779961614336) / total:931GiByte(1000202240000) / free:726GiByte(779961614336) #4747 
-22:06:59.819│├・drive:G / type:cdrom #4747 
-22:06:59.831│├・drive:I / type:removable #4747 
-22:06:59.842│├・drive:J / type:removable #4747 
-22:06:59.854│├・drive:K / type:removable #4747 
-22:06:59.866│├・drive:L / type:removable #4747 
-22:06:59.866│├・drive:O / type:fixed / label:**** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:10.4GiByte(11172679680) / total:114GiByte(122683387904) / free:10.4GiByte(11172679680) #4747 
-22:06:59.866│├・drive:X / type:fixed / label:***** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:143GiByte(154588205056) / total:202GiByte(217409646592) / free:143GiByte(154588205056) #4747 
-22:06:59.866│└△Drives Information #4752 
-22:06:59.866├┬▽Monitor Information #4793 
-22:06:59.866│├・Monitor Rect:(0,0)-(1920,1200) / Work:(0,0)-(1920,1200) / Device:\\.\DISPLAY1 #4786 
-22:06:59.866│├・Monitor Rect:(1920,176)-(3200,1200) / Work:(1920,176)-(3200,1200) / Device:\\.\DISPLAY2 #4786 
-22:06:59.866│└△Monitor Information #4793 
-22:06:59.866├┬▽Display Information #4851 
-22:06:59.866│├・Display Name:\\.\DISPLAY1 / Context:NVIDIA GeForce 8600 GTS #4867 
-22:06:59.867│├・Display Name:\\.\DISPLAY2 / Context:NVIDIA GeForce 8600 GTS #4867 
-22:06:59.867│├・Display Name:\\.\DISPLAYV1 / Context:RDPDD Chained DD #4867 
-22:06:59.867│├・Display Name:\\.\DISPLAYV2 / Context:RDP Encoder Mirror Driver #4867 
-22:06:59.867│└△Display Information #4851 
-22:06:59.867├┬▽All Environment Information #4838 
-22:06:59.867│├・=::=::\ #4842 
-22:06:59.867│├・=C:=C:\Users\wraith #4842 
-22:06:59.867│├・=ExitCode=00000000 #4842 
-22:06:59.867│├・=O:=O:\cxx\bugbeard\work #4842 
-22:06:59.867│├・ALLUSERSPROFILE=C:\ProgramData #4842 
-22:06:59.867│├・APPDATA=C:\Users\wraith\AppData\Roaming #4842 
-22:06:59.867│├・BDSCOMMONDIR=C:\Users\Public\Documents\RAD Studio\5.0 #4842 
-22:06:59.867│├・CLASSPATH=.;C:\Program Files\Java\jre1.5.0_10\lib\ext\QTJava.zip #4842 
-22:06:59.867│├・CommonProgramFiles=C:\Program Files\Common Files #4842 
-22:06:59.867│├・COMPUTERNAME=CRUISER #4842 
-22:06:59.867│├・ComSpec=C:\Windows\system32\cmd.exe #4842 
-22:06:59.867│├・FP_NO_HOST_CHECK=NO #4842 
-22:06:59.867│├・HOMEDRIVE=C: #4842 
-22:06:59.867│├・HOMEPATH=\Users\wraith #4842 
-22:06:59.867│├・LOCALAPPDATA=C:\Users\wraith\AppData\Local #4842 
-22:06:59.867│├・LOGONSERVER=\\CRUISER #4842 
-22:06:59.867│├・NUMBER_OF_PROCESSORS=2 #4842 
-22:06:59.867│├・OS=Windows_NT #4842 
-22:06:59.867│├・Path=************************************************************************************************************************* #4842 
-22:06:59.867│├・PATHEXT=**************************************************** #4842 
-22:06:59.867│├・PROCESSOR_ARCHITECTURE=x86 #4842 
-22:06:59.867│├・PROCESSOR_IDENTIFIER=x86 Family 6 Model 15 Stepping 6, GenuineIntel #4842 
-22:06:59.868│├・PROCESSOR_LEVEL=6 #4842 
-22:06:59.868│├・PROCESSOR_REVISION=**** #4842 
-22:06:59.868│├・ProgramData=C:\ProgramData #4842 
-22:06:59.868│├・ProgramFiles=C:\Program Files #4842 
-22:06:59.868│├・PROMPT=$P$G #4842 
-22:06:59.868│├・PUBLIC=C:\Users\Public #4842 
-22:06:59.868│├・QTJAVA=C:\Program Files\Java\jre1.5.0_10\lib\ext\QTJava.zip #4842 
-22:06:59.868│├・SESSIONNAME=Console #4842 
-22:06:59.868│├・solomoncmd="O:\solomon\bcc32" win.cpp  #4842 
-22:06:59.868│├・SystemDrive=C: #4842 
-22:06:59.868│├・SystemRoot=C:\Windows #4842 
-22:06:59.868│├・TEMP=C:\Users\wraith\AppData\Local\Temp #4842 
-22:06:59.868│├・TMP=C:\Users\wraith\AppData\Local\Temp #4842 
-22:06:59.868│├・UGII_3DCONNEXION_LIBRARY=%UGII_BASE_DIR%\ugalliance\vendor\startup\3DxNX.dll #4842 
-22:06:59.868│├・USERDOMAIN=cruiser #4842 
-22:06:59.868│├・USERNAME=wraith #4842 
-22:06:59.868│├・USERPROFILE=C:\Users\wraith #4842 
-22:06:59.868│├・windir=C:\Windows #4842 
-22:06:59.868│└△All Environment Information #4838 
-22:06:59.868├・return #88 
-┌─────┴──────────────────────────────── 
-│日付＆時刻：2008-09-23(火) 22:06:59.868 
-└────────────────────────────────────── 
+┌──────────────────────────────────────
+│日付＆時刻：2008-09-23(火) 22:06:59.771
+└─────┬────────────────────────────────
+22:06:59.772├┬▽Compile Information #4450
+22:06:59.772│├・Compiler:Borland C++(0x0564) #4452
+22:06:59.772│├・Compile Date:Sep 23 2008 / Compile Time:22:06:25 #4454
+22:06:59.772│└△Compile Information #4450
+22:06:59.772├┬▽Commandline Argument Information #4461
+22:06:59.772│├・argc(0x0012D500) = 1(0x00000001) #4462
+22:06:59.772│├・args[0]:O:\cxx\bugbeard\work\win.exe #4465
+22:06:59.772│└△Commandline Argument Information #4461
+22:06:59.773├┬▽Windows Version Information #4505
+22:06:59.773│├・Microsoft Windows Vista Business Edition, 32-bit #4508
+22:06:59.773│├・OSVERSIONINFO dwMajorVersion:6 / dwMinorVersion:0 / dwBuildNumber:6001 / dwPlatformId:2 / szCSDVersion:Service Pack 1 #4510
+22:06:59.773│├・OSVERSIONINFOEX wServicePackMajor:1 / wServicePackMinor:0 / wSuiteMask:256 / wProductType:1 / wReserved:30 #4514
+22:06:59.773│└△Windows Version Information #4505
+22:06:59.773├┬▽Windows System Information #4474
+22:06:59.773│├・wProcessorArchitecture:0 #4488
+22:06:59.773│├・wReserved:0 #4489
+22:06:59.773│├・dwPageSize:4096 #4490
+22:06:59.773│├・lpMinimumApplicationAddress:00010000 #4491
+22:06:59.773│├・lpMaximumApplicationAddress:7FFEFFFF #4492
+22:06:59.773│├・dwActiveProcessorMask:3 #4493
+22:06:59.773│├・dwNumberOfProcessors:2 #4494
+22:06:59.773│├・dwProcessorType:586 #4495
+22:06:59.773│├・dwAllocationGranularity:65536 #4496
+22:06:59.773│├・wProcessorLevel:6 #4497
+22:06:59.773│├・wProcessorRevision:3846 #4498
+22:06:59.773│└△Windows System Information #4474
+22:06:59.773├┬▽Module Version Information #4591
+22:06:59.773│├・module:"O:\cxx\bugbeard\work\win.exe" / no version information #4584
+22:06:59.773│├・module:"C:\Windows\system32\ntdll.dll" / language:041104b0 / FileDescription: NT レイヤ DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: ntdll.dll.mui #4577
+22:06:59.774│├・module:"C:\Windows\system32\kernel32.dll" / language:041104b0 / FileDescription: Windows NT ベース API クライアント DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: kernel32 #4577
+22:06:59.774│├・module:"C:\Windows\system32\ADVAPI32.DLL" / language:041104b0 / FileDescription: Advanced Windows 32 ベース API / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: advapi32.dll.mui #4577
+22:06:59.774│├・module:"C:\Windows\system32\RPCRT4.dll" / language:041104b0 / FileDescription: リモート プロシージャ コール ランタイム / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: rpcrt4.dll.mui #4577
+22:06:59.774│├・module:"C:\Windows\system32\VERSION.DLL" / language:040904b0 / FileDescription: Version Checking and File Installation Libraries / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: VERSION.DLL #4577
+22:06:59.774│├・module:"C:\Windows\system32\msvcrt.dll" / language:040904b0 / FileDescription: Windows NT CRT DLL / FileVersion: 7.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 7.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: msvcrt.dll #4577
+22:06:59.775│├・module:"C:\Windows\system32\USER32.DLL" / language:041104b0 / FileDescription: マルチユーザー Windows ユーザー API クライアント DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: user32 #4577
+22:06:59.775│├・module:"C:\Windows\system32\GDI32.dll" / language:040904b0 / FileDescription: GDI Client DLL / FileVersion: 6.0.6001.18023 (vistasp1_gdr.080221-1537) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18023 / CompanyName: Microsoft Corporation / OriginalFilename: gdi32 #4577
+22:06:59.775│├・module:"C:\Windows\system32\PSAPI.DLL" / language:040904b0 / FileDescription: Process Status Helper / FileVersion: 6.0.6000.16386 (vista_rtm.061101-2205) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6000.16386 / CompanyName: Microsoft Corporation / OriginalFilename: PSAPI #4577
+22:06:59.775│├・module:"C:\Windows\system32\IMM32.DLL" / language:040904b0 / FileDescription: Multi-User Windows IMM32 API Client DLL / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: imm32 #4577
+22:06:59.775│├・module:"C:\Windows\system32\MSCTF.dll" / language:041104b0 / FileDescription: MSCTF サーバー DLL / FileVersion: 6.0.6000.16386 (vista_rtm.061101-2205) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6000.16386 / CompanyName: Microsoft Corporation / OriginalFilename: MSCTF.DLL.MUI #4577
+22:06:59.776│├・module:"C:\Windows\system32\LPK.DLL" / language:040904b0 / FileDescription: Language Pack / FileVersion: 6.0.6001.18000 (longhorn_rtm.080118-1840) / ProductName: MicrosoftR WindowsR Operating System / ProductVersion: 6.0.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: LanguagePack #4577
+22:06:59.776│├・module:"C:\Windows\system32\USP10.dll" / language:040904b0 / FileDescription: Uniscribe Unicode script processor / FileVersion: 1.0626.6001.18000 (longhorn_rtm.080118-1840) / ProductName: Microsoft(R) Uniscribe Unicode script processor / ProductVersion: 1.0626.6001.18000 / CompanyName: Microsoft Corporation / OriginalFilename: Uniscribe #4577
+22:06:59.776│└△Module Version Information #4591
+22:06:59.776├┬▽Module Hash #4605
+22:06:59.789│├・file:"O:\cxx\bugbeard\work\win.exe" / hash(MD5):DA0A29DA42E371316446BFE64A528921 #4528
+22:06:59.792│├・file:"C:\Windows\system32\ntdll.dll" / hash(MD5):172E1B9EB61167AD232291A6761501BF #4528
+22:06:59.796│├・file:"C:\Windows\system32\kernel32.dll" / hash(MD5):DC2338093F91BA4E0512208E60206DDD #4528
+22:06:59.799│├・file:"C:\Windows\system32\ADVAPI32.DLL" / hash(MD5):C44A1766E93E506EE2102A305799E1A1 #4528
+22:06:59.802│├・file:"C:\Windows\system32\RPCRT4.dll" / hash(MD5):520CE99A9C1A3B14078BB39272424652 #4528
+22:06:59.802│├・file:"C:\Windows\system32\VERSION.DLL" / hash(MD5):187D588F7A1A45DE48B8540401A90850 #4528
+22:06:59.805│├・file:"C:\Windows\system32\msvcrt.dll" / hash(MD5):04CBEAA089B6A752B3EB660BEE8C4964 #4528
+22:06:59.808│├・file:"C:\Windows\system32\USER32.DLL" / hash(MD5):B974D9F06DC7D1908E825DC201681269 #4528
+22:06:59.809│├・file:"C:\Windows\system32\GDI32.dll" / hash(MD5):F77456EB036D834BFBC700EB2414879E #4528
+22:06:59.810│├・file:"C:\Windows\system32\PSAPI.DLL" / hash(MD5):93A1732F7F997E36A5C3893539E2FF02 #4528
+22:06:59.811│├・file:"C:\Windows\system32\IMM32.DLL" / hash(MD5):EC17194A193CD8E90D27CFB93DFA9A2E #4528
+22:06:59.814│├・file:"C:\Windows\system32\MSCTF.dll" / hash(MD5):030981927E732FD4013910B3B06BD45B #4528
+22:06:59.815│├・file:"C:\Windows\system32\LPK.DLL" / hash(MD5):DD496299B7351E16E602FC4299345A33 #4528
+22:06:59.817│├・file:"C:\Windows\system32\USP10.dll" / hash(MD5):3122DAF86B33ED8AC4662D07593025D7 #4528
+22:06:59.817│└△Module Hash #4605
+22:06:59.817├┬▽Memory Information #4623
+22:06:59.817│├・load:61% #4628
+22:06:59.817│├・TotalPhys:2.98GiByte(3201634304) #4629
+22:06:59.817│├・AvailPhys:1.14GiByte(1222332416) #4630
+22:06:59.817│├・Used-Phys:1.84GiByte(1979301888) #4631
+22:06:59.817│├・TotalPageFile:6.16GiByte(6611963904) #4632
+22:06:59.817│├・AvailPageFile:1.14GiByte(1222332416) #4633
+22:06:59.817│├・Used-PageFile:5.02GiByte(5389631488) #4634
+22:06:59.817│├・TotalVirtual:2.00GiByte(2147352576) #4635
+22:06:59.817│├・AvailVirtual:1.14GiByte(1222332416) #4636
+22:06:59.817│├・Used-Virtual:882MiByte(925020160) #4637
+22:06:59.817│├・AvailExtendedVirtual:0Byte(0) #4638
+22:06:59.817│└△Memory Information #4623
+22:06:59.817├┬▽Drives Information #4752
+22:06:59.817│├・drive:C / type:fixed / label:***** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:6.08GiByte(6528913408) / total:74.5GiByte(80003198976) / free:6.08GiByte(6528913408) #4747
+22:06:59.818│├・drive:D / type:fixed / label:** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:39.0GiByte(41832468480) / total:74.5GiByte(80007262208) / free:39.0GiByte(41832468480) #4747
+22:06:59.818│├・drive:F / type:fixed / label:*** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:726GiByte(779961614336) / total:931GiByte(1000202240000) / free:726GiByte(779961614336) #4747
+22:06:59.819│├・drive:G / type:cdrom #4747
+22:06:59.831│├・drive:I / type:removable #4747
+22:06:59.842│├・drive:J / type:removable #4747
+22:06:59.854│├・drive:K / type:removable #4747
+22:06:59.866│├・drive:L / type:removable #4747
+22:06:59.866│├・drive:O / type:fixed / label:**** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:10.4GiByte(11172679680) / total:114GiByte(122683387904) / free:10.4GiByte(11172679680) #4747
+22:06:59.866│├・drive:X / type:fixed / label:***** / file-system:NTFS / serial:0x******** / max-path:255 / flags:0x002700FF / sectors-per-cluster:8 / bytes-per-sector:512Byte / available:143GiByte(154588205056) / total:202GiByte(217409646592) / free:143GiByte(154588205056) #4747
+22:06:59.866│└△Drives Information #4752
+22:06:59.866├┬▽Monitor Information #4793
+22:06:59.866│├・Monitor Rect:(0,0)-(1920,1200) / Work:(0,0)-(1920,1200) / Device:\\.\DISPLAY1 #4786
+22:06:59.866│├・Monitor Rect:(1920,176)-(3200,1200) / Work:(1920,176)-(3200,1200) / Device:\\.\DISPLAY2 #4786
+22:06:59.866│└△Monitor Information #4793
+22:06:59.866├┬▽Display Information #4851
+22:06:59.866│├・Display Name:\\.\DISPLAY1 / Context:NVIDIA GeForce 8600 GTS #4867
+22:06:59.867│├・Display Name:\\.\DISPLAY2 / Context:NVIDIA GeForce 8600 GTS #4867
+22:06:59.867│├・Display Name:\\.\DISPLAYV1 / Context:RDPDD Chained DD #4867
+22:06:59.867│├・Display Name:\\.\DISPLAYV2 / Context:RDP Encoder Mirror Driver #4867
+22:06:59.867│└△Display Information #4851
+22:06:59.867├┬▽All Environment Information #4838
+22:06:59.867│├・=::=::\ #4842
+22:06:59.867│├・=C:=C:\Users\wraith #4842
+22:06:59.867│├・=ExitCode=00000000 #4842
+22:06:59.867│├・=O:=O:\cxx\bugbeard\work #4842
+22:06:59.867│├・ALLUSERSPROFILE=C:\ProgramData #4842
+22:06:59.867│├・APPDATA=C:\Users\wraith\AppData\Roaming #4842
+22:06:59.867│├・BDSCOMMONDIR=C:\Users\Public\Documents\RAD Studio\5.0 #4842
+22:06:59.867│├・CLASSPATH=.;C:\Program Files\Java\jre1.5.0_10\lib\ext\QTJava.zip #4842
+22:06:59.867│├・CommonProgramFiles=C:\Program Files\Common Files #4842
+22:06:59.867│├・COMPUTERNAME=CRUISER #4842
+22:06:59.867│├・ComSpec=C:\Windows\system32\cmd.exe #4842
+22:06:59.867│├・FP_NO_HOST_CHECK=NO #4842
+22:06:59.867│├・HOMEDRIVE=C: #4842
+22:06:59.867│├・HOMEPATH=\Users\wraith #4842
+22:06:59.867│├・LOCALAPPDATA=C:\Users\wraith\AppData\Local #4842
+22:06:59.867│├・LOGONSERVER=\\CRUISER #4842
+22:06:59.867│├・NUMBER_OF_PROCESSORS=2 #4842
+22:06:59.867│├・OS=Windows_NT #4842
+22:06:59.867│├・Path=************************************************************************************************************************* #4842
+22:06:59.867│├・PATHEXT=**************************************************** #4842
+22:06:59.867│├・PROCESSOR_ARCHITECTURE=x86 #4842
+22:06:59.867│├・PROCESSOR_IDENTIFIER=x86 Family 6 Model 15 Stepping 6, GenuineIntel #4842
+22:06:59.868│├・PROCESSOR_LEVEL=6 #4842
+22:06:59.868│├・PROCESSOR_REVISION=**** #4842
+22:06:59.868│├・ProgramData=C:\ProgramData #4842
+22:06:59.868│├・ProgramFiles=C:\Program Files #4842
+22:06:59.868│├・PROMPT=$P$G #4842
+22:06:59.868│├・PUBLIC=C:\Users\Public #4842
+22:06:59.868│├・QTJAVA=C:\Program Files\Java\jre1.5.0_10\lib\ext\QTJava.zip #4842
+22:06:59.868│├・SESSIONNAME=Console #4842
+22:06:59.868│├・solomoncmd="O:\solomon\bcc32" win.cpp  #4842
+22:06:59.868│├・SystemDrive=C: #4842
+22:06:59.868│├・SystemRoot=C:\Windows #4842
+22:06:59.868│├・TEMP=C:\Users\wraith\AppData\Local\Temp #4842
+22:06:59.868│├・TMP=C:\Users\wraith\AppData\Local\Temp #4842
+22:06:59.868│├・UGII_3DCONNEXION_LIBRARY=%UGII_BASE_DIR%\ugalliance\vendor\startup\3DxNX.dll #4842
+22:06:59.868│├・USERDOMAIN=cruiser #4842
+22:06:59.868│├・USERNAME=wraith #4842
+22:06:59.868│├・USERPROFILE=C:\Users\wraith #4842
+22:06:59.868│├・windir=C:\Windows #4842
+22:06:59.868│└△All Environment Information #4838
+22:06:59.868├・return #88
+┌─────┴────────────────────────────────
+│日付＆時刻：2008-09-23(火) 22:06:59.868
+└──────────────────────────────────────
 ```
 
 #### 解説
@@ -784,208 +784,209 @@ BUG_define_logger(new bugbeard::bug_tree_logger(new bugbeard::bug_OutputDebugStr
 
 <A name="step3"></A>
 ### .tsv形式ログ出力＆マルチスレッドサンプル
+
 #### サンプルコード
-<DIV class="sample">
-<span class="SpanClass3">/******************************************************************************<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;バグベアード&nbsp;-bugbeard-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;サンプル&nbsp;"tsv.cpp"&nbsp;ソースファイル<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coded&nbsp;by&nbsp;Wraith&nbsp;in&nbsp;Feb&nbsp;18,&nbsp;2007.<br/>
-******************************************************************************/</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;includes<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#include&nbsp;&lt;stdio.h&gt;<br/>
-#include&nbsp;&lt;stdlib.h&gt;<br/>
-#if&nbsp;defined(__GNUC__)<br/>
-#&nbsp;&nbsp;&nbsp;include&nbsp;&lt;pthread.h&gt;<br/>
-#else<br/>
-#&nbsp;&nbsp;&nbsp;include&nbsp;&lt;process.h&gt;<br/>
-#endif<br/>
-</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;[BUG]bugbeard<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(NDEBUG)<br/>
-#define&nbsp;BUG_DISABLE_BUGBEARD&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;リリース版ではバグベアードをロードしない<br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_EVIL_CONTRACT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"悪魔の契約"<br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_MULTI_THREAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;マルチスレッドモデルでバグベアードを利用<br/>
-</span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ロガーを定義する為にステートメントハックを有効にしない状態で include<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass2">//&nbsp;&nbsp;共用ライターの定義<br/>
-</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_smart_writer</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">common_writer</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_file_writer_base</span><span class="SpanClass10">(</span><span class="SpanClass11">stderr</span><span class="SpanClass10">)));</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">//&nbsp;&nbsp;標準エラーにTSV形式の出力を行うロガーの定義(メインスレッド用)<br/>
-</span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tsv_logger</span><span class="SpanClass10">(</span><span class="SpanClass11">common_writer</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_STATEMENT_HACK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックの設定<br/>
-</span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックを有効にする為、再度 include<br/>
-</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;user&nbsp;codes<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass2">//<br/>
-//&nbsp;&nbsp;thread<br/>
-//<br/>
-</span><span class="SpanClass9">#if&nbsp;defined(BUG_MS_WINDOWS)<br/>
-#define&nbsp;BUG_THREAD_RESULT&nbsp;DWORD<br/>
-#define&nbsp;BUG_THREAD_CALL&nbsp;__stdcall<br/>
-#define&nbsp;BUG_THREAD_HANDLE&nbsp;HANDLE<br/>
-#else<br/>
-#define&nbsp;BUG_THREAD_RESULT&nbsp;void&nbsp;*<br/>
-#define&nbsp;BUG_THREAD_CALL<br/>
-#define&nbsp;BUG_THREAD_HANDLE&nbsp;pthread_t<br/>
-#endif<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass2">//&nbsp;&nbsp;スレッドの開始<br/>
-</span><span class="SpanClass11">BUG_THREAD_HANDLE</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">open_thread</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_THREAD_RESULT</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_THREAD_CALL</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass11">func</span><span class="SpanClass10">)(</span><span class="SpanClass16">void</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*),</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass16">void</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass11">data</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(BUG_MS_WINDOWS)<br/>
-#&nbsp;&nbsp;&nbsp;if&nbsp;defined(__BORLANDC__)&nbsp;||&nbsp;defined(__INTEL_COMPILER)&nbsp;||&nbsp;defined(_MSC_VER)<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">DWORD</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">thread_id</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass11">HANDLE</span><span class="SpanClass10">)</span><span class="SpanClass11">_beginthreadex</span><span class="SpanClass10">(</span><span class="SpanClass5">NULL</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass16">unsigned</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass11">__stdcall</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*)(</span><span class="SpanClass16">void</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*))</span><span class="SpanClass11">func</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">data</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass16">unsigned</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*)&</span><span class="SpanClass11">thread_id</span><span class="SpanClass10">);</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-</span><span class="SpanClass9">#&nbsp;&nbsp;&nbsp;else<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">CreateThread</span><span class="SpanClass10">(</span><span class="SpanClass5">NULL</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">4096</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">func</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">data</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass5">NULL</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#&nbsp;&nbsp;&nbsp;endif<br/>
-#else<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_THREAD_HANDLE</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">handle</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">pthread_create</span><span class="SpanClass10">(&</span><span class="SpanClass11">handle</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass5">NULL</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">func</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">data</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">handle</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">//&nbsp;&nbsp;スレッド終了まで待機<br/>
-</span><span class="SpanClass16">void</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">wait_and_close_thread</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_THREAD_HANDLE</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">handle</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(BUG_MS_WINDOWS)<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">WaitForSingleObject</span><span class="SpanClass10">(</span><span class="SpanClass11">handle</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">INFINITE</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">CloseHandle</span><span class="SpanClass10">(</span><span class="SpanClass11">handle</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#else<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">pthread_join</span><span class="SpanClass10">(</span><span class="SpanClass11">handle</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass5">NULL</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass2">//<br/>
-//&nbsp;&nbsp;素因数分解<br/>
-//<br/>
-</span><span class="SpanClass9">#if&nbsp;defined(_MSC_VER)&nbsp;&&&nbsp;1300&nbsp;&lt;&nbsp;_MSC_VER<br/>
-#&nbsp;&nbsp;&nbsp;pragma&nbsp;warning(disable:4996)<br/>
-#endif<br/>
-</span><span class="SpanClass16">void</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">factorize</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">number</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">char</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">buffer</span><span class="SpanClass10">[</span><span class="SpanClass4">256</span><span class="SpanClass10">];</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">char</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">anchor</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">buffer</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">anchor</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">+=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">sprintf</span><span class="SpanClass10">(</span><span class="SpanClass11">anchor</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass6">"%d&nbsp;=&nbsp;"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">number</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">number</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">2</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">inc</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">1</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">while</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass11">current</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">%</span><span class="SpanClass11">p</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass11">pn</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">anchor</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">+=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">sprintf</span><span class="SpanClass10">(</span><span class="SpanClass11">anchor</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass6">"%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">anchor</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">+=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">sprintf</span><span class="SpanClass10">(</span><span class="SpanClass11">anchor</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass6">"^%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">anchor</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">+=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">sprintf</span><span class="SpanClass10">(</span><span class="SpanClass11">anchor</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass6">"&nbsp;*&nbsp;"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">+=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">inc</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]値のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">p</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">inc</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">2</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">else</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">/=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]値のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">current</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">++</span><span class="SpanClass11">pn</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]値のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">pn</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">anchor</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">+=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">sprintf</span><span class="SpanClass10">(</span><span class="SpanClass11">anchor</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass6">"%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">anchor</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">+=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">sprintf</span><span class="SpanClass10">(</span><span class="SpanClass11">anchor</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass6">"^%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">else</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">anchor</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">+=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">sprintf</span><span class="SpanClass10">(</span><span class="SpanClass11">anchor</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass6">"%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">puts</span><span class="SpanClass10">(</span><span class="SpanClass11">buffer</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass11">BUG_THREAD_RESULT</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">BUG_THREAD_CALL</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">factorize_thread</span><span class="SpanClass10">(</span><span class="SpanClass16">void</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">data</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]スレッドローカルロガーの定義<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tsv_logger</span><span class="SpanClass10">(</span><span class="SpanClass11">common_writer</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">factorize</span><span class="SpanClass10">((</span><span class="SpanClass16">int</span><span class="SpanClass10">)</span><span class="SpanClass11">data</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass2">//<br/>
-//&nbsp;&nbsp;スタートアップ<br/>
-//<br/>
-</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">main</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass16">char</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">[])</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コンパイル情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_compile_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コマンドライン引数のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_arg_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_THREAD_HANDLE</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">thread_list</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">BUG_THREAD_HANDLE</span><span class="SpanClass10">[</span><span class="SpanClass11">argc</span><span class="SpanClass10">];</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;スレッド起動<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">for</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">i</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">1</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">i</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">++</span><span class="SpanClass11">i</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">thread_list</span><span class="SpanClass10">[</span><span class="SpanClass11">i</span><span class="SpanClass10">]</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">open_thread</span><span class="SpanClass10">(</span><span class="SpanClass11">factorize_thread</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass16">void</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*)</span><span class="SpanClass11">atoi</span><span class="SpanClass10">(</span><span class="SpanClass11">args</span><span class="SpanClass10">[</span><span class="SpanClass11">i</span><span class="SpanClass10">]));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;スレッド待機<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">for</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">i</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">1</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">i</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">++</span><span class="SpanClass11">i</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">wait_and_close_thread</span><span class="SpanClass10">(</span><span class="SpanClass11">thread_list</span><span class="SpanClass10">[</span><span class="SpanClass11">i</span><span class="SpanClass10">]);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">delete</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">[]</span><span class="SpanClass11">thread_list</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">EXIT_SUCCESS</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass3">/******************************************************************************<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;□■□■&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wraith&nbsp;the&nbsp;Trickster&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;□■□■<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;■□■□&nbsp;～I'll&nbsp;go&nbsp;with&nbsp;heaven's&nbsp;advantage&nbsp;and&nbsp;fool's&nbsp;wisdom.～&nbsp;■□■□<br/>
-******************************************************************************/</span><span class="SpanClass0"><br/>
-</span>
-</DIV>
+
+```c++
+/******************************************************************************
+    バグベアード -bugbeard-
+        サンプル "tsv.cpp" ソースファイル
+                                            Coded by Wraith in Feb 18, 2007.
+******************************************************************************/
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  includes
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+#if defined(__GNUC__)
+#   include <pthread.h>
+#else
+#   include <process.h>
+#endif
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  [BUG]bugbeard
+//
+
+#if defined(NDEBUG)
+#define BUG_DISABLE_BUGBEARD    //  リリース版ではバグベアードをロードしない
+#endif
+
+#define BUG_EVIL_CONTRACT       //  "悪魔の契約"
+#define BUG_MULTI_THREAD        //  マルチスレッドモデルでバグベアードを利用
+#include "bug.h"                //  ロガーを定義する為にステートメントハックを有効にしない状態で include
+
+//  共用ライターの定義
+BUG_exec(bugbeard::bug_smart_writer common_writer(new bugbeard::bug_file_writer_base(stderr)));
+
+//  標準エラーにTSV形式の出力を行うロガーの定義(メインスレッド用)
+BUG_define_logger(new bugbeard::bug_tsv_logger(common_writer));
+
+#define BUG_STATEMENT_HACK      //  ステートメントハックの設定
+#include "bug.h"                //  ステートメントハックを有効にする為、再度 include
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  user codes
+//
+
+//
+//  thread
+//
+#if defined(BUG_MS_WINDOWS)
+#define BUG_THREAD_RESULT DWORD
+#define BUG_THREAD_CALL __stdcall
+#define BUG_THREAD_HANDLE HANDLE
+#else
+#define BUG_THREAD_RESULT void *
+#define BUG_THREAD_CALL
+#define BUG_THREAD_HANDLE pthread_t
+#endif
+
+//  スレッドの開始
+BUG_THREAD_HANDLE open_thread(BUG_THREAD_RESULT (BUG_THREAD_CALL *func)(void *), void *data)
+{
+#if defined(BUG_MS_WINDOWS)
+#   if defined(__BORLANDC__) || defined(__INTEL_COMPILER) || defined(_MSC_VER)
+    DWORD thread_id;
+    return (HANDLE)_beginthreadex(NULL, 0, (unsigned (__stdcall *)(void *))func, data, 0, (unsigned int *)&thread_id);
+#   else
+    return CreateThread(NULL, 4096, func, data, 0, NULL);
+#   endif
+#else
+    BUG_THREAD_HANDLE handle;
+    pthread_create(&handle, NULL, func, data);
+    return handle;
+#endif
+}
+
+//  スレッド終了まで待機
+void wait_and_close_thread(BUG_THREAD_HANDLE handle)
+{
+#if defined(BUG_MS_WINDOWS)
+    WaitForSingleObject(handle, INFINITE);
+    CloseHandle(handle);
+#else
+    pthread_join(handle, NULL);
+#endif
+}
+
+
+//
+//  素因数分解
+//
+#if defined(_MSC_VER) && 1300 < _MSC_VER
+#   pragma warning(disable:4996)
+#endif
+void factorize(int number)
+{
+    char buffer[256];
+    char * anchor = buffer;
+    anchor += sprintf(anchor, "%d = ", number);
+    int current = number;
+    if (1 < current)
+    {
+        int p = 2;
+        int pn = 0;
+        int inc = 1;
+        while(1 < current)
+        {
+            if (current %p)
+            {
+                if (pn)
+                {
+                    anchor += sprintf(anchor, "%d", p);
+                    if (1 < pn)
+                    {
+                        anchor += sprintf(anchor, "^%d", pn);
+                    }
+                    anchor += sprintf(anchor, " * ");
+                    pn = 0;
+                }
+                p += inc;
+                
+                //  [BUG]値のログ出力
+                BUG_puts(BUG_VAL(p));
+                
+                inc = 2;
+            }
+            else
+            {
+                current /= p;
+                
+                //  [BUG]値のログ出力
+                BUG_puts(BUG_VAL(current));
+                
+                ++pn;
+                
+                //  [BUG]値のログ出力
+                BUG_puts(BUG_VAL(pn));
+            }
+        }
+        anchor += sprintf(anchor, "%d", p);
+        if (1 < pn)
+        {
+            anchor += sprintf(anchor, "^%d", pn);
+        }
+    }
+    else
+    {
+        anchor += sprintf(anchor, "%d", current);
+    }
+    puts(buffer);
+    return;
+}
+BUG_THREAD_RESULT BUG_THREAD_CALL factorize_thread(void * data)
+{
+    //  [BUG]スレッドローカルロガーの定義
+    BUG_define_logger(new bugbeard::bug_tsv_logger(common_writer));
+    factorize((int)data);
+    return 0;
+}
+
+
+//
+//  スタートアップ
+//
+int main(int argc, char * args[])
+{
+    //  [BUG]コンパイル情報のログ出力
+    BUG_exec(bugbeard::bug_compile_info(BUG_LOG));
+
+    //  [BUG]コマンドライン引数のログ出力
+    BUG_exec(bugbeard::bug_arg_info(BUG_LOG, argc, args));
+
+    BUG_THREAD_HANDLE * thread_list = new BUG_THREAD_HANDLE[argc];
+    
+    //  スレッド起動
+    for(int i = 1; i < argc; ++i)
+    {
+        thread_list[i] = open_thread(factorize_thread, (void *)atoi(args[i]));
+    }
+    //  スレッド待機
+    for(int i = 1; i < argc; ++i)
+    {
+        wait_and_close_thread(thread_list[i]);
+    }
+    
+    delete []thread_list;
+    
+    return EXIT_SUCCESS;
+}
+
+
+/******************************************************************************
+    □■□■                  Wraith the Trickster                  □■□■
+    ■□■□ ～I'll go with heaven's advantage and fool's wisdom.～ ■□■□
+******************************************************************************/
+```
 
 #### 出力結果(標準出力)
 
