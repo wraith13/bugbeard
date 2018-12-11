@@ -1770,162 +1770,168 @@ BUG_THREAD_RESULT BUG_THREAD_CALL factorize_thread(void * data)
         
 ...のように各スレッド毎に定義していることです。バグベアードをマルチスレッドなプログラムで利用する場合は必ずこのように各スレッド毎にロガーを定義してください。ロガーが定義されていないスレッドではログ出力が行われません。
 
-このサンプルでは同じ出力先へログ出力を行うので bugbeard::bug_smart_writer 型でラップした bugbeard::bug_writer 派生オブジェクトを各スレッドで使いまわしています。これはロガーが自分に与えられた bugbeard::bug_writer 派生オブジェクトを自身のデストラクタ内で破棄する為です。bugbeard::bug_smart_writer 型でラップしないと最初に終了したスレッドにより bugbeard::bug_writer 派生オブジェクトが破棄され残りのスレッドが既に破棄されたオブジェクトを使用してログ出力を行おうとして異常終了します。
+このサンプルでは同じ出力先へログ出力を行うので `bugbeard::bug_smart_writer` 型でラップした `bugbeard::bug_writer` 派生オブジェクトを各スレッドで使いまわしています。これはロガーが自分に与えられた `bugbeard::bug_writer` 派生オブジェクトを自身のデストラクタ内で破棄する為です。 `bugbeard::bug_smart_writer` 型でラップしないと最初に終了したスレッドにより `bugbeard::bug_writer` 派生オブジェクトが破棄され残りのスレッドが既に破棄されたオブジェクトを使用してログ出力を行おうとして異常終了します。
 
 マルチプロセス/マルチスレッドな状況ではツリー形式より.tsv形式のほうが有効だろうと思って.tsv形式での出力にも対応したもののフィルターの使えるビューアで見る分にはマルチプロセス/マルチスレッドな状況であっても.tsv形式よりもツリー形式のほうが見やすかったりします。でも、まぁ、.tsv形式はデータとして処理し易いんで統計的な情報分析やる際に役立ってくれると思います。
-        
+
 <A name="step4"></A>
+
 ### バルクログ出力サンプル
+
 #### サンプルコード
-<DIV class="sample">
-<span class="SpanClass3">/******************************************************************************<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;バグベアード&nbsp;-bugbeard-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;サンプル&nbsp;"bulklog.cpp"&nbsp;ソースファイル<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coded&nbsp;by&nbsp;Wraith&nbsp;in&nbsp;Feb&nbsp;18,&nbsp;2007.<br/>
-******************************************************************************/</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;includes<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#include&nbsp;&lt;stdio.h&gt;<br/>
-#include&nbsp;&lt;stdlib.h&gt;<br/>
-</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;[BUG]bugbeard<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(NDEBUG)<br/>
-#define&nbsp;BUG_DISABLE_BUGBEARD&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;リリース版ではバグベアードをロードしない<br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_EVIL_CONTRACT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"悪魔の契約"<br/>
-</span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ロガーを定義する為にステートメントハックを有効にしない状態で&nbsp;include<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(BUG_LOAD_BUGBEARD)<br/>
-</span><span class="SpanClass16">const</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_string</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bug_log_filename</span><span class="SpanClass10">()</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">using</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass5">namespace</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">const</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bug_clock</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">stamp</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bug_clock</span><span class="SpanClass10">();</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(__MWERKS__)<br/>
-#error&nbsp;なんか Metrowerk のコンパイラはこのへんのコードの解釈の仕方が、びっくりするぐらいバカで付き合いきれません。(´Д｀；)<br/>
-#endif<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">bug_dir</span><span class="SpanClass10">(</span><span class="SpanClass6">"buglog"</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">+</span><span class="SpanClass11">bug_dir</span><span class="SpanClass10">(</span><span class="SpanClass6">"%4.4d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">stamp</span><span class="SpanClass10">.</span><span class="SpanClass11">year</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">+</span><span class="SpanClass11">bug_dir</span><span class="SpanClass10">(</span><span class="SpanClass6">"%2.2d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">stamp</span><span class="SpanClass10">.</span><span class="SpanClass11">mon</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">+</span><span class="SpanClass11">bug_dir</span><span class="SpanClass10">(</span><span class="SpanClass6">"%2.2d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">stamp</span><span class="SpanClass10">.</span><span class="SpanClass11">mday</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">+</span><span class="SpanClass6">"bulklog.log"</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass2">//&nbsp;&nbsp;ログファイルにツリー形式の出力を行うロガーの定義<br/>
-</span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tree_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_file_writer</span><span class="SpanClass10">(</span><span class="SpanClass11">bug_log_filename</span><span class="SpanClass10">())));</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass9">#define&nbsp;BUG_STATEMENT_HACK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックの設定<br/>
-</span><span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックを有効にする為、再度&nbsp;include<br/>
-</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;user&nbsp;codes<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass2">//<br/>
-//&nbsp;&nbsp;素因数分解<br/>
-//<br/>
-</span><span class="SpanClass16">void</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">factorize</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">number</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"%d&nbsp;=&nbsp;"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">number</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">number</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">2</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">inc</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">1</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">while</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass11">current</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">%</span><span class="SpanClass11">p</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass11">pn</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"^%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"&nbsp;*&nbsp;"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">+=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">inc</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]値のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">p</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">inc</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">2</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">else</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">/=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]値のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">current</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">++</span><span class="SpanClass11">pn</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]値のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">pn</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"^%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">else</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"\n"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">//<br/>
-//&nbsp;&nbsp;スタートアップ<br/>
-//<br/>
-</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">main</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass16">char</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">[])</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コンパイル情報のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_compile_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]コマンドライン引数のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_arg_info</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_LOG</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">for</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">i</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">1</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">i</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">++</span><span class="SpanClass11">i</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">factorize</span><span class="SpanClass10">(</span><span class="SpanClass11">atoi</span><span class="SpanClass10">(</span><span class="SpanClass11">args</span><span class="SpanClass10">[</span><span class="SpanClass11">i</span><span class="SpanClass10">]));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">EXIT_SUCCESS</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass3">/******************************************************************************<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;□■□■&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wraith&nbsp;the&nbsp;Trickster&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;□■□■<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;■□■□&nbsp;～I'll&nbsp;go&nbsp;with&nbsp;heaven's&nbsp;advantage&nbsp;and&nbsp;fool's&nbsp;wisdom.～&nbsp;■□■□<br/>
-******************************************************************************/</span><span class="SpanClass0"><br/>
-</span>
-</DIV>
+
+```c++
+/******************************************************************************
+    バグベアード -bugbeard-
+        サンプル "bulklog.cpp" ソースファイル
+                                            Coded by Wraith in Feb 18, 2007.
+******************************************************************************/
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  includes
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  [BUG]bugbeard
+//
+
+#if defined(NDEBUG)
+#define BUG_DISABLE_BUGBEARD    //  リリース版ではバグベアードをロードしない
+#endif
+
+#define BUG_EVIL_CONTRACT       //  "悪魔の契約"
+#include "bug.h"                //  ロガーを定義する為にステートメントハックを有効にしない状態で include
+
+#if defined(BUG_LOAD_BUGBEARD)
+const bugbeard::bug_string bug_log_filename()
+{
+    using namespace bugbeard;
+    const bug_clock stamp = bug_clock();
+#if defined(__MWERKS__)
+#error なんか Metrowerk のコンパイラはこのへんのコードの解釈の仕方が、びっくりするぐらいバカで付き合いきれません。(´Д｀；)
+#endif
+    return
+        bug_dir("buglog")
+        +bug_dir("%4.4d", stamp.year)
+        +bug_dir("%2.2d", stamp.mon)
+        +bug_dir("%2.2d", stamp.mday)
+        +"bulklog.log";
+}
+#endif
+
+//  ログファイルにツリー形式の出力を行うロガーの定義
+BUG_define_logger(new bugbeard::bug_tree_logger(new bugbeard::bug_file_writer(bug_log_filename())));
+
+#define BUG_STATEMENT_HACK      //  ステートメントハックの設定
+#include "bug.h"                //  ステートメントハックを有効にする為、再度 include
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  user codes
+//
+
+//
+//  素因数分解
+//
+void factorize(int number)
+{
+    printf("%d = ", number);
+    int current = number;
+    if (1 < current)
+    {
+        int p = 2;
+        int pn = 0;
+        int inc = 1;
+        while(1 < current)
+        {
+            if (current %p)
+            {
+                if (pn)
+                {
+                    printf("%d", p);
+                    if (1 < pn)
+                    {
+                        printf("^%d", pn);
+                    }
+                    printf(" * ");
+                    pn = 0;
+                }
+                p += inc;
+
+                //  [BUG]値のログ出力
+                BUG_puts(BUG_VAL(p));
+
+                inc = 2;
+            }
+            else
+            {
+                current /= p;
+
+                //  [BUG]値のログ出力
+                BUG_puts(BUG_VAL(current));
+
+                ++pn;
+
+                //  [BUG]値のログ出力
+                BUG_puts(BUG_VAL(pn));
+            }
+        }
+        printf("%d", p);
+        if (1 < pn)
+        {
+            printf("^%d", pn);
+        }
+    }
+    else
+    {
+        printf("%d", current);
+    }
+    printf("\n");
+    return;
+}
+
+//
+//  スタートアップ
+//
+int main(int argc, char * args[])
+{
+    //  [BUG]コンパイル情報のログ出力
+    BUG_exec(bugbeard::bug_compile_info(BUG_LOG));
+
+    //  [BUG]コマンドライン引数のログ出力
+    BUG_exec(bugbeard::bug_arg_info(BUG_LOG, argc, args));
+    
+    for(int i = 1; i < argc; ++i)
+    {
+        factorize(atoi(args[i]));
+    }
+    
+    return EXIT_SUCCESS;
+}
+
+
+/******************************************************************************
+    □■□■                  Wraith the Trickster                  □■□■
+    ■□■□ ～I'll go with heaven's advantage and fool's wisdom.～ ■□■□
+******************************************************************************/
+```
+
 #### 出力結果(./buglog/YYYY/MM/DD/bulklog.log)
-        ./buglog/YYYY/MM/DD/bulklog.log なパスにファイルとして出力されることを除けば内容的には先の tsv.cpp によるログ出力とあまり変わり映えしないので割愛。
+
+./buglog/YYYY/MM/DD/bulklog.log なパスにファイルとして出力されることを除けば内容的には先の tsv.cpp によるログ出力とあまり変わり映えしないので割愛。
 
 #### 解説
-        このサンプルのコードでは日付別のディレクトリにログファイルを出力します。
+
+このサンプルのコードでは日付別のディレクトリにログファイルを出力します。
+
 <DIV class="sample">
 <span class="SpanClass9">#if&nbsp;defined(BUG_LOAD_BUGBEARD)<br/>
 </span><span class="SpanClass16">const</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_string</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bug_log_filename</span><span class="SpanClass10">()</span><span class="SpanClass0"><br/>
@@ -2159,7 +2165,8 @@ profile.cpp	88	if (1 < pn) == true;	0
 
 #### 解説
 
-            このサンプルのコードでは以下の指定により、プロファイルおよびカバレッジの測定結果をそれぞれ "profile.tsv" および "coverage.tsv" に出力します。(＋メインのログを "trace.log" に出力します。 )
+このサンプルのコードでは以下の指定により、プロファイルおよびカバレッジの測定結果をそれぞれ "profile.tsv" および "coverage.tsv" に出力します。(＋メインのログを "trace.log" に出力します。 )
+
 <DIV class="sample">
 <span class="SpanClass9">#if&nbsp;!defined(NDEBUG)<br/>
 #define&nbsp;BUG_EVIL_CONTRACT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"悪魔の契約"<br/>
@@ -2175,6 +2182,7 @@ profile.cpp	88	if (1 < pn) == true;	0
 </span><span class="SpanClass9">#endif<br/>
 </span>
 </DIV>
+
 ...このサンプルではプロファイルおよびカバレッジの測定結果を両方とも出力していますが、どちらか片方のみ出力させることも可能です。その場合は出力させたくないほうのライターとして NULL を指定してください。
 
 尚、マルチスレッドの場合はスレッド毎に定義する必要があります。マルチスレッドでのプロファイラの使い方は基本的にロガーと同じですので *_logger と *_profiler という名称の違いはありますが、 [.tsv形式ログ出力＆マルチスレッドサンプル](#step3) を参考してください。
