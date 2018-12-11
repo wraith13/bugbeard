@@ -998,8 +998,7 @@ int main(int argc, char * args[])
 
 #### 出力結果(標準エラー)
 
-<DIV class="sample">
-<PRE>
+```txt
 20:04:19.182	540	0	bug.h	2462	▽bugbeard session root
 20:04:19.183	540	1	bug.h	2463	日付＆時刻：2008-02-24(日) 20:04:19.183
 20:04:19.183	540	1	bug.h	2839	▽Compile Information
@@ -1020,9 +1019,9 @@ int main(int argc, char * args[])
 20:04:19.183	5772	0	bug.h	2462	▽bugbeard session root
 20:04:19.183	540	2	tsv.cpp	69	return
 20:04:19.183	5772	1	bug.h	2463	日付＆時刻：2008-02-24(日) 20:04:19.183
-20:04:19.183	5772	1	tsv.cpp	104	▽if (1 &lt; current) == true;
+20:04:19.183	5772	1	tsv.cpp	104	▽if (1 < current) == true;
 20:04:19.183	540	2	tsv.cpp	69	return
-20:04:19.183	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.183	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.183	540	2	tsv.cpp	179	△for
 20:04:19.183	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.183	540	1	tsv.cpp	184	▽for
@@ -1032,9 +1031,9 @@ int main(int argc, char * args[])
 20:04:19.183	868	1	bug.h	2463	日付＆時刻：2008-02-24(日) 20:04:19.183
 20:04:19.183	5772	3	tsv.cpp	126	p(0x0133FC5C) = 3(0x00000003)
 20:04:19.183	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.183	868	1	tsv.cpp	104	▽if (1 &lt; current) == true;
-20:04:19.183	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
-20:04:19.183	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.183	868	1	tsv.cpp	104	▽if (1 < current) == true;
+20:04:19.183	5772	2	tsv.cpp	109	while (1 < current) == true;
+20:04:19.183	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.183	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.183	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.183	5772	3	tsv.cpp	113	▽if (pn) == false;
@@ -1045,8 +1044,8 @@ int main(int argc, char * args[])
 20:04:19.183	868	3	tsv.cpp	126	p(0x0143FC5C) = 3(0x00000003)
 20:04:19.183	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.183	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.183	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
-20:04:19.183	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.183	5772	2	tsv.cpp	109	while (1 < current) == true;
+20:04:19.183	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.183	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.183	868	2	tsv.cpp	111	▽if (current %p) == false;
 20:04:19.183	5772	3	tsv.cpp	113	▽if (pn) == false;
@@ -1055,69 +1054,69 @@ int main(int argc, char * args[])
 20:04:19.183	868	3	tsv.cpp	140	pn(0x0143FC54) = 1(0x00000001)
 20:04:19.183	5772	3	tsv.cpp	126	p(0x0133FC5C) = 7(0x00000007)
 20:04:19.183	868	3	tsv.cpp	111	△if (current %p) == false;
-20:04:19.184	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	4264	0	bug.h	2462	▽bugbeard session root
 20:04:19.184	868	3	tsv.cpp	113	▽if (pn) == true;
 20:04:19.184	4264	1	bug.h	2463	日付＆時刻：2008-02-24(日) 20:04:19.184
-20:04:19.184	868	4	tsv.cpp	116	▽if (1 &lt; pn) == false;
-20:04:19.184	4264	1	tsv.cpp	104	▽if (1 &lt; current) == true;
-20:04:19.184	868	5	tsv.cpp	116	△if (1 &lt; pn) == false;
-20:04:19.184	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	868	4	tsv.cpp	116	▽if (1 < pn) == false;
+20:04:19.184	4264	1	tsv.cpp	104	▽if (1 < current) == true;
+20:04:19.184	868	5	tsv.cpp	116	△if (1 < pn) == false;
+20:04:19.184	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	868	4	tsv.cpp	113	△if (pn) == true;
 20:04:19.184	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.183	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.184	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.184	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	4264	3	tsv.cpp	126	p(0x0153FC5C) = 3(0x00000003)
 20:04:19.184	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	5772	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.184	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.184	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	5772	3	tsv.cpp	126	p(0x0133FC5C) = 9(0x00000009)
 20:04:19.184	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.184	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.184	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	4264	3	tsv.cpp	126	p(0x0153FC5C) = 5(0x00000005)
 20:04:19.184	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.184	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.184	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	5772	3	tsv.cpp	126	p(0x0133FC5C) = 11(0x0000000B)
 20:04:19.184	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.184	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.184	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	4264	3	tsv.cpp	126	p(0x0153FC5C) = 7(0x00000007)
 20:04:19.184	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.184	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.184	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	5772	3	tsv.cpp	126	p(0x0133FC5C) = 13(0x0000000D)
 20:04:19.184	4264	2	tsv.cpp	111	▽if (current %p) == false;
 20:04:19.184	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	4264	3	tsv.cpp	135	current(0x0153FD9C) = 43(0x0000002B)
-20:04:19.184	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	4264	3	tsv.cpp	140	pn(0x0153FC54) = 1(0x00000001)
 20:04:19.184	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	4264	3	tsv.cpp	111	△if (current %p) == false;
 20:04:19.184	5772	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.184	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.184	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	5772	3	tsv.cpp	126	p(0x0133FC5C) = 15(0x0000000F)
 20:04:19.184	4264	3	tsv.cpp	113	▽if (pn) == true;
 20:04:19.184	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.184	4264	4	tsv.cpp	116	▽if (1 &lt; pn) == false;
-20:04:19.184	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
-20:04:19.184	4264	5	tsv.cpp	116	△if (1 &lt; pn) == false;
+20:04:19.184	4264	4	tsv.cpp	116	▽if (1 < pn) == false;
+20:04:19.184	5772	2	tsv.cpp	109	while (1 < current) == true;
+20:04:19.184	4264	5	tsv.cpp	116	△if (1 < pn) == false;
 20:04:19.184	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	4264	4	tsv.cpp	113	△if (pn) == true;
 20:04:19.184	5772	3	tsv.cpp	113	▽if (pn) == false;
@@ -1125,10 +1124,10 @@ int main(int argc, char * args[])
 20:04:19.184	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.184	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	5772	3	tsv.cpp	126	p(0x0133FC5C) = 17(0x00000011)
-20:04:19.184	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	4264	2	tsv.cpp	111	▽if (current %p) == true;
-20:04:19.184	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	4264	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.184	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	4264	4	tsv.cpp	113	△if (pn) == false;
@@ -1137,10 +1136,10 @@ int main(int argc, char * args[])
 20:04:19.184	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.184	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	5772	3	tsv.cpp	126	p(0x0133FC5C) = 19(0x00000013)
-20:04:19.184	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.184	4264	2	tsv.cpp	111	▽if (current %p) == true;
-20:04:19.184	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.184	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	4264	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.184	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.184	4264	4	tsv.cpp	113	△if (pn) == false;
@@ -1148,138 +1147,138 @@ int main(int argc, char * args[])
 20:04:19.184	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.185	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.185	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	5772	3	tsv.cpp	126	p(0x0133FC5C) = 21(0x00000015)
 20:04:19.185	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.185	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.185	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	126	p(0x0153FC5C) = 15(0x0000000F)
 20:04:19.185	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.185	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.185	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	5772	3	tsv.cpp	126	p(0x0133FC5C) = 23(0x00000017)
 20:04:19.185	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.185	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.185	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	126	p(0x0153FC5C) = 17(0x00000011)
 20:04:19.185	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.185	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.185	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	5772	3	tsv.cpp	126	p(0x0133FC5C) = 25(0x00000019)
 20:04:19.185	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.185	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.185	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	126	p(0x0153FC5C) = 19(0x00000013)
 20:04:19.185	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.185	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.185	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	5772	3	tsv.cpp	126	p(0x0133FC5C) = 27(0x0000001B)
 20:04:19.185	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.185	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.185	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	126	p(0x0153FC5C) = 21(0x00000015)
 20:04:19.185	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.185	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.185	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	5772	3	tsv.cpp	126	p(0x0133FC5C) = 29(0x0000001D)
 20:04:19.185	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.185	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.185	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	126	p(0x0153FC5C) = 23(0x00000017)
 20:04:19.185	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.185	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.185	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	5772	3	tsv.cpp	126	p(0x0133FC5C) = 31(0x0000001F)
 20:04:19.185	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.185	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.185	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	126	p(0x0153FC5C) = 25(0x00000019)
 20:04:19.185	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.185	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.185	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	5772	3	tsv.cpp	126	p(0x0133FC5C) = 33(0x00000021)
 20:04:19.185	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.185	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.185	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	126	p(0x0153FC5C) = 27(0x0000001B)
 20:04:19.185	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.185	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.185	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	5772	3	tsv.cpp	126	p(0x0133FC5C) = 35(0x00000023)
 20:04:19.185	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.185	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.185	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	126	p(0x0153FC5C) = 29(0x0000001D)
 20:04:19.185	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.185	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.185	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.185	5772	3	tsv.cpp	126	p(0x0133FC5C) = 37(0x00000025)
 20:04:19.185	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.185	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.185	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.185	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.185	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.184	868	3	tsv.cpp	126	p(0x0143FC5C) = 5(0x00000005)
 20:04:19.185	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	4264	3	tsv.cpp	126	p(0x0153FC5C) = 31(0x0000001F)
 20:04:19.186	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.186	5772	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.186	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	5772	3	tsv.cpp	126	p(0x0133FC5C) = 39(0x00000027)
 20:04:19.186	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.186	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.186	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	4264	3	tsv.cpp	126	p(0x0153FC5C) = 33(0x00000021)
 20:04:19.186	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.186	5772	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.186	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	5772	3	tsv.cpp	126	p(0x0133FC5C) = 41(0x00000029)
 20:04:19.186	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.186	4264	3	tsv.cpp	113	▽if (pn) == false;
-20:04:19.186	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	4264	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	4264	3	tsv.cpp	126	p(0x0153FC5C) = 35(0x00000023)
 20:04:19.186	4264	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.186	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	4264	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	4264	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.186	4264	4	tsv.cpp	113	△if (pn) == false;
@@ -1287,173 +1286,173 @@ int main(int argc, char * args[])
 20:04:19.186	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	5772	3	tsv.cpp	126	p(0x0133FC5C) = 43(0x0000002B)
 20:04:19.186	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.186	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.186	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	5772	3	tsv.cpp	126	p(0x0133FC5C) = 45(0x0000002D)
 20:04:19.186	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.186	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.186	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	5772	3	tsv.cpp	126	p(0x0133FC5C) = 47(0x0000002F)
 20:04:19.186	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.186	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.186	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	5772	3	tsv.cpp	126	p(0x0133FC5C) = 49(0x00000031)
 20:04:19.186	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.186	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.186	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	5772	3	tsv.cpp	126	p(0x0133FC5C) = 51(0x00000033)
 20:04:19.186	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.186	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.186	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.186	5772	3	tsv.cpp	126	p(0x0133FC5C) = 53(0x00000035)
 20:04:19.186	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.186	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.186	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.186	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.186	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.187	5772	3	tsv.cpp	126	p(0x0133FC5C) = 55(0x00000037)
 20:04:19.187	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.187	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.187	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.187	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.187	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.187	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.187	5772	3	tsv.cpp	126	p(0x0133FC5C) = 57(0x00000039)
 20:04:19.187	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.187	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.187	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.187	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.187	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.187	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.187	5772	3	tsv.cpp	126	p(0x0133FC5C) = 59(0x0000003B)
 20:04:19.187	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.187	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.187	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.187	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.187	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.187	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.187	5772	3	tsv.cpp	126	p(0x0133FC5C) = 61(0x0000003D)
 20:04:19.187	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.187	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.187	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.187	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.187	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.187	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.187	5772	3	tsv.cpp	126	p(0x0133FC5C) = 63(0x0000003F)
 20:04:19.187	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.187	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.187	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.187	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.187	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.187	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.187	5772	3	tsv.cpp	126	p(0x0133FC5C) = 65(0x00000041)
 20:04:19.187	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.187	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.187	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.187	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.187	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.187	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.187	5772	3	tsv.cpp	126	p(0x0133FC5C) = 67(0x00000043)
 20:04:19.187	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.187	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.187	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.187	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.187	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.187	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.187	5772	3	tsv.cpp	126	p(0x0133FC5C) = 69(0x00000045)
 20:04:19.187	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.187	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.187	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.187	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.187	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.187	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.187	5772	3	tsv.cpp	126	p(0x0133FC5C) = 71(0x00000047)
 20:04:19.187	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.187	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.187	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.187	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.187	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.187	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.187	5772	3	tsv.cpp	126	p(0x0133FC5C) = 73(0x00000049)
 20:04:19.187	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.187	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.187	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.187	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.187	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.188	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.188	5772	3	tsv.cpp	126	p(0x0133FC5C) = 75(0x0000004B)
 20:04:19.188	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.188	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.188	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.188	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.188	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.188	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.188	5772	3	tsv.cpp	126	p(0x0133FC5C) = 77(0x0000004D)
 20:04:19.188	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.188	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.188	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.188	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.188	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.188	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.188	5772	3	tsv.cpp	126	p(0x0133FC5C) = 79(0x0000004F)
 20:04:19.188	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.188	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.188	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.188	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.188	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.188	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.188	5772	3	tsv.cpp	126	p(0x0133FC5C) = 81(0x00000051)
 20:04:19.188	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.188	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.188	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.188	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.188	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.188	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.188	5772	3	tsv.cpp	126	p(0x0133FC5C) = 83(0x00000053)
 20:04:19.188	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.188	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.188	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.188	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.188	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.188	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.188	5772	3	tsv.cpp	126	p(0x0133FC5C) = 85(0x00000055)
 20:04:19.188	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.188	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.188	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.188	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.188	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.188	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.188	5772	3	tsv.cpp	126	p(0x0133FC5C) = 87(0x00000057)
 20:04:19.188	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.188	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.188	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.188	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.188	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.188	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.188	5772	3	tsv.cpp	126	p(0x0133FC5C) = 89(0x00000059)
 20:04:19.188	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.188	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.188	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.188	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.188	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.188	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.188	5772	3	tsv.cpp	126	p(0x0133FC5C) = 91(0x0000005B)
 20:04:19.188	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.188	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.188	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.188	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.188	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.188	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.188	5772	3	tsv.cpp	126	p(0x0133FC5C) = 93(0x0000005D)
 20:04:19.188	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.188	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.188	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.188	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.188	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.189	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.189	5772	3	tsv.cpp	126	p(0x0133FC5C) = 95(0x0000005F)
 20:04:19.189	5772	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.189	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.189	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.189	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.186	4264	3	tsv.cpp	126	p(0x0153FC5C) = 37(0x00000025)
 20:04:19.189	5772	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.189	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.189	5772	4	tsv.cpp	113	△if (pn) == false;
-20:04:19.189	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.189	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.189	5772	3	tsv.cpp	126	p(0x0133FC5C) = 97(0x00000061)
 20:04:19.189	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.189	4264	2	tsv.cpp	111	▽if (current %p) == true;
-20:04:19.189	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.189	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.189	4264	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.189	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.189	4264	4	tsv.cpp	113	△if (pn) == false;
@@ -1462,10 +1461,10 @@ int main(int argc, char * args[])
 20:04:19.189	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.189	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.189	5772	3	tsv.cpp	126	p(0x0133FC5C) = 99(0x00000063)
-20:04:19.189	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.189	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.189	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.189	4264	2	tsv.cpp	111	▽if (current %p) == true;
-20:04:19.189	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.189	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.189	4264	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.189	5772	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.189	4264	4	tsv.cpp	113	△if (pn) == false;
@@ -1474,10 +1473,10 @@ int main(int argc, char * args[])
 20:04:19.189	5772	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.189	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.189	5772	3	tsv.cpp	126	p(0x0133FC5C) = 101(0x00000065)
-20:04:19.189	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.189	4264	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.189	5772	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.189	4264	2	tsv.cpp	111	▽if (current %p) == true;
-20:04:19.189	5772	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.189	5772	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.189	4264	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.189	5772	2	tsv.cpp	111	▽if (current %p) == false;
 20:04:19.189	4264	4	tsv.cpp	113	△if (pn) == false;
@@ -1486,75 +1485,75 @@ int main(int argc, char * args[])
 20:04:19.189	5772	3	tsv.cpp	140	pn(0x0133FC54) = 1(0x00000001)
 20:04:19.189	4264	3	tsv.cpp	111	△if (current %p) == true;
 20:04:19.189	5772	3	tsv.cpp	111	△if (current %p) == false;
-20:04:19.189	4264	2	tsv.cpp	109	while (1 &lt; current) == true;
-20:04:19.189	5772	2	tsv.cpp	109	while (1 &lt; current) == false;
+20:04:19.189	4264	2	tsv.cpp	109	while (1 < current) == true;
+20:04:19.189	5772	2	tsv.cpp	109	while (1 < current) == false;
 20:04:19.189	4264	2	tsv.cpp	111	▽if (current %p) == false;
-20:04:19.189	5772	2	tsv.cpp	144	▽if (1 &lt; pn) == false;
+20:04:19.189	5772	2	tsv.cpp	144	▽if (1 < pn) == false;
 20:04:19.189	4264	3	tsv.cpp	135	current(0x0153FD9C) = 1(0x00000001)
-20:04:19.189	5772	3	tsv.cpp	144	△if (1 &lt; pn) == false;
+20:04:19.189	5772	3	tsv.cpp	144	△if (1 < pn) == false;
 20:04:19.189	4264	3	tsv.cpp	140	pn(0x0153FC54) = 1(0x00000001)
-20:04:19.189	5772	2	tsv.cpp	104	△if (1 &lt; current) == true;
+20:04:19.189	5772	2	tsv.cpp	104	△if (1 < current) == true;
 20:04:19.189	4264	3	tsv.cpp	111	△if (current %p) == false;
-20:04:19.189	4264	2	tsv.cpp	109	while (1 &lt; current) == false;
-20:04:19.189	4264	2	tsv.cpp	144	▽if (1 &lt; pn) == false;
-20:04:19.189	4264	3	tsv.cpp	144	△if (1 &lt; pn) == false;
-20:04:19.189	4264	2	tsv.cpp	104	△if (1 &lt; current) == true;
+20:04:19.189	4264	2	tsv.cpp	109	while (1 < current) == false;
+20:04:19.189	4264	2	tsv.cpp	144	▽if (1 < pn) == false;
+20:04:19.189	4264	3	tsv.cpp	144	△if (1 < pn) == false;
+20:04:19.189	4264	2	tsv.cpp	104	△if (1 < current) == true;
 20:04:19.189	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.189	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.189	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.189	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.189	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.189	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.189	868	3	tsv.cpp	126	p(0x0143FC5C) = 7(0x00000007)
 20:04:19.189	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.189	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.189	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.189	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.189	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.189	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.189	868	3	tsv.cpp	126	p(0x0143FC5C) = 9(0x00000009)
 20:04:19.189	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.189	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.189	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.189	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.189	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.190	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.190	868	3	tsv.cpp	126	p(0x0143FC5C) = 11(0x0000000B)
 20:04:19.190	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.190	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.190	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.190	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.190	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.190	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.190	868	3	tsv.cpp	126	p(0x0143FC5C) = 13(0x0000000D)
 20:04:19.190	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.190	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.190	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.190	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.190	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.190	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.190	868	3	tsv.cpp	126	p(0x0143FC5C) = 15(0x0000000F)
 20:04:19.190	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.190	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.190	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.190	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.190	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.190	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.190	868	3	tsv.cpp	126	p(0x0143FC5C) = 17(0x00000011)
 20:04:19.190	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.190	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.190	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.190	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.190	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.190	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.190	868	3	tsv.cpp	126	p(0x0143FC5C) = 19(0x00000013)
 20:04:19.190	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.190	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.190	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.190	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.190	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.190	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.190	868	3	tsv.cpp	126	p(0x0143FC5C) = 21(0x00000015)
 20:04:19.190	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.190	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.190	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.190	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.190	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.190	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.190	868	3	tsv.cpp	126	p(0x0143FC5C) = 23(0x00000017)
 20:04:19.190	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.190	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.190	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.190	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.190	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.190	868	4	tsv.cpp	113	△if (pn) == false;
@@ -1564,37 +1563,37 @@ int main(int argc, char * args[])
 20:04:19.190	5772	1	bug.h	2469	△bugbeard session root
 20:04:19.190	868	3	tsv.cpp	126	p(0x0143FC5C) = 25(0x00000019)
 20:04:19.191	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.191	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.191	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.191	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.191	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.191	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.191	868	3	tsv.cpp	126	p(0x0143FC5C) = 27(0x0000001B)
 20:04:19.191	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.191	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.191	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.191	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.191	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.191	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.191	868	3	tsv.cpp	126	p(0x0143FC5C) = 29(0x0000001D)
 20:04:19.191	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.191	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.191	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.191	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.191	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.191	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.191	868	3	tsv.cpp	126	p(0x0143FC5C) = 31(0x0000001F)
 20:04:19.191	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.191	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.191	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.191	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.191	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.191	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.191	868	3	tsv.cpp	126	p(0x0143FC5C) = 33(0x00000021)
 20:04:19.191	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.191	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.191	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.191	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.191	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.191	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.191	868	3	tsv.cpp	126	p(0x0143FC5C) = 35(0x00000023)
 20:04:19.191	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.191	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.191	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.191	4264	1	tsv.cpp	154	return
 20:04:19.191	4264	1	tsv.cpp	161	return
 20:04:19.191	4264	1	bug.h	2468	日付＆時刻：2008-02-24(日) 20:04:19.191
@@ -1604,105 +1603,105 @@ int main(int argc, char * args[])
 20:04:19.191	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.191	868	3	tsv.cpp	126	p(0x0143FC5C) = 37(0x00000025)
 20:04:19.191	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.191	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.191	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.191	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.191	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.191	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.191	868	3	tsv.cpp	126	p(0x0143FC5C) = 39(0x00000027)
 20:04:19.192	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.192	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.192	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.192	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.192	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.192	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.192	868	3	tsv.cpp	126	p(0x0143FC5C) = 41(0x00000029)
 20:04:19.192	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.192	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.192	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.192	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.192	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.192	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.192	868	3	tsv.cpp	126	p(0x0143FC5C) = 43(0x0000002B)
 20:04:19.192	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.192	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.192	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.192	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.192	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.192	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.192	868	3	tsv.cpp	126	p(0x0143FC5C) = 45(0x0000002D)
 20:04:19.192	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.192	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.192	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.192	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.192	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.192	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.192	868	3	tsv.cpp	126	p(0x0143FC5C) = 47(0x0000002F)
 20:04:19.192	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.192	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.192	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.192	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.192	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.192	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.192	868	3	tsv.cpp	126	p(0x0143FC5C) = 49(0x00000031)
 20:04:19.192	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.192	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.192	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.192	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.192	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.192	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.192	868	3	tsv.cpp	126	p(0x0143FC5C) = 51(0x00000033)
 20:04:19.192	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.192	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.192	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.192	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.192	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.192	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.192	868	3	tsv.cpp	126	p(0x0143FC5C) = 53(0x00000035)
 20:04:19.192	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.192	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.192	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.192	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.192	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.192	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.192	868	3	tsv.cpp	126	p(0x0143FC5C) = 55(0x00000037)
 20:04:19.192	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.192	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.192	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.192	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.192	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.192	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.192	868	3	tsv.cpp	126	p(0x0143FC5C) = 57(0x00000039)
 20:04:19.192	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.192	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.192	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.192	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.192	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.192	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.192	868	3	tsv.cpp	126	p(0x0143FC5C) = 59(0x0000003B)
 20:04:19.193	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.193	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.193	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.193	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.193	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.193	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.193	868	3	tsv.cpp	126	p(0x0143FC5C) = 61(0x0000003D)
 20:04:19.193	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.193	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.193	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.193	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.193	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.193	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.193	868	3	tsv.cpp	126	p(0x0143FC5C) = 63(0x0000003F)
 20:04:19.193	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.193	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.193	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.193	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.193	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.193	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.193	868	3	tsv.cpp	126	p(0x0143FC5C) = 65(0x00000041)
 20:04:19.193	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.193	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.193	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.193	868	2	tsv.cpp	111	▽if (current %p) == true;
 20:04:19.193	868	3	tsv.cpp	113	▽if (pn) == false;
 20:04:19.193	868	4	tsv.cpp	113	△if (pn) == false;
 20:04:19.193	868	3	tsv.cpp	126	p(0x0143FC5C) = 67(0x00000043)
 20:04:19.193	868	3	tsv.cpp	111	△if (current %p) == true;
-20:04:19.193	868	2	tsv.cpp	109	while (1 &lt; current) == true;
+20:04:19.193	868	2	tsv.cpp	109	while (1 < current) == true;
 20:04:19.193	868	2	tsv.cpp	111	▽if (current %p) == false;
 20:04:19.193	868	3	tsv.cpp	135	current(0x0143FD9C) = 1(0x00000001)
 20:04:19.193	868	3	tsv.cpp	140	pn(0x0143FC54) = 1(0x00000001)
 20:04:19.193	868	3	tsv.cpp	111	△if (current %p) == false;
-20:04:19.193	868	2	tsv.cpp	109	while (1 &lt; current) == false;
-20:04:19.193	868	2	tsv.cpp	144	▽if (1 &lt; pn) == false;
-20:04:19.193	868	3	tsv.cpp	144	△if (1 &lt; pn) == false;
-20:04:19.193	868	2	tsv.cpp	104	△if (1 &lt; current) == true;
+20:04:19.193	868	2	tsv.cpp	109	while (1 < current) == false;
+20:04:19.193	868	2	tsv.cpp	144	▽if (1 < pn) == false;
+20:04:19.193	868	3	tsv.cpp	144	△if (1 < pn) == false;
+20:04:19.193	868	2	tsv.cpp	104	△if (1 < current) == true;
 20:04:19.194	868	1	tsv.cpp	154	return
 20:04:19.194	868	1	tsv.cpp	161	return
 20:04:19.194	868	1	bug.h	2468	日付＆時刻：2008-02-24(日) 20:04:19.194
@@ -1713,15 +1712,13 @@ int main(int argc, char * args[])
 20:04:19.194	540	1	tsv.cpp	191	return
 20:04:19.194	540	1	bug.h	2468	日付＆時刻：2008-02-24(日) 20:04:19.194
 20:04:19.194	540	1	bug.h	2469	△bugbeard session root
-</PRE>
-</DIV>
+```
 
 #### 解説
 
 上記の出力結果は...
 
-<DIV class="sample">
-<PRE>
+```txt
 20:04:19.183	540	1	bug.h	2849	▽Commandline Argument Information
 20:04:19.183	540	2	bug.h	2850	argc(0x0012FAC8) = 4(0x00000004)
 20:04:19.183	540	2	bug.h	2853	args[0]:tsv
@@ -1729,48 +1726,47 @@ int main(int argc, char * args[])
 20:04:19.183	540	2	bug.h	2853	args[2]:201
 20:04:19.183	540	2	bug.h	2853	args[3]:301
 20:04:19.183	540	2	bug.h	2849	△Commandline Argument Information
-</PRE>
-</DIV>
+```
 
 ...を見てもおわかりいただけますが、「101 201 301」を引数として与えた場合のものです。
-またこのケースでは .tsv の各カラムはそれぞれ 時刻, スレッドID, ネストの深さ, __FILE__, __LINE__, ログメッセージ の内容になっていますが、コンパイル時の状況によりこの書式は若干変化します。
+またこのケースでは .tsv の各カラムはそれぞれ 時刻, スレッドID, ネストの深さ, `__FILE__`, `__LINE__`, ログメッセージ の内容になっていますが、コンパイル時の状況によりこの書式は若干変化します。
 
 このサンプルでの一つ目の肝は...
 
-<DIV class="sample">
-<span class="SpanClass2">//&nbsp;&nbsp;標準エラーにTSV形式の出力を行うロガーの定義(メインスレッド用)<br/></span>
-<span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tsv_logger</span><span class="SpanClass10">(</span><span class="SpanClass11">common_writer</span><span class="SpanClass10">));</span>
-</DIV>
+```c++
+//  標準エラーにTSV形式の出力を行うロガーの定義(メインスレッド用)
+BUG_define_logger(new bugbeard::bug_tsv_logger(common_writer));
+```
 
 ...で、ツリー形式ではなく .tsv 形式のログ出力を指定しているところです。ロガーへの引数がこれまでのサンプルと違いますが、これはマルチスレッド対応の為のもので、.tsv 形式でログ出力を行うこととは本質的には関係ありません。
 
-このサンプルでの二つの肝は最初に bug.h を include する前に...
-        
-<DIV class="sample">
-<span class="SpanClass9">#define&nbsp;BUG_EVIL_CONTRACT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"悪魔の契約"<br/></span>
-<span class="SpanClass9">#define&nbsp;BUG_MULTI_THREAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;マルチスレッドモデルでバグベアードを利用<br/></span>
-<span class="SpanClass9">#include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ロガーを定義する為にステートメントハックを有効にしない状態で include<br/></span>
-</DIV>
+このサンプルでの二つの肝は最初に `bug.h` を `#include` する前に...
 
-BUG_MULTI_THREAD マクロを定義してバグベアードをマルチスレッドモデルで利用すること宣言した上で、ロガーを...
-        
-<DIV class="sample">
-<span class="SpanClass2">//&nbsp;&nbsp;共用ライターの定義<br/>
-</span><span class="SpanClass11">BUG_exec</span><span class="SpanClass10">(</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_smart_writer</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">common_writer</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_file_writer_base</span><span class="SpanClass10">(</span><span class="SpanClass11">stderr</span><span class="SpanClass10">)));</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">//&nbsp;&nbsp;標準エラーにTSV形式の出力を行うロガーの定義(メインスレッド用)<br/>
-</span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tsv_logger</span><span class="SpanClass10">(</span><span class="SpanClass11">common_writer</span><span class="SpanClass10">));</span>
-</DIV>
+```c++
+#define BUG_EVIL_CONTRACT       //  "悪魔の契約"
+#define BUG_MULTI_THREAD        //  マルチスレッドモデルでバグベアードを利用
+#include "bug.h"                //  ロガーを定義する為にステートメントハックを有効にしない状態で include
+```
 
-<DIV class="sample">
-<span class="SpanClass11">BUG_THREAD_RESULT</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">BUG_THREAD_CALL</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">factorize_thread</span><span class="SpanClass10">(</span><span class="SpanClass16">void</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">data</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]スレッドローカルロガーの定義<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tsv_logger</span><span class="SpanClass10">(</span><span class="SpanClass11">common_writer</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">factorize</span><span class="SpanClass10">((</span><span class="SpanClass16">int</span><span class="SpanClass10">)</span><span class="SpanClass11">data</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span>
-</DIV>
+`BUG_MULTI_THREAD` マクロを定義してバグベアードをマルチスレッドモデルで利用すること宣言した上で、ロガーを...
+
+```c++
+//  共用ライターの定義
+BUG_exec(bugbeard::bug_smart_writer common_writer(new bugbeard::bug_file_writer_base(stderr)));
+
+//  標準エラーにTSV形式の出力を行うロガーの定義(メインスレッド用)
+BUG_define_logger(new bugbeard::bug_tsv_logger(common_writer));
+```
+
+```c++
+BUG_THREAD_RESULT BUG_THREAD_CALL factorize_thread(void * data)
+{
+    //  [BUG]スレッドローカルロガーの定義
+    BUG_define_logger(new bugbeard::bug_tsv_logger(common_writer));
+    factorize((int)data);
+    return 0;
+}
+```
         
 ...のように各スレッド毎に定義していることです。バグベアードをマルチスレッドなプログラムで利用する場合は必ずこのように各スレッド毎にロガーを定義してください。ロガーが定義されていないスレッドではログ出力が行われません。
 
