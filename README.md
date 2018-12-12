@@ -1958,130 +1958,133 @@ BUG_define_logger(new bugbeard::bug_tree_logger(new bugbeard::bug_file_writer(bu
 
 <A name="step5"></A>
 ### プロファイル＆カバレッジ測定サンプル
+
 #### サンプルコード
-<DIV class="sample">
-<span class="SpanClass3">/******************************************************************************<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;バグベアード&nbsp;-bugbeard-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;サンプル&nbsp;"profile.cpp"&nbsp;ソースファイル<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Coded&nbsp;by&nbsp;Wraith&nbsp;in&nbsp;Sep&nbsp;16,&nbsp;2008.<br/>
-******************************************************************************/</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;includes<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#include&nbsp;&lt;stdio.h&gt;<br/>
-#include&nbsp;&lt;stdlib.h&gt;<br/>
-</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;[BUG]bugbeard<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;!defined(NDEBUG)<br/>
-#define&nbsp;BUG_EVIL_CONTRACT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"悪魔の契約"<br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(BUG_EVIL_CONTRACT)<br/>
-#&nbsp;&nbsp;&nbsp;define&nbsp;BUG_DEFINE_GLOBAL_LOGGER&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;bugbeard::bug_tree_logger(new&nbsp;bugbeard::bug_file_writer("trace.log"))<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"trace.log" へツリー形式の出力を行うロガーの定義<br/>
-</span><NOBR><span class="SpanClass9">#&nbsp;&nbsp;&nbsp;define&nbsp;BUG_DEFINE_GLOBAL_PROFILER&nbsp;&nbsp;new&nbsp;bugbeard::bug_tsv_profiler(new&nbsp;bugbeard::bug_file_writer("profile.tsv"),&nbsp;new&nbsp;bugbeard::bug_file_writer("coverage.tsv"))</span></NOBR><br/>
-<NOBR><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;"profile.tsv" へプロファイル結果の出力を、"coverage.tsv" へカバレッジ測定結果の出力を行うプロファイルロガーの定義</span></NOBR><br/>
-<span class="SpanClass9">#&nbsp;&nbsp;&nbsp;define&nbsp;BUG_STATEMENT_HACK&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックの設定<br/>
-</span><span class="SpanClass9">#&nbsp;&nbsp;&nbsp;include&nbsp;"bug.h"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;ステートメントハックを有効にする為、再度 include<br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-<br/>
-</span><span class="SpanClass2">///////////////////////////////////////////////////////////////////////////////<br/>
-//<br/>
-//&nbsp;&nbsp;user&nbsp;codes<br/>
-//<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass2">//<br/>
-//&nbsp;&nbsp;素因数分解<br/>
-//<br/>
-</span><span class="SpanClass16">void</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">factorize</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">number</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"%d&nbsp;=&nbsp;"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">number</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">number</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">2</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">inc</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">1</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">while</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass11">current</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">%</span><span class="SpanClass11">p</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass11">pn</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"^%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"&nbsp;*&nbsp;"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">0</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">+=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">inc</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]値のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">p</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">inc</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">2</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">else</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">/=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]値のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">current</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">++</span><span class="SpanClass11">pn</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass2">//&nbsp;&nbsp;[BUG]値のログ出力<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">BUG_puts</span><span class="SpanClass10">(</span><span class="SpanClass11">BUG_VAL</span><span class="SpanClass10">(</span><span class="SpanClass11">pn</span><span class="SpanClass10">));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">p</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">if</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">(</span><span class="SpanClass4">1</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"^%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">pn</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">else</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"%d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">current</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">printf</span><span class="SpanClass10">(</span><span class="SpanClass6">"\n"</span><span class="SpanClass10">);</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass2">//<br/>
-//&nbsp;&nbsp;スタートアップ<br/>
-//<br/>
-</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">main</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass16">char</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">*</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">args</span><span class="SpanClass10">[])</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">for</span><span class="SpanClass10">(</span><span class="SpanClass16">int</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">i</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass4">1</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">i</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">&lt;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">argc</span><span class="SpanClass10">;</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">++</span><span class="SpanClass11">i</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">factorize</span><span class="SpanClass10">(</span><span class="SpanClass11">atoi</span><span class="SpanClass10">(</span><span class="SpanClass11">args</span><span class="SpanClass10">[</span><span class="SpanClass11">i</span><span class="SpanClass10">]));</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">EXIT_SUCCESS</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-<br/>
-<br/>
-</span><span class="SpanClass3">/******************************************************************************<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;□■□■&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wraith&nbsp;the&nbsp;Trickster&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;□■□■<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;■□■□&nbsp;～I'll&nbsp;go&nbsp;with&nbsp;heaven's&nbsp;advantage&nbsp;and&nbsp;fool's&nbsp;wisdom.～&nbsp;■□■□<br/>
-******************************************************************************/</span><span class="SpanClass0"><br/>
-</span>
-</DIV>
+
+```c++
+/******************************************************************************
+    バグベアード -bugbeard-
+        サンプル "profile.cpp" ソースファイル
+                                            Coded by Wraith in Sep 16, 2008.
+******************************************************************************/
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  includes
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  [BUG]bugbeard
+//
+
+#if !defined(NDEBUG)
+#define BUG_EVIL_CONTRACT       //  "悪魔の契約"
+#endif
+
+#if defined(BUG_EVIL_CONTRACT)
+#   define BUG_DEFINE_GLOBAL_LOGGER    new bugbeard::bug_tree_logger(new bugbeard::bug_file_writer("trace.log"))
+                                //  "trace.log" へツリー形式の出力を行うロガーの定義
+#   define BUG_DEFINE_GLOBAL_PROFILER  new bugbeard::bug_tsv_profiler(new bugbeard::bug_file_writer("profile.tsv"), new bugbeard::bug_file_writer("coverage.tsv"))
+                                //  "profile.tsv" へプロファイル結果の出力を、"coverage.tsv" へカバレッジ測定結果の出力を行うプロファイルロガーの定義
+#   define BUG_STATEMENT_HACK   //  ステートメントハックの設定
+#   include "bug.h"             //  ステートメントハックを有効にする為、再度 include
+#endif
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//  user codes
+//
+
+//
+//  素因数分解
+//
+void factorize(int number)
+{
+    printf("%d = ", number);
+    int current = number;
+    if (1 < current)
+    {
+        int p = 2;
+        int pn = 0;
+        int inc = 1;
+        while(1 < current)
+        {
+            if (current %p)
+            {
+                if (pn)
+                {
+                    printf("%d", p);
+                    if (1 < pn)
+                    {
+                        printf("^%d", pn);
+                    }
+                    printf(" * ");
+                    pn = 0;
+                }
+                p += inc;
+
+                //  [BUG]値のログ出力
+                BUG_puts(BUG_VAL(p));
+
+                inc = 2;
+            }
+            else
+            {
+                current /= p;
+
+                //  [BUG]値のログ出力
+                BUG_puts(BUG_VAL(current));
+
+                ++pn;
+
+                //  [BUG]値のログ出力
+                BUG_puts(BUG_VAL(pn));
+            }
+        }
+        printf("%d", p);
+        if (1 < pn)
+        {
+            printf("^%d", pn);
+        }
+    }
+    else
+    {
+        printf("%d", current);
+    }
+    printf("\n");
+    return;
+}
+
+
+//
+//  スタートアップ
+//
+int main(int argc, char * args[])
+{
+    for(int i = 1; i < argc; ++i)
+    {
+        factorize(atoi(args[i]));
+    }
+    
+    return EXIT_SUCCESS;
+}
+
+
+/******************************************************************************
+    □■□■                  Wraith the Trickster                  □■□■
+    ■□■□ ～I'll go with heaven's advantage and fool's wisdom.～ ■□■□
+******************************************************************************/
+```
+
 #### 出力結果( trace.log )
+
 <DIV class="sample">
 <PRE>
 ┌──────────────────────────────────────
