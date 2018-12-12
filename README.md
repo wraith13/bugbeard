@@ -1932,29 +1932,29 @@ int main(int argc, char * args[])
 
 このサンプルのコードでは日付別のディレクトリにログファイルを出力します。
 
-<DIV class="sample">
-<span class="SpanClass9">#if&nbsp;defined(BUG_LOAD_BUGBEARD)<br/>
-</span><span class="SpanClass16">const</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_string</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bug_log_filename</span><span class="SpanClass10">()</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">{</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">using</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass5">namespace</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass16">const</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bug_clock</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">stamp</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass10">=</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bug_clock</span><span class="SpanClass10">();</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#if&nbsp;defined(__MWERKS__)<br/>
-#error&nbsp;なんか Metrowerk のコンパイラはこのへんのコードの解釈の仕方が、びっくりするぐらいバカで付き合いきれません。(´Д｀；)<br/>
-#endif<br/>
-</span><span class="SpanClass0">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass5">return</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass11">bug_dir</span><span class="SpanClass10">(</span><span class="SpanClass6">"buglog"</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">+</span><span class="SpanClass11">bug_dir</span><span class="SpanClass10">(</span><span class="SpanClass6">"%4.4d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">stamp</span><span class="SpanClass10">.</span><span class="SpanClass11">year</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">+</span><span class="SpanClass11">bug_dir</span><span class="SpanClass10">(</span><span class="SpanClass6">"%2.2d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">stamp</span><span class="SpanClass10">.</span><span class="SpanClass11">mon</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">+</span><span class="SpanClass11">bug_dir</span><span class="SpanClass10">(</span><span class="SpanClass6">"%2.2d"</span><span class="SpanClass10">,</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">stamp</span><span class="SpanClass10">.</span><span class="SpanClass11">mday</span><span class="SpanClass10">)</span><span class="SpanClass0"><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="SpanClass10">+</span><span class="SpanClass6">"bulklog.log"</span><span class="SpanClass10">;</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass10">}</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass9">#endif<br/>
-</span><span class="SpanClass0"><br/>
-</span><span class="SpanClass2">//&nbsp;&nbsp;標準エラーにツリー形式の出力を行うロガーの定義<br/>
-</span><span class="SpanClass11">BUG_define_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_tree_logger</span><span class="SpanClass10">(</span><span class="SpanClass5">new</span><span class="SpanClass0">&nbsp;</span><span class="SpanClass11">bugbeard</span><span class="SpanClass10">::</span><span class="SpanClass11">bug_file_writer</span><span class="SpanClass10">(</span><span class="SpanClass11">bug_log_filename</span><span class="SpanClass10">())));</span>
-</DIV>
-        bugbeard::bug_dir はディレクトリを自動で作成しつつパス文字列を形成するユーティリティです。
+```c++
+#if defined(BUG_LOAD_BUGBEARD)
+const bugbeard::bug_string bug_log_filename()
+{
+    using namespace bugbeard;
+    const bug_clock stamp = bug_clock();
+#if defined(__MWERKS__)
+#error なんか Metrowerk のコンパイラはこのへんのコードの解釈の仕方が、びっくりするぐらいバカで付き合いきれません。(´Д｀；)
+#endif
+    return
+        bug_dir("buglog")
+        +bug_dir("%4.4d", stamp.year)
+        +bug_dir("%2.2d", stamp.mon)
+        +bug_dir("%2.2d", stamp.mday)
+        +"bulklog.log";
+}
+#endif
 
+//  標準エラーにツリー形式の出力を行うロガーの定義
+BUG_define_logger(new bugbeard::bug_tree_logger(new bugbeard::bug_file_writer(bug_log_filename())));
+```
+
+`bugbeard::bug_dir` はディレクトリを自動で作成しつつパス文字列を形成するユーティリティです。
 
 <A name="step5"></A>
 ### プロファイル＆カバレッジ測定サンプル
