@@ -2085,45 +2085,44 @@ int main(int argc, char * args[])
 
 #### 出力結果( trace.log )
 
-<DIV class="sample">
-<PRE>
+```txt
 ┌──────────────────────────────────────
 │日付＆時刻：2008-09-17(水) 07:07:06.587
 └─────┬────────────────────────────────
-07:07:06.587├┬▽for <profile.cpp>#107
-07:07:06.587│├┬▽if (1 < current) == true; <profile.cpp>#48
-07:07:06.587││├・while (1 < current) == true; <profile.cpp>#53
-07:07:06.587││├┬▽if (current %p) == false; <profile.cpp>#55
-07:07:06.587│││├・current(0x0012E6F0) = 3(0x00000003) <profile.cpp>#79
-07:07:06.587│││├・pn(0x0012E50C) = 1(0x00000001) <profile.cpp>#84
-07:07:06.587│││└△if (current %p) == false; <profile.cpp>#55
-07:07:06.587││├・while (1 < current) == true; <profile.cpp>#53
-07:07:06.587││├┬▽if (current %p) == true; <profile.cpp>#55
-07:07:06.587│││├┬▽if (pn) == true; <profile.cpp>#57
-07:07:06.587││││├┬▽if (1 < pn) == false; <profile.cpp>#60
-07:07:06.587│││││└△if (1 < pn) == false; <profile.cpp>#60
-07:07:06.587││││└△if (pn) == true; <profile.cpp>#57
-07:07:06.587│││├・p(0x0012E510) = 3(0x00000003) <profile.cpp>#70
-07:07:06.587│││└△if (current %p) == true; <profile.cpp>#55
-07:07:06.587││├・while (1 < current) == true; <profile.cpp>#53
-07:07:06.587││├┬▽if (current %p) == false; <profile.cpp>#55
-07:07:06.587│││├・current(0x0012E6F0) = 1(0x00000001) <profile.cpp>#79
-07:07:06.587│││├・pn(0x0012E50C) = 1(0x00000001) <profile.cpp>#84
-07:07:06.587│││└△if (current %p) == false; <profile.cpp>#55
-07:07:06.587││├・while (1 < current) == false; <profile.cpp>#53
-07:07:06.587││├┬▽if (1 < pn) == false; <profile.cpp>#88
-07:07:06.587│││└△if (1 < pn) == false; <profile.cpp>#88
-07:07:06.587││└△if (1 < current) == true; <profile.cpp>#48
-07:07:06.587│├・return <profile.cpp>#98
-07:07:06.587│└△for <profile.cpp>#107
-07:07:06.587├・return <profile.cpp>#112
+07:07:06.587├┬▽for #107
+07:07:06.587│├┬▽if (1 < current) == true; #48
+07:07:06.587││├・while (1 < current) == true; #53
+07:07:06.587││├┬▽if (current %p) == false; #55
+07:07:06.587│││├・current(0x0012E6F0) = 3(0x00000003) #79
+07:07:06.587│││├・pn(0x0012E50C) = 1(0x00000001) #84
+07:07:06.587│││└△if (current %p) == false; #55
+07:07:06.587││├・while (1 < current) == true; #53
+07:07:06.587││├┬▽if (current %p) == true; #55
+07:07:06.587│││├┬▽if (pn) == true; #57
+07:07:06.587││││├┬▽if (1 < pn) == false; #60
+07:07:06.587│││││└△if (1 < pn) == false; #60
+07:07:06.587││││└△if (pn) == true; #57
+07:07:06.587│││├・p(0x0012E510) = 3(0x00000003) #70
+07:07:06.587│││└△if (current %p) == true; #55
+07:07:06.587││├・while (1 < current) == true; #53
+07:07:06.587││├┬▽if (current %p) == false; #55
+07:07:06.587│││├・current(0x0012E6F0) = 1(0x00000001) #79
+07:07:06.587│││├・pn(0x0012E50C) = 1(0x00000001) #84
+07:07:06.587│││└△if (current %p) == false; #55
+07:07:06.587││├・while (1 < current) == false; #53
+07:07:06.587││├┬▽if (1 < pn) == false; #88
+07:07:06.587│││└△if (1 < pn) == false; #88
+07:07:06.587││└△if (1 < current) == true; #48
+07:07:06.587│├・return #98
+07:07:06.587│└△for #107
+07:07:06.587├・return #112
 ┌─────┴────────────────────────────────
 │日付＆時刻：2008-09-17(水) 07:07:06.587
 └──────────────────────────────────────
-</PRE>
-</DIV>
+```
     
 #### 出力結果( profile.tsv )
+
 <DIV class="sample">
 <PRE>
 __FILE__	__LINE__	スコープ	合計総稼働時間	合計総バグ時間	合計総実働時間	合計自稼働時間	合計自バグ時間	合計自実働時間	合計子稼働時間	合計子バグ時間	合計子実働時間	コールカウント	平均総稼働時間	平均総バグ時間	平均総実働時間	平均自稼働時間	平均自バグ時間	平均自実働時間	平均子稼働時間	平均子バグ時間	平均子実働時間	最小スタンプ	最小総稼働時間	最小総バグ時間	最小総実働時間	最小自稼働時間	最小自バグ時間	最小自実働時間	最小子稼働時間	最小子バグ時間	最小子実働時間	最大スタンプ	最大総稼働時間	最大総バグ時間	最大総実働時間	最大自稼働時間	最大自バグ時間	最大自実働時間	最大子稼働時間	最大子バグ時間	最大子実働時間
@@ -2203,23 +2202,22 @@ profile.cpp	88	if (1 < pn) == true;	0
 <A name="statements"></A>
 ### ステートメントハックによってマクロ置換されるステートメント
 
-<TABLE class="list">
-<TR><TH class="header"><NOBR>ステートメント</NOBR></TH><TH class="header">スコープ</TH><TH class="header">補足</TH></TR>
-<TR><TD>if</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD>if ステートメントの条件判定結果(bool値)もログに出力します。</TD></TR>
-<TR class="check"><TD>while</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD>while ステートメントの条件判定結果(bool値)もログに出力します。</TD></TR>
-<TR><TD>switch</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD>switch ステートメントの条件判定結果(int値)もログに出力します。</TD></TR>
-<TR class="check"><TD>goto</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD></TD></TR>
-<TR><TD>break</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD></TD></TR>
-<TR class="check"><TD>continue</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD></TD></TR>
-<TR><TD>return</TD><TD class="NG"><NOBR>形成しない</NOBR></TD><TD>『return func();』のような形の場合、極力『func()』の呼び出しが終了した時点でログを出力するようにしていますが、コンパイラ及びのバージョン等によっては必ずしもはそうなっていないので注意してください。</TD></TR>
-<TR class="check"><TD>do</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
-<TR><TD>for</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
-<TR class="check"><TD>try</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
-<TR><TD>throw</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD>『throw func();』のような形の場合、極力『func()』の呼び出しが終了した時点でログを出力するようにしていますが、コンパイラ及びのバージョン等によっては必ずしもはそうなっていないので注意してください。</TD></TR>
-<TR class="check"><TD>new</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
-<TR><TD>delete</TD><TD class="OK"><NOBR>形成する</NOBR></TD><TD></TD></TR>
-</TABLE>
-    
+|ステートメント|スコープ|補足|
+|---|---|----|
+|if|形成する|if ステートメントの条件判定結果(bool値)もログに出力します。|
+|while|形成しない|while ステートメントの条件判定結果(bool値)もログに出力します。|
+|switch|形成する|switch ステートメントの条件判定結果(int値)もログに出力します。|
+|goto|形成しない|   |
+|break|形成しない|   |
+|continue|形成しない|   |
+|return|形成しない|『return func();』のような形の場合、極力『func()』の呼び出しが終了した時点でログを出力するようにしていますが、コンパイラ及びのバージョン等によっては必ずしもはそうなっていないので注意してください。|
+|do|形成する||
+|for|形成する|   |
+|try|形成する|   |
+|throw|形成する|『throw func();』のような形の場合、極力『func()』の呼び出しが終了した時点でログを出力するようにしていますが、コンパイラ及びのバージョン等によっては必ずしもはそうなっていないので注意してください。|
+|new|形成する|   |
+|delete|形成する|   |
+
 <A name="macros"></A>
 ### マクロ
 
